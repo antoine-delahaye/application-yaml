@@ -13,6 +13,16 @@
       }
     },
 
+    updated() {
+      if (this.referenceName !== null) {
+        console.log(this.referenceName)
+        this.referenceNameFr = this.yamlStore.references[this.referenceName].internationalizationName.fr
+        this.referenceNameEn = this.yamlStore.references[this.referenceName].internationalizationName.en
+        this.keyColumns = this.yamlStore.references[this.referenceName].keyColumns
+        this.columns = this.yamlStore.references[this.referenceName].columns
+      }
+    },
+
     props: {
       i18n: {
         type: Object,
@@ -21,6 +31,10 @@
       yamlStore: {
         type: Object,
         required: true
+      },
+      referenceName: {
+        type: String,
+        required: false
       }
     },
 

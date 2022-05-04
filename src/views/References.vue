@@ -43,7 +43,7 @@
           <div class="d-flex gap-1 ml-auto">
             <v-btn prepend-icon="mdi-pencil" color="primary" class="mr-3" :disabled="selectedKey === null">
               {{ t('button.edit') }}
-              <Reference v-model="editReferenceDialog" @close="editReferenceDialog = false" activator="parent" :i18n="{t}" :yaml-store="yamlStore"/>
+              <Reference v-model="editReferenceDialog" @close="editReferenceDialog = false" activator="parent" :i18n="{t}" :yaml-store="yamlStore" :reference-name="selectedKey"/>
             </v-btn>
             <v-btn prepend-icon="mdi-delete" color="error" @click="removeReference(selectedKey)"
                    :disabled="selectedKey === null">
@@ -88,7 +88,7 @@
     </v-btn>
     <v-btn prepend-icon="mdi-plus" color="primary" rounded="pill" size="large">
       {{ t('button.reference') }}
-      <Reference v-model="addReferenceDialog" @close="addReferenceDialog = false" activator="parent" :i18n="{t}" :yaml-store="yamlStore"/>
+      <Reference v-model="addReferenceDialog" @close="addReferenceDialog = false" activator="parent" :i18n="{t}" :yaml-store="yamlStore" :reference-name="null"/>
     </v-btn>
   </v-container>
 </template>

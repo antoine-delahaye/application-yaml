@@ -9,7 +9,8 @@
     "add": "Ajouter",
     "download": "Télécharger",
     "edit": "Modifier",
-    "delete": "Supprimer"
+    "delete": "Supprimer",
+    "close": "Fermer"
   },
   "nav": {
     "application": "Application",

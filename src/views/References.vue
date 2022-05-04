@@ -5,7 +5,8 @@
     data() {
       return {
         t: this.i18n.t,
-        dialog: false,
+        editReferenceDialog: false,
+        addReferenceDialog: false,
         selectedKey: null
       }
     },
@@ -42,9 +43,10 @@
           <div class="d-flex gap-1 ml-auto">
             <v-btn prepend-icon="mdi-pencil" color="primary" class="mr-3" :disabled="selectedKey === null">
               {{ t('button.edit') }}
-              <Reference v-model="dialog" activator="parent" :i18n="{t}" :yaml-store="yamlStore"/>
+              <Reference v-model="editReferenceDialog" @close="editReferenceDialog = false" activator="parent" :i18n="{t}" :yaml-store="yamlStore"/>
             </v-btn>
-            <v-btn prepend-icon="mdi-delete" color="error" @click="removeReference(selectedKey)" :disabled="selectedKey === null">
+            <v-btn prepend-icon="mdi-delete" color="error" @click="removeReference(selectedKey)"
+                   :disabled="selectedKey === null">
               {{ t('button.delete') }}
             </v-btn>
           </div>
@@ -86,7 +88,7 @@
     </v-btn>
     <v-btn prepend-icon="mdi-plus" color="primary" rounded="pill" size="large">
       {{ t('button.reference') }}
-      <Reference v-model="dialog" activator="parent" :i18n="{t}" :yaml-store="yamlStore"/>
+      <Reference v-model="addReferenceDialog" @close="addReferenceDialog = false" activator="parent" :i18n="{t}" :yaml-store="yamlStore"/>
     </v-btn>
   </v-container>
 </template>

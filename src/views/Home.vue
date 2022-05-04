@@ -33,6 +33,7 @@
         const reader = new FileReader()
         reader.onload = (e) => {
           this.selectedFile = e.target.result
+          this.yamlStore.resetYaml()
           this.yamlStore.setYaml(parseDocument(this.selectedFile).toJSON())
         }
         reader.readAsText(e.target.files[0])

@@ -95,7 +95,10 @@
             </tr>
             </tbody>
           </v-table>
-          <div class="d-flex justify-center mt-5">
+          <div class="d-flex justify-center gap-3 mt-5">
+            <v-btn prepend-icon="mdi-close" color="error" @click="$emit('close')">
+              {{ t('button.close') }}
+            </v-btn>
             <v-btn prepend-icon="mdi-plus" color="primary" @click="addReference">
               {{ t('button.add') }}
             </v-btn>

@@ -1,0 +1,35 @@
+{
+  "name": "application-yaml",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "dependencies": {
+    "@mdi/font": "5.9.55",
+    "file-saver": "^2.0.5",
+    "pinia": "^2.0.13",
+    "vue": "^3.2.25",
+    "vue-i18n": "^9.1.9",
+    "vue-router": "^4.0.14",
+    "vue3-cookies": "^1.0.6",
+    "vuetify": "^3.0.0-beta.0",
+    "webfontloader": "^1.0.0",
+    "yaml": "^2.0.1"
+  },
+  "devDependencies": {
+    "@cypress/vite-dev-server": "^2.2.2",
+    "@cypress/vue": "^3.1.2",
+    "@intlify/vite-plugin-vue-i18n": "^3.4.0",
+    "@vitejs/plugin-vue": "^2.3.1",
+    "@vuetify/vite-plugin": "^1.0.0-alpha.0",
+    "cypress": "^9.6.0",
+    "sass": "^1.38.0",
+    "sass-loader": "^10.0.0",
+    "vite": "^2.9.5",
+    "vue-cli-plugin-vuetify": "~2.4.8",
+    "vuetify-loader": "^2.0.0-alpha.0"
+  }
+}

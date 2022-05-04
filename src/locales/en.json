@@ -1,0 +1,71 @@
+{
+  "button": {
+    "fr": "French",
+    "en": "English",
+    "upload": "Upload",
+    "new": "New",
+    "validate": "Validate",
+    "reference": "Reference",
+    "add": "Add",
+    "download": "Download",
+    "edit": "Edit",
+    "delete": "Delete"
+  },
+  "nav": {
+    "application": "Application",
+    "references": "References",
+    "compositeReferences": "Composite references",
+    "dataTypes": "Data types",
+    "visualization": "Visualization",
+    "download": "Download"
+  },
+  "home": {
+    "title": "What do you want to do?",
+    "content": "Welcome to the application configuration file creation and editing tool. You can either continue or modify an existing file by pressing the “Upload” button, or create a new file by pressing the “New” button."
+  },
+  "application": {
+    "title": "Application",
+    "fr": {
+      "label": "Name of the application in French",
+      "placeholder": "SOERE avec dépôt, ...",
+      "hint": "Mandatory",
+      "errors": {
+        "required": "The application name is mandatory",
+        "length": "The application name must be less than 26 characters"
+      }
+    },
+    "en": {
+      "label": "Name of the application in English",
+      "placeholder": "SOERE with repository, ...",
+      "hint": "Optional"
+    },
+    "checkbox": "Make English the default language"
+  },
+  "references": {
+    "title": "References",
+    "subtitle": "You can add the application references from this page. Either from a CSV file to import, or by manually adding each reference.",
+    "table": {
+      "referenceName": "Name of the reference",
+      "columnsNumber": "Number of columns",
+      "keyColumns": "Key columns",
+      "actions": "Actions"
+    },
+    "form": {
+      "fr": {
+        "label": "Name of the reference in French",
+        "placeholder": "Espèces, ..."
+      },
+      "en": {
+        "label": "Name of the reference in English",
+        "placeholder": "Species, ..."
+      },
+      "columnName": "Column name",
+      "placeholder": "esp_nom",
+      "keyColumn": "Key column"
+    }
+  },
+  "download": {
+    "title": "Download",
+    "subtitle": "You can download your application configuration file!"
+  }
+}

@@ -21,6 +21,12 @@
       }
     },
 
+    /*mounted() {
+      this.nameFr = this.yamlStore.application.internationalizationName.fr
+      this.nameEn = this.yamlStore.application.internationalizationName.en
+      this.enByDefault = lang[this.yamlStore.application.defaultLanguage]
+    },*/
+
     props: {
       i18n: {
         type: Object,

@@ -10,12 +10,13 @@
         keyColumns: [],
         columns: reactive({}),
         columnName: null,
+        update: false
       }
     },
 
     updated() {
       if (this.referenceName !== null) {
-        console.log(this.referenceName)
+        this.update = true
         this.referenceNameFr = this.yamlStore.references[this.referenceName].internationalizationName.fr
         this.referenceNameEn = this.yamlStore.references[this.referenceName].internationalizationName.en
         this.keyColumns = this.yamlStore.references[this.referenceName].keyColumns
@@ -76,7 +77,7 @@
         <v-form>
           <div class="d-flex gap-3">
             <v-text-field :label="t('references.form.fr.label')" :placeholder="t('references.form.fr.placeholder')"
-                          variant="outlined" color="primary" hide-details v-model="referenceNameFr"/>
+                          variant="outlined" color="primary" :hint="t('application.fr.hint')" persistent-hint v-model="referenceNameFr"/>
             <v-text-field :label="t('references.form.en.label')" :placeholder="t('references.form.en.placeholder')"
                           variant="outlined" color="primary" :hint="t('application.en.hint')" persistent-hint
                           v-model="referenceNameEn"/>
@@ -113,7 +114,10 @@
             <v-btn prepend-icon="mdi-close" color="error" @click="$emit('close')">
               {{ t('button.close') }}
             </v-btn>
-            <v-btn prepend-icon="mdi-plus" color="primary" @click="addReference">
+            <v-btn v-if="update" prepend-icon="mdi-check" color="primary" @click="addReference">
+              {{ t('button.validate') }}
+            </v-btn>
+            <v-btn v-else prepend-icon="mdi-plus" color="primary" @click="addReference">
               {{ t('button.add') }}
             </v-btn>
           </div>

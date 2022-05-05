@@ -82,7 +82,7 @@
     <v-navigation-drawer v-model="drawer">
       <v-list nav>
         <template v-for="route in routes">
-          <v-list-item v-if="['compositeReferences', 'dataTypes'].includes(route.name)"
+          <v-list-item v-if="['compositeReferences'].includes(route.name)"
                        prepend-icon="mdi-chevron-right" active-color="primary" :to="route.to"
                        :title="t('nav.'+ route.name )" disabled/>
           <v-list-item v-else prepend-icon="mdi-chevron-right" active-color="primary" :to="route.to"

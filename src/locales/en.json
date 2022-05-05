@@ -10,7 +10,8 @@
     "download": "Download",
     "edit": "Edit",
     "delete": "Delete",
-    "close": "Close"
+    "close": "Close",
+    "dataType": "Data type"
   },
   "nav": {
     "application": "Application",
@@ -63,6 +64,22 @@
       "columnName": "Column name",
       "placeholder": "esp_nom",
       "keyColumn": "Key column"
+    }
+  },
+  "dataTypes": {
+    "title": "Data types",
+    "table": {
+      "dataTypeName": "Name of the data type"
+    },
+    "form": {
+      "fr": {
+        "label": "Name of the data type in French",
+        "placeholder": "Piégeage en Montée, ..."
+      },
+      "en": {
+        "label": "Name of the data type in English",
+        "placeholder": "Trap in ascent, ..."
+      }
     }
   },
   "visualization": {

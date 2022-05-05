@@ -24,12 +24,6 @@
 
     components: {
       Reference
-    },
-
-    methods: {
-      removeReference(reference) {
-        delete this.yamlStore.references[reference]
-      }
     }
   }
 </script>
@@ -45,8 +39,7 @@
               {{ t('button.edit') }}
               <Reference v-model="editReferenceDialog" @close="editReferenceDialog = false" activator="parent" :i18n="{t}" :yaml-store="yamlStore" :reference-name="selectedKey"/>
             </v-btn>
-            <v-btn prepend-icon="mdi-delete" color="error" @click="removeReference(selectedKey)"
-                   :disabled="selectedKey === null">
+            <v-btn prepend-icon="mdi-delete" color="error" @click="delete yamlStore.references[selectedKey]" :disabled="selectedKey === null">
               {{ t('button.delete') }}
             </v-btn>
           </div>

@@ -65,6 +65,9 @@
       "keyColumn": "Key column"
     }
   },
+  "visualization": {
+    "title": "Visualization"
+  },
   "download": {
     "title": "Download",
     "subtitle": "You can download your application configuration file!"

@@ -65,6 +65,9 @@
       "keyColumn": "Colonne clé"
     }
   },
+  "visualization": {
+    "title": "Visualisation"
+  },
   "download": {
     "title": "Téléchargement",
     "subtitle": "Vous pouvez télécharger le fichier de configuration de votre application !",

@@ -30,7 +30,12 @@
 <template>
   <v-main>
     <v-container fluid>
-      <JsonViewer :value="yamlStore.getYaml"/>
+      <v-card>
+        <v-card-title v-text="t('visualization.title')"/>
+        <v-card-content>
+          <JsonViewer :value="yamlStore.getYaml"/>
+        </v-card-content>
+      </v-card>
     </v-container>
   </v-main>
 </template>

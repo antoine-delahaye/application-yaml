@@ -62,9 +62,6 @@
           this.referenceNameFr = null
           this.referenceNameEn = null
         }
-      },
-      removeColumn(column) {
-        delete this.columns[column]
       }
     }
   }
@@ -105,7 +102,7 @@
               </td>
               <td>
                 <v-btn icon="mdi-pencil" size="small" color="primary" class="mr-3"/>
-                <v-btn icon="mdi-delete" size="small" color="error" @click="removeColumn(key)"/>
+                <v-btn icon="mdi-delete" size="small" color="error" @click="delete columns[key]"/>
               </td>
             </tr>
             </tbody>

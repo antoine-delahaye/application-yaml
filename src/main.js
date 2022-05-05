@@ -4,6 +4,7 @@ import {createI18n, useI18n} from 'vue-i18n'
 import {createPinia} from 'pinia'
 import {createVuetify} from 'vuetify'
 import {createVueI18nAdapter} from 'vuetify/locale/adapters/vue-i18n'
+import {JsonViewer as jsonviewer} from 'vue3-json-viewer'
 
 import App from '/src/App.vue'
 import Home from '/src/views/Home.vue'
@@ -22,6 +23,8 @@ import 'vuetify/styles'
 
 import {inrae} from '/src/styles/theme'
 import webfontloader from 'webfontloader'
+
+import 'vue3-json-viewer/dist/index.css'
 
 const app = createApp(App)
 
@@ -72,4 +75,5 @@ app.use(router)
 app.use(i18n)
 app.use(pinia)
 app.use(vuetify)
+app.use(jsonviewer)
 app.mount('#app')

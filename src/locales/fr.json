@@ -10,7 +10,8 @@
     "download": "Télécharger",
     "edit": "Modifier",
     "delete": "Supprimer",
-    "close": "Fermer"
+    "close": "Fermer",
+    "dataType": "Type de données"
   },
   "nav": {
     "application": "Application",
@@ -64,6 +65,25 @@
       "placeholder": "esp_nom,  ...",
       "keyColumn": "Colonne clé"
     }
+  },
+  "dataTypes": {
+    "title": "Types de données",
+    "table": {
+      "dataTypeName": "Nom du type de données"
+    },
+    "form": {
+      "fr": {
+        "label": "Nom du type de données en français",
+        "placeholder": "Piégeage en Montée, ..."
+      },
+      "en": {
+        "label": "Du type de données en anglais",
+        "placeholder": "Trap in ascent, ..."
+      }
+    }
+  },
+  "visualization": {
+    "title": "Visualisation"
   },
   "download": {
     "title": "Téléchargement",

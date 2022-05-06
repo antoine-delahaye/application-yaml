@@ -1,0 +1,94 @@
+{
+  "button": {
+    "fr": "Français",
+    "en": "Anglais",
+    "upload": "Importer",
+    "new": "Nouveau",
+    "validate": "Valider",
+    "reference": "Référentiel",
+    "add": "Ajouter",
+    "download": "Télécharger",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "close": "Fermer",
+    "dataType": "Type de données"
+  },
+  "nav": {
+    "application": "Application",
+    "references": "Référentiels",
+    "compositeReferences": "Références composites",
+    "dataTypes": "Types de données",
+    "visualization": "Visualisation",
+    "download": "Téléchargement"
+  },
+  "home": {
+    "title": "Que souhaitez-vous faire ?",
+    "content": "Bienvenue sur l'outil de création et modification de fichier de configuration d'application. Vous pouvez, soit continué ou modifier un fichier déjà existant en appuyant sur le bouton “Importer”, soit créée un nouveau fichier en appuyant sur le bouton “Nouveau”."
+  },
+  "application": {
+    "title": "Application",
+    "fr": {
+      "label": "Nom de l'application en français",
+      "placeholder": "SOERE avec dépôt, ...",
+      "hint": "Obligatoire",
+      "errors": {
+        "required": "Le nom de l'application est obligatoire",
+        "length": "Le nom de l'application doit contenir moins de 26 caractères"
+      }
+    },
+    "en": {
+      "label": "Nom de l'application en anglais",
+      "placeholder": "SOERE with repository, ...",
+      "hint": "Optionnel"
+    },
+    "checkbox": "Faire de l’anglais la langue par défaut"
+  },
+  "references": {
+    "title": "Référentiels",
+    "subtitle": "Vous pouvez ajouter depuis cette page les référentiels de l’application. Soit à partir d’un fichier CSV à importer, soit en ajoutant manuellement chaque référentiel.",
+    "table": {
+      "referenceName": "Nom du référentiel",
+      "columnsNumber": "Nombre de colonnes",
+      "keyColumns": "Colonnes clé",
+      "actions": "Actions"
+    },
+    "form": {
+      "fr": {
+        "label": "Nom du référentiel en français",
+        "placeholder": "Espèces, ..."
+      },
+      "en": {
+        "label": "Du référentiel en anglais",
+        "placeholder": "Species, ..."
+      },
+      "columnName": "Nom de la colonne",
+      "placeholder": "esp_nom,  ...",
+      "keyColumn": "Colonne clé"
+    }
+  },
+  "dataTypes": {
+    "title": "Types de données",
+    "table": {
+      "dataTypeName": "Nom du type de données"
+    },
+    "form": {
+      "fr": {
+        "label": "Nom du type de données en français",
+        "placeholder": "Piégeage en Montée, ..."
+      },
+      "en": {
+        "label": "Du type de données en anglais",
+        "placeholder": "Trap in ascent, ..."
+      }
+    }
+  },
+  "visualization": {
+    "title": "Visualisation"
+  },
+  "download": {
+    "title": "Téléchargement",
+    "subtitle": "Vous pouvez télécharger le fichier de configuration de votre application !",
+    "label": "Nom du fichier",
+    "placeholder": "monsore, ..."
+  }
+}

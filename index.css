@@ -1,0 +1,29 @@
+@font-face {
+    font-family: "Raleway";
+    src: url("src/assets/fonts/Raleway-Bold.ttf");
+    font-weight: 700;
+}
+
+@font-face {
+    font-family: "Raleway";
+    src: url("src/assets/fonts/Raleway-ExtraBold.ttf");
+    font-weight: 800;
+}
+
+@font-face {
+    font-family: "Avenir Next Pro";
+    src: url("src/assets/fonts/AvenirNextPro-Condensed.ttf");
+    font-weight: 400;
+}
+
+@font-face {
+    font-family: "Avenir Next Pro";
+    src: url("src/assets/fonts/AvenirNextPro-MediumCondensed.ttf");
+    font-weight: 500;
+}
+
+@font-face {
+    font-family: "Avenir Next Pro";
+    src: url("src/assets/fonts/AvenirNextPro-BoldCondensed.ttf");
+    font-weight: 700;
+}

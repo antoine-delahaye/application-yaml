@@ -1,23 +1,20 @@
 <script>
+  import {useI18n} from 'vue-i18n'
   import {Document} from 'yaml'
   import {saveAs} from 'file-saver'
 
+  import {useYamlStore} from '/src/store/yaml'
+
   export default {
-    data() {
-      return {
-        t: this.i18n.t,
-        filename: null
-      }
+    setup() {
+      const {t} = useI18n()
+      const yamlStore = useYamlStore()
+      return {t, yamlStore}
     },
 
-    props: {
-      i18n: {
-        type: Object,
-        required: true
-      },
-      yamlStore: {
-        type: Object,
-        required: true
+    data() {
+      return {
+        filename: null
       }
     },
 

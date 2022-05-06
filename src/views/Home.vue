@@ -1,23 +1,20 @@
 <script>
+  import {useI18n} from 'vue-i18n'
   import {parseDocument} from 'yaml'
 
+  import {useYamlStore} from '/src/store/yaml'
+
   export default {
-    data() {
-      return {
-        t: this.i18n.t,
-        isSelecting: false,
-        selectedFile: null
-      }
+    setup() {
+      const {t} = useI18n()
+      const yamlStore = useYamlStore()
+      return {t, yamlStore}
     },
 
-    props: {
-      i18n: {
-        type: Object,
-        required: true
-      },
-      yamlStore: {
-        type: Object,
-        required: true
+    data() {
+      return {
+        isSelecting: false,
+        selectedFile: null
       }
     },
 

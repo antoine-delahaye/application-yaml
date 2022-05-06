@@ -1,24 +1,21 @@
 <script>
+  import {useI18n} from 'vue-i18n'
   import Reference from '/src/components/Reference.vue'
 
+  import {useYamlStore} from '/src/store/yaml'
+
   export default {
+    setup() {
+      const {t} = useI18n()
+      const yamlStore = useYamlStore()
+      return {t, yamlStore}
+    },
+
     data() {
       return {
-        t: this.i18n.t,
         editReferenceDialog: false,
         addReferenceDialog: false,
         selectedKey: null
-      }
-    },
-
-    props: {
-      i18n: {
-        type: Object,
-        required: true
-      },
-      yamlStore: {
-        type: Object,
-        required: true
       }
     },
 
@@ -37,7 +34,7 @@
           <div class="d-flex gap-1 ml-auto">
             <v-btn prepend-icon="mdi-pencil" color="primary" class="mr-3" :disabled="selectedKey === null">
               {{ t('button.edit') }}
-              <Reference v-model="editReferenceDialog" @close="editReferenceDialog = false" activator="parent" :i18n="{t}" :yaml-store="yamlStore" :reference-name="selectedKey"/>
+              <Reference v-model="editReferenceDialog" @close="editReferenceDialog = false" activator="parent" :reference-name="selectedKey"/>
             </v-btn>
             <v-btn prepend-icon="mdi-delete" color="error" @click="delete yamlStore.references[selectedKey]" :disabled="selectedKey === null">
               {{ t('button.delete') }}
@@ -81,7 +78,7 @@
     </v-btn>
     <v-btn prepend-icon="mdi-plus" color="primary" rounded="pill" size="large">
       {{ t('button.reference') }}
-      <Reference v-model="addReferenceDialog" @close="addReferenceDialog = false" activator="parent" :i18n="{t}" :yaml-store="yamlStore" :reference-name="null"/>
+      <Reference v-model="addReferenceDialog" @close="addReferenceDialog = false" activator="parent" :reference-name="null"/>
     </v-btn>
   </v-container>
 </template>

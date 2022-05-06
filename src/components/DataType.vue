@@ -1,8 +1,17 @@
 <script>
+  import {useI18n} from 'vue-i18n'
+
+  import {useYamlStore} from '/src/store/yaml'
+
   export default {
+    setup() {
+      const {t} = useI18n()
+      const yamlStore = useYamlStore()
+      return {t, yamlStore}
+    },
+
     data() {
       return {
-        t: this.i18n.t,
         dataTypeNameFr: null,
         dataTypeNameEn: null,
         update: false
@@ -18,14 +27,6 @@
     },
 
     props: {
-      i18n: {
-        type: Object,
-        required: true
-      },
-      yamlStore: {
-        type: Object,
-        required: true
-      },
       dataTypeName: {
         type: String,
         required: false
@@ -57,9 +58,9 @@
         <v-form>
           <div class="d-flex gap-3">
             <v-text-field :label="t('dataTypes.form.fr.label')" :placeholder="t('dataTypes.form.fr.placeholder')"
-                          variant="outlined" color="primary" :hint="t('application.fr.hint')" persistent-hint v-model="dataTypeNameFr"/>
+                          variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint v-model="dataTypeNameFr"/>
             <v-text-field :label="t('dataTypes.form.en.label')" :placeholder="t('dataTypes.form.en.placeholder')"
-                          variant="outlined" color="primary" :hint="t('application.en.hint')" persistent-hint
+                          variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint
                           v-model="dataTypeNameEn"/>
           </div>
           <div class="d-flex justify-center gap-3 mt-5">

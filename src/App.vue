@@ -8,7 +8,7 @@
 
   export default {
     setup() {
-      const {t, locale} = useI18n({useScope: 'global'})
+      const {t, locale} = useI18n()
       const yamlStore = useYamlStore()
       const {cookies} = useCookies()
       return {t, locale, yamlStore, cookies}
@@ -91,7 +91,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <router-view :i18n="{t}" :yamlStore="yamlStore"/>
+    <router-view/>
 
   </v-app>
 </template>

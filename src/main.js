@@ -22,7 +22,6 @@ import '@mdi/font/css/materialdesignicons.css'
 import 'vuetify/styles'
 
 import {inrae} from '/src/styles/theme'
-import webfontloader from 'webfontloader'
 
 import 'vue3-json-viewer/dist/index.css'
 
@@ -42,6 +41,7 @@ const router = createRouter({
 })
 
 const i18n = createI18n({
+    legacy: false,
     locale: 'fr',
     messages: {fr, en}
 })
@@ -58,16 +58,6 @@ const vuetify = createVuetify({
         themes: {
             inrae
         }
-    }
-})
-
-webfontloader.load({
-    google: {
-        families: [
-            'Raleway:700,800',
-            'Avenir Next Pro:400,500,700'
-        ],
-        urls: ['/index.css']
     }
 })
 

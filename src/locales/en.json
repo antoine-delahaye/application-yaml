@@ -13,6 +13,10 @@
     "close": "Close",
     "dataType": "Data type"
   },
+  "hint": {
+    "optional": "Optional",
+    "required": "Required"
+  },
   "nav": {
     "application": "Application",
     "references": "References",
@@ -27,20 +31,9 @@
   },
   "application": {
     "title": "Application",
-    "fr": {
-      "label": "Name of the application in French",
-      "placeholder": "SOERE avec dépôt, ...",
-      "hint": "Mandatory",
-      "errors": {
-        "required": "The application name is mandatory",
-        "length": "The application name must be less than 26 characters"
-      }
-    },
-    "en": {
-      "label": "Name of the application in English",
-      "placeholder": "SOERE with repository, ...",
-      "hint": "Optional"
-    },
+    "label": "Name of the application in",
+    "frPlaceholder": "SOERE avec dépôt, ...",
+    "enPlaceholder": "SOERE with repository, ...",
     "checkbox": "Make English the default language"
   },
   "references": {
@@ -87,6 +80,8 @@
   },
   "download": {
     "title": "Download",
-    "subtitle": "You can download your application configuration file!"
+    "subtitle": "You can download your application configuration file!",
+    "label": "Name of the file",
+    "placeholder": "monsore, ..."
   }
 }

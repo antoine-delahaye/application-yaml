@@ -13,6 +13,10 @@
     "close": "Fermer",
     "dataType": "Type de données"
   },
+  "hint": {
+    "optional": "Optionnel",
+    "required": "Obligatoire"
+  },
   "nav": {
     "application": "Application",
     "references": "Référentiels",
@@ -27,20 +31,9 @@
   },
   "application": {
     "title": "Application",
-    "fr": {
-      "label": "Nom de l'application en français",
-      "placeholder": "SOERE avec dépôt, ...",
-      "hint": "Obligatoire",
-      "errors": {
-        "required": "Le nom de l'application est obligatoire",
-        "length": "Le nom de l'application doit contenir moins de 26 caractères"
-      }
-    },
-    "en": {
-      "label": "Nom de l'application en anglais",
-      "placeholder": "SOERE with repository, ...",
-      "hint": "Optionnel"
-    },
+    "label": "Nom de l'application en",
+    "frPlaceholder": "SOERE avec dépôt, ...",
+    "enPlaceholder": "SOERE with repository, ...",
     "checkbox": "Faire de l’anglais la langue par défaut"
   },
   "references": {

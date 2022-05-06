@@ -1,10 +1,18 @@
 <script>
+  import {useI18n} from 'vue-i18n'
   import {reactive} from 'vue'
 
+  import {useYamlStore} from '/src/store/yaml'
+
   export default {
+    setup() {
+      const {t} = useI18n()
+      const yamlStore = useYamlStore()
+      return {t, yamlStore}
+    },
+
     data() {
       return {
-        t: this.i18n.t,
         referenceNameFr: null,
         referenceNameEn: null,
         keyColumns: [],
@@ -25,14 +33,6 @@
     },
 
     props: {
-      i18n: {
-        type: Object,
-        required: true
-      },
-      yamlStore: {
-        type: Object,
-        required: true
-      },
       referenceName: {
         type: String,
         required: false
@@ -74,9 +74,9 @@
         <v-form>
           <div class="d-flex gap-3">
             <v-text-field :label="t('references.form.fr.label')" :placeholder="t('references.form.fr.placeholder')"
-                          variant="outlined" color="primary" :hint="t('application.fr.hint')" persistent-hint v-model="referenceNameFr"/>
+                          variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint v-model="referenceNameFr"/>
             <v-text-field :label="t('references.form.en.label')" :placeholder="t('references.form.en.placeholder')"
-                          variant="outlined" color="primary" :hint="t('application.en.hint')" persistent-hint
+                          variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint
                           v-model="referenceNameEn"/>
           </div>
           <v-text-field :label="t('references.form.columnName')" :placeholder="t('references.form.placeholder')"

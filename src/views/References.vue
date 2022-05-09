@@ -32,6 +32,10 @@
 <template>
   <v-main>
     <v-container fluid>
+      <v-alert type="info" border class="mb-5">
+        <v-alert-title v-text="t('alert.info')"/>
+        {{ t('alert.references') }}
+      </v-alert>
       <v-card>
         <v-card-title>
           {{ t('references.title') }}

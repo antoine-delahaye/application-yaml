@@ -23,6 +23,10 @@
     "columnRequired": "Veuillez ajouter au moins une colonne",
     "columnSelected": "Veuillez sélectionner au moins une colonne"
   },
+  "alert": {
+    "info": "Informations",
+    "references": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae diam justo. Suspendisse ante mauris, pretium quis rutrum vitae, dictum non urna. Vestibulum quis neque metus. Vivamus quis ex vel nisi venenatis volutpat sed ornare metus. Cras accumsan eget eros quis rhoncus. Ut ut lacinia mauris. Sed mollis magna vel mauris gravida, eu pretium neque convallis. Suspendisse pulvinar erat nec neque ultricies vehicula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et iaculis purus, sit amet dignissim sapien."
+  },
   "nav": {
     "application": "Application",
     "references": "Référentiels",

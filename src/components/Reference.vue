@@ -73,11 +73,10 @@
       <v-card-content>
         <v-form>
           <div class="d-flex gap-3">
-            <v-text-field :label="t('references.form.fr.label')" :placeholder="t('references.form.fr.placeholder')"
+            <v-text-field :label="t('references.form.label', ['français', 'French'])" :placeholder="t('references.form.frPlaceholder')"
                           variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint v-model="referenceNameFr"/>
-            <v-text-field :label="t('references.form.en.label')" :placeholder="t('references.form.en.placeholder')"
-                          variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint
-                          v-model="referenceNameEn"/>
+            <v-text-field :label="t('references.form.label', ['anglais', 'English'])" :placeholder="t('references.form.enPlaceholder')"
+                          variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint v-model="referenceNameEn"/>
           </div>
           <v-text-field :label="t('references.form.columnName')" :placeholder="t('references.form.placeholder')"
                         variant="outlined" color="primary" hide-details append-icon="mdi-plus-circle"

@@ -60,10 +60,10 @@
         <v-card-content>
           <v-form ref="application">
             <div class="d-flex gap-3">
-              <v-text-field :label="t('application.label')" :placeholder="t('application.frPlaceholder')"
+              <v-text-field :label="t('application.label', ['français', 'French'])" :placeholder="t('application.frPlaceholder')"
                             variant="outlined" color="primary" v-model="nameFr" :hint="t('hint.required')"
                             persistent-hint :rules="inputRules"/>
-              <v-text-field :label="t('application.label')" :placeholder="t('application.enPlaceholder')"
+              <v-text-field :label="t('application.label', ['anglais', 'English'])" :placeholder="t('application.enPlaceholder')"
                             variant="outlined" color="primary" :hint="t('hint.optional')" v-model="nameEn"
                             persistent-hint/>
             </div>

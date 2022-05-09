@@ -31,7 +31,7 @@
   },
   "application": {
     "title": "Application",
-    "label": "Nom de l'application en",
+    "label": "Nom de l'application en {0}",
     "frPlaceholder": "SOERE avec dépôt, ...",
     "enPlaceholder": "SOERE with repository, ...",
     "checkbox": "Faire de l’anglais la langue par défaut"
@@ -46,14 +46,9 @@
       "actions": "Actions"
     },
     "form": {
-      "fr": {
-        "label": "Nom du référentiel en français",
-        "placeholder": "Espèces, ..."
-      },
-      "en": {
-        "label": "Du référentiel en anglais",
-        "placeholder": "Species, ..."
-      },
+      "label": "Nom du référentiel en {0}",
+      "frPlaceholder": "Espèces, ...",
+      "enPlaceholder": "Species, ...",
       "columnName": "Nom de la colonne",
       "placeholder": "esp_nom,  ...",
       "keyColumn": "Colonne clé"
@@ -65,14 +60,9 @@
       "dataTypeName": "Nom du type de données"
     },
     "form": {
-      "fr": {
-        "label": "Nom du type de données en français",
-        "placeholder": "Piégeage en Montée, ..."
-      },
-      "en": {
-        "label": "Du type de données en anglais",
-        "placeholder": "Trap in ascent, ..."
-      }
+      "label": "Nom du type de données en {0}",
+      "frPlaceholder": "Piégeage en Montée, ...",
+      "enPlaceholder": "Trap in ascent, ..."
     }
   },
   "visualization": {

@@ -9,7 +9,8 @@ npm run dev
 
 ## À faire
 
-- [ ] Itération des champs textes dans Application
+- [x] Retravailler les locales
+- [ ] Retravailler les champs textes de Application
 - [ ] Validateurs
 - [ ] Popup d'alerte de suppression
 - [ ] Retours utilisateur

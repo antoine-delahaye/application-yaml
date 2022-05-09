@@ -57,11 +57,10 @@
       <v-card-content>
         <v-form>
           <div class="d-flex gap-3">
-            <v-text-field :label="t('dataTypes.form.fr.label')" :placeholder="t('dataTypes.form.fr.placeholder')"
+            <v-text-field :label="t('dataTypes.form.label', ['français', 'French'])" :placeholder="t('dataTypes.form.frPlaceholder')"
                           variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint v-model="dataTypeNameFr"/>
-            <v-text-field :label="t('dataTypes.form.en.label')" :placeholder="t('dataTypes.form.en.placeholder')"
-                          variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint
-                          v-model="dataTypeNameEn"/>
+            <v-text-field :label="t('dataTypes.form.label', ['anglais', 'English'])" :placeholder="t('dataTypes.form.enPlaceholder')"
+                          variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint v-model="dataTypeNameEn"/>
           </div>
           <div class="d-flex justify-center gap-3 mt-5">
             <v-btn prepend-icon="mdi-close" color="error" @click="$emit('close')">

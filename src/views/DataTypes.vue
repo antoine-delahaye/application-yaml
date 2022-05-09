@@ -1,6 +1,8 @@
 <script>
   import {useI18n} from 'vue-i18n'
+
   import DataType from '/src/components/DataType.vue'
+  import DeleteAlert from '/src/components/DeleteAlert.vue'
 
   import {useYamlStore} from '/src/store/yaml'
 
@@ -15,12 +17,14 @@
       return {
         editDataTypesDialog: false,
         addDataTypesDialog: false,
+        deleteAlertDialog: false,
         selectedKey: null
       }
     },
 
     components: {
-      DataType
+      DataType,
+      DeleteAlert
     }
   }
 </script>
@@ -36,9 +40,9 @@
               {{ t('button.edit') }}
               <DataType v-model="editDataTypesDialog" @close="editDataTypesDialog = false" activator="parent" :data-type-name="selectedKey"/>
             </v-btn>
-            <v-btn prepend-icon="mdi-delete" color="error" @click="delete yamlStore.dataTypes[selectedKey]"
-                   :disabled="selectedKey === null">
+            <v-btn prepend-icon="mdi-delete" color="error" :disabled="selectedKey === null">
               {{ t('button.delete') }}
+              <DeleteAlert v-model="deleteAlertDialog" @close="deleteAlertDialog = false" activator="parent" :locale="['type de données', 'data type']" :is-reference="false" :selected-key="selectedKey"/>
             </v-btn>
           </div>
         </v-card-title>

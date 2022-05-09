@@ -11,7 +11,8 @@
     "edit": "Modifier",
     "delete": "Supprimer",
     "close": "Fermer",
-    "dataType": "Type de données"
+    "dataType": "Type de données",
+    "cancel": "Annuler"
   },
   "hint": {
     "optional": "Optionnel",
@@ -73,5 +74,8 @@
     "subtitle": "Vous pouvez télécharger le fichier de configuration de votre application !",
     "label": "Nom du fichier",
     "placeholder": "monsore, ..."
+  },
+  "delete": {
+    "title": "Suppression d'un {0}"
   }
 }

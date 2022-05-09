@@ -14,3 +14,4 @@ npm run dev
 - [ ] Validateurs
 - [ ] Popup d'alerte de suppression
 - [ ] Retours utilisateur
+- [] Modèle Swagger

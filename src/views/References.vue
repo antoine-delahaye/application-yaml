@@ -1,6 +1,8 @@
 <script>
   import {useI18n} from 'vue-i18n'
+
   import Reference from '/src/components/Reference.vue'
+  import DeleteAlert from '/src/components/DeleteAlert.vue'
 
   import {useYamlStore} from '/src/store/yaml'
 
@@ -15,12 +17,14 @@
       return {
         editReferenceDialog: false,
         addReferenceDialog: false,
+        deleteAlertDialog: false,
         selectedKey: null
       }
     },
 
     components: {
-      Reference
+      Reference,
+      DeleteAlert
     }
   }
 </script>
@@ -36,8 +40,9 @@
               {{ t('button.edit') }}
               <Reference v-model="editReferenceDialog" @close="editReferenceDialog = false" activator="parent" :reference-name="selectedKey"/>
             </v-btn>
-            <v-btn prepend-icon="mdi-delete" color="error" @click="delete yamlStore.references[selectedKey]" :disabled="selectedKey === null">
+            <v-btn prepend-icon="mdi-delete" color="error" :disabled="selectedKey === null">
               {{ t('button.delete') }}
+              <DeleteAlert v-model="deleteAlertDialog" @close="deleteAlertDialog = false" activator="parent" :locale="['référentiel', 'reference']" :is-reference="true" :selectedKey="selectedKey"/>
             </v-btn>
           </div>
         </v-card-title>

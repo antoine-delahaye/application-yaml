@@ -11,7 +11,8 @@
     "edit": "Edit",
     "delete": "Delete",
     "close": "Close",
-    "dataType": "Data type"
+    "dataType": "Data type",
+    "cancel": "Cancel"
   },
   "hint": {
     "optional": "Optional",
@@ -73,5 +74,8 @@
     "subtitle": "You can download your application configuration file!",
     "label": "Name of the file",
     "placeholder": "monsore, ..."
+  },
+  "delete": {
+    "title": "Deleting a {1}"
   }
 }

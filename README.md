@@ -10,8 +10,8 @@ npm run dev
 ## À faire
 
 - [x] Retravailler les locales
-- [ ] Retravailler les champs textes de Application
-- [ ] Validateurs
-- [ ] Popup d'alerte de suppression
+- [x] Popup d'alerte de suppression
+- [x] Validateurs
 - [ ] Retours utilisateur
-- [] Modèle Swagger
+- [ ] Retravailler les champs textes
+- [ ] Modèle Swagger

@@ -18,6 +18,11 @@
     "optional": "Optional",
     "required": "Required"
   },
+  "rule": {
+    "required": "This field is required",
+    "columnRequired": "Please add at least one column",
+    "columnSelected": "Please select at least one column"
+  },
   "nav": {
     "application": "Application",
     "references": "References",
@@ -35,36 +40,36 @@
     "label": "Name of the application in {1}",
     "frPlaceholder": "SOERE avec dépôt, ...",
     "enPlaceholder": "SOERE with repository, ...",
-    "checkbox": "Make English the default language"
+    "checkbox": "Make English the default language",
+    "errors": {
+      "required": "The application name is mandatory",
+      "length": "The application name must be less than 26 characters"
+    }
   },
   "references": {
     "title": "References",
     "subtitle": "You can add the application references from this page. Either from a CSV file to import, or by manually adding each reference.",
-    "table": {
-      "referenceName": "Name of the reference",
-      "columnsNumber": "Number of columns",
-      "keyColumns": "Key columns",
-      "actions": "Actions"
-    },
-    "form": {
-      "label": "Name of the reference in {1}",
-      "frPlaceholder": "Espèces, ...",
-      "enPlaceholder": "Species, ...",
-      "columnName": "Column name",
-      "placeholder": "esp_nom",
-      "keyColumn": "Key column"
-    }
+    "referenceName": "Name of the reference",
+    "columnsNumber": "Number of columns",
+    "keyColumns": "Key columns",
+    "actions": "Actions"
+  },
+  "reference": {
+    "label": "Name of the reference in {1}",
+    "frPlaceholder": "Espèces, ...",
+    "enPlaceholder": "Species, ...",
+    "columnName": "Column name",
+    "placeholder": "esp_nom",
+    "keyColumn": "Key column"
   },
   "dataTypes": {
     "title": "Data types",
-    "table": {
-      "dataTypeName": "Name of the data type"
-    },
-    "form": {
-      "label": "Name of the data type in {1}",
-      "frPlaceholder": "Piégeage en Montée, ...",
-      "enPlaceholder": "Trap in ascent, ..."
-    }
+    "dataTypeName": "Name of the data type"
+  },
+  "dataType": {
+    "label": "Name of the data type in {1}",
+    "frPlaceholder": "Piégeage en Montée, ...",
+    "enPlaceholder": "Trap in ascent, ..."
   },
   "visualization": {
     "title": "Visualization"

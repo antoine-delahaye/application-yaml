@@ -18,7 +18,11 @@
         keyColumns: [],
         columns: reactive({}),
         columnName: null,
-        update: false
+        update: false,
+        rules: {
+          referenceNameFr: v => !!v || this.t('rule.required'),
+          columns: v => Object.keys(this.columns).length > 0 || this.t('rule.required'),
+        }
       }
     },
 
@@ -47,7 +51,7 @@
         }
       },
       addReference() {
-        if (this.referenceNameFr !== null && Object.keys(this.columns).length > 0) {
+        if (this.$refs.reference.validate() && this.referenceNameFr !== null && Object.keys(this.columns).length > 0) {
           let index = this.referenceNameFr.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
           this.yamlStore.references[index] = {
             internationalizationName: {
@@ -71,22 +75,25 @@
   <v-dialog>
     <v-card width="80rem">
       <v-card-content>
-        <v-form>
+        <v-form ref="reference">
           <div class="d-flex gap-3">
-            <v-text-field :label="t('references.form.label', ['français', 'French'])" :placeholder="t('references.form.frPlaceholder')"
-                          variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint v-model="referenceNameFr"/>
-            <v-text-field :label="t('references.form.label', ['anglais', 'English'])" :placeholder="t('references.form.enPlaceholder')"
+            <v-text-field :label="t('reference.label', ['français', 'French'])" :placeholder="t('reference.frPlaceholder')"
+                          variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint v-model="referenceNameFr" :rules="[rules.referenceNameFr]"/>
+            <v-text-field :label="t('reference.label', ['anglais', 'English'])" :placeholder="t('reference.enPlaceholder')"
                           variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint v-model="referenceNameEn"/>
           </div>
-          <v-text-field :label="t('references.form.columnName')" :placeholder="t('references.form.placeholder')"
-                        variant="outlined" color="primary" hide-details append-icon="mdi-plus-circle"
-                        @click:append="addColumn" v-model="columnName" class="pr-2"/>
+          <div class="d-flex gap-3">
+            <v-text-field :label="t('reference.columnName')" :placeholder="t('reference.placeholder')"
+                          variant="outlined" color="primary" v-model="columnName" :rules="[rules.columns]"/>
+            <v-btn color="primary" @click="addColumn" icon="mdi-plus-circle" class="mt-1">
+            </v-btn>
+          </div>
           <v-table>
             <thead>
             <tr>
-              <th class="text-left" v-text="t('references.form.columnName')"/>
-              <th class="text-left" v-text="t('references.form.keyColumn')"/>
-              <th class="text-left" v-text="t('references.table.actions')"/>
+              <th class="text-left" v-text="t('reference.columnName')"/>
+              <th class="text-left" v-text="t('reference.keyColumn')"/>
+              <th class="text-left" v-text="t('references.actions')"/>
             </tr>
             </thead>
             <tbody>

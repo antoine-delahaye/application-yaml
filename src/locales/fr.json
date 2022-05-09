@@ -18,6 +18,11 @@
     "optional": "Optionnel",
     "required": "Obligatoire"
   },
+  "rule": {
+    "required": "Ce champ est obligatoire",
+    "columnRequired": "Veuillez ajouter au moins une colonne",
+    "columnSelected": "Veuillez sélectionner au moins une colonne"
+  },
   "nav": {
     "application": "Application",
     "references": "Référentiels",
@@ -35,36 +40,36 @@
     "label": "Nom de l'application en {0}",
     "frPlaceholder": "SOERE avec dépôt, ...",
     "enPlaceholder": "SOERE with repository, ...",
-    "checkbox": "Faire de l’anglais la langue par défaut"
+    "checkbox": "Faire de l’anglais la langue par défaut",
+    "errors": {
+      "required": "Le nom de l'application est obligatoire",
+      "length": "Le nom de l'application doit contenir moins de 26 caractères"
+    }
   },
   "references": {
     "title": "Référentiels",
     "subtitle": "Vous pouvez ajouter depuis cette page les référentiels de l’application. Soit à partir d’un fichier CSV à importer, soit en ajoutant manuellement chaque référentiel.",
-    "table": {
-      "referenceName": "Nom du référentiel",
-      "columnsNumber": "Nombre de colonnes",
-      "keyColumns": "Colonnes clé",
-      "actions": "Actions"
-    },
-    "form": {
-      "label": "Nom du référentiel en {0}",
-      "frPlaceholder": "Espèces, ...",
-      "enPlaceholder": "Species, ...",
-      "columnName": "Nom de la colonne",
-      "placeholder": "esp_nom,  ...",
-      "keyColumn": "Colonne clé"
-    }
+    "referenceName": "Nom du référentiel",
+    "columnsNumber": "Nombre de colonnes",
+    "keyColumns": "Colonnes clé",
+    "actions": "Actions"
+  },
+  "reference": {
+    "label": "Nom du référentiel en {0}",
+    "frPlaceholder": "Espèces, ...",
+    "enPlaceholder": "Species, ...",
+    "columnName": "Nom de la colonne",
+    "placeholder": "esp_nom,  ...",
+    "keyColumn": "Colonne clé"
   },
   "dataTypes": {
     "title": "Types de données",
-    "table": {
-      "dataTypeName": "Nom du type de données"
-    },
-    "form": {
-      "label": "Nom du type de données en {0}",
-      "frPlaceholder": "Piégeage en Montée, ...",
-      "enPlaceholder": "Trap in ascent, ..."
-    }
+    "dataTypeName": "Nom du type de données"
+  },
+  "dataType": {
+    "label": "Nom du type de données en {0}",
+    "frPlaceholder": "Piégeage en Montée, ...",
+    "enPlaceholder": "Trap in ascent, ..."
   },
   "visualization": {
     "title": "Visualisation"

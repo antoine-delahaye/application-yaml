@@ -14,7 +14,10 @@
       return {
         dataTypeNameFr: null,
         dataTypeNameEn: null,
-        update: false
+        update: false,
+        rules: {
+          dataTypeNameFr: v => !!v || this.t('rule.required')
+        }
       }
     },
 
@@ -35,7 +38,7 @@
 
     methods: {
       addDataType() {
-        if (this.dataTypeNameFr !== null) {
+        if (this.$refs.dataType.validate() && this.dataTypeNameFr !== null) {
           let index = this.dataTypeNameFr.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
           this.yamlStore.dataTypes[index] = {
             internationalizationName: {
@@ -55,11 +58,11 @@
   <v-dialog>
     <v-card width="80rem">
       <v-card-content>
-        <v-form>
+        <v-form ref="dataType">
           <div class="d-flex gap-3">
-            <v-text-field :label="t('dataTypes.form.label', ['français', 'French'])" :placeholder="t('dataTypes.form.frPlaceholder')"
-                          variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint v-model="dataTypeNameFr"/>
-            <v-text-field :label="t('dataTypes.form.label', ['anglais', 'English'])" :placeholder="t('dataTypes.form.enPlaceholder')"
+            <v-text-field :label="t('dataType.label', ['français', 'French'])" :placeholder="t('dataType.frPlaceholder')"
+                          variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint v-model="dataTypeNameFr" :rules="[rules.dataTypeNameFr]"/>
+            <v-text-field :label="t('dataType.label', ['anglais', 'English'])" :placeholder="t('dataType.enPlaceholder')"
                           variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint v-model="dataTypeNameEn"/>
           </div>
         </v-form>

@@ -23,8 +23,8 @@
         nameEn: this.yamlStore.application.internationalizationName.en,
         enByDefault: lang[this.yamlStore.application.defaultLanguage],
         inputRules: [
-          (v) => !!v || this.t('application.fr.errors.required'),
-          (v) => (v && v.length <= 26) || this.t('application.fr.errors.length')
+          (v) => !!v || this.t('application.errors.required'),
+          (v) => (v && v.length <= 26) || this.t('application.errors.length')
         ]
       }
     },

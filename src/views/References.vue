@@ -51,9 +51,9 @@
             <thead>
             <tr>
               <th/>
-              <th class="text-left" v-text="t('references.table.referenceName')"/>
-              <th class="text-left" v-text="t('references.table.columnsNumber')"/>
-              <th class="text-left" v-text="t('references.table.keyColumns')"/>
+              <th class="text-left" v-text="t('references.referenceName')"/>
+              <th class="text-left" v-text="t('references.columnsNumber')"/>
+              <th class="text-left" v-text="t('references.keyColumns')"/>
             </tr>
             </thead>
             <tbody>

@@ -51,7 +51,7 @@
             <thead>
             <tr>
               <th/>
-              <th class="text-left" v-text="t('dataTypes.table.dataTypeName')"/>
+              <th class="text-left" v-text="t('dataTypes.dataTypeName')"/>
             </tr>
             </thead>
             <tbody>

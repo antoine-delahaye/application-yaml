@@ -60,7 +60,6 @@
         <v-card-content>
           <v-form ref="application">
             <div class="d-flex gap-3">
-<!--              TODO: v-for, set name, retour utilisateur, couleur de validation (vert, rouge, orange), popup alerte suppression, -->
               <v-text-field :label="t('application.label')" :placeholder="t('application.frPlaceholder')"
                             variant="outlined" color="primary" v-model="nameFr" :hint="t('hint.required')"
                             persistent-hint :rules="inputRules"/>

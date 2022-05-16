@@ -12,10 +12,13 @@ export default defineConfig({
             autoImport: true
         }),
         vueI18n({
-            include: path.resolve(__dirname, '/src/locales/**')
+            include: path.resolve(__dirname, '/src/locales/**'),
+            globalSFCScope: false
         })
     ],
-    define: {'process.env': {}},
+    define: {
+        'process.env': {}
+    },
     resolve: {
         alias: {
             '@': path.resolve(__dirname, 'src')

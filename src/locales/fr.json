@@ -11,7 +11,25 @@
     "edit": "Modifier",
     "delete": "Supprimer",
     "close": "Fermer",
-    "dataType": "Type de données"
+    "dataType": "Type de données",
+    "cancel": "Annuler"
+  },
+  "hint": {
+    "optional": "Optionnel",
+    "required": "Obligatoire"
+  },
+  "rule": {
+    "required": "Ce champ est obligatoire",
+    "columnRequired": "Veuillez ajouter au moins une colonne",
+    "columnSelected": "Veuillez sélectionner au moins une colonne"
+  },
+  "alert": {
+    "info": "Informations",
+    "application": "Cette section contient le nom de l'application. Il est possible de l'internationaliser en y mettant le nom en anglais.",
+    "references": "Les références sont un ensemble d'informations permettant de préciser le contexte de la mesure ou de l'observation. Pour décrire un référentiel, on y liste les noms des colonnes souhaitées et précisant la liste des colonnes qui forment la clé naturelle.",
+    "dataTypes": "Types de données",
+    "visualization": "Visualisation",
+    "download": "Télécharger"
   },
   "nav": {
     "application": "Application",
@@ -27,60 +45,39 @@
   },
   "application": {
     "title": "Application",
-    "fr": {
-      "label": "Nom de l'application en français",
-      "placeholder": "SOERE avec dépôt, ...",
-      "hint": "Obligatoire",
-      "errors": {
-        "required": "Le nom de l'application est obligatoire",
-        "length": "Le nom de l'application doit contenir moins de 26 caractères"
-      }
-    },
-    "en": {
-      "label": "Nom de l'application en anglais",
-      "placeholder": "SOERE with repository, ...",
-      "hint": "Optionnel"
-    },
-    "checkbox": "Faire de l’anglais la langue par défaut"
+    "label": "Nom de l'application en {0}",
+    "frPlaceholder": "SOERE avec dépôt, ...",
+    "enPlaceholder": "SOERE with repository, ...",
+    "checkbox": "Faire de l’anglais la langue par défaut",
+    "errors": {
+      "required": "Le nom de l'application est obligatoire",
+      "length": "Le nom de l'application doit contenir moins de 26 caractères"
+    }
   },
   "references": {
     "title": "Référentiels",
     "subtitle": "Vous pouvez ajouter depuis cette page les référentiels de l’application. Soit à partir d’un fichier CSV à importer, soit en ajoutant manuellement chaque référentiel.",
-    "table": {
-      "referenceName": "Nom du référentiel",
-      "columnsNumber": "Nombre de colonnes",
-      "keyColumns": "Colonnes clé",
-      "actions": "Actions"
-    },
-    "form": {
-      "fr": {
-        "label": "Nom du référentiel en français",
-        "placeholder": "Espèces, ..."
-      },
-      "en": {
-        "label": "Du référentiel en anglais",
-        "placeholder": "Species, ..."
-      },
-      "columnName": "Nom de la colonne",
-      "placeholder": "esp_nom,  ...",
-      "keyColumn": "Colonne clé"
-    }
+    "referenceName": "Nom du référentiel",
+    "columnsNumber": "Nombre de colonnes",
+    "keyColumns": "Colonnes clé",
+    "actions": "Actions"
+  },
+  "reference": {
+    "label": "Nom du référentiel en {0}",
+    "frPlaceholder": "Espèces, ...",
+    "enPlaceholder": "Species, ...",
+    "columnName": "Nom de la colonne",
+    "placeholder": "esp_nom,  ...",
+    "keyColumn": "Colonne clé"
   },
   "dataTypes": {
     "title": "Types de données",
-    "table": {
-      "dataTypeName": "Nom du type de données"
-    },
-    "form": {
-      "fr": {
-        "label": "Nom du type de données en français",
-        "placeholder": "Piégeage en Montée, ..."
-      },
-      "en": {
-        "label": "Du type de données en anglais",
-        "placeholder": "Trap in ascent, ..."
-      }
-    }
+    "dataTypeName": "Nom du type de données"
+  },
+  "dataType": {
+    "label": "Nom du type de données en {0}",
+    "frPlaceholder": "Piégeage en Montée, ...",
+    "enPlaceholder": "Trap in ascent, ..."
   },
   "visualization": {
     "title": "Visualisation"
@@ -90,5 +87,8 @@
     "subtitle": "Vous pouvez télécharger le fichier de configuration de votre application !",
     "label": "Nom du fichier",
     "placeholder": "monsore, ..."
+  },
+  "delete": {
+    "title": "Suppression d'un {0}"
   }
 }

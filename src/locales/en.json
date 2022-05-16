@@ -11,7 +11,25 @@
     "edit": "Edit",
     "delete": "Delete",
     "close": "Close",
-    "dataType": "Data type"
+    "dataType": "Data type",
+    "cancel": "Cancel"
+  },
+  "hint": {
+    "optional": "Optional",
+    "required": "Required"
+  },
+  "rule": {
+    "required": "This field is required",
+    "columnRequired": "Please add at least one column",
+    "columnSelected": "Please select at least one column"
+  },
+  "alert": {
+    "info": "Informations",
+    "application": "This section contains the name of the application. It is possible to internationalize it by putting the name in English.",
+    "references": "References are a set of information used to specify the context of the measurement or observation. To describe a reference, we list the names of the desired columns and specify the list of columns that form the natural key.",
+    "dataTypes": "Type de données",
+    "visualization": "Visualisation",
+    "download": "Télécharger"
   },
   "nav": {
     "application": "Application",
@@ -27,66 +45,50 @@
   },
   "application": {
     "title": "Application",
-    "fr": {
-      "label": "Name of the application in French",
-      "placeholder": "SOERE avec dépôt, ...",
-      "hint": "Mandatory",
-      "errors": {
-        "required": "The application name is mandatory",
-        "length": "The application name must be less than 26 characters"
-      }
-    },
-    "en": {
-      "label": "Name of the application in English",
-      "placeholder": "SOERE with repository, ...",
-      "hint": "Optional"
-    },
-    "checkbox": "Make English the default language"
+    "label": "Name of the application in {1}",
+    "frPlaceholder": "SOERE avec dépôt, ...",
+    "enPlaceholder": "SOERE with repository, ...",
+    "checkbox": "Make English the default language",
+    "errors": {
+      "required": "The application name is mandatory",
+      "length": "The application name must be less than 26 characters"
+    }
   },
   "references": {
     "title": "References",
     "subtitle": "You can add the application references from this page. Either from a CSV file to import, or by manually adding each reference.",
-    "table": {
-      "referenceName": "Name of the reference",
-      "columnsNumber": "Number of columns",
-      "keyColumns": "Key columns",
-      "actions": "Actions"
-    },
-    "form": {
-      "fr": {
-        "label": "Name of the reference in French",
-        "placeholder": "Espèces, ..."
-      },
-      "en": {
-        "label": "Name of the reference in English",
-        "placeholder": "Species, ..."
-      },
-      "columnName": "Column name",
-      "placeholder": "esp_nom",
-      "keyColumn": "Key column"
-    }
+    "referenceName": "Name of the reference",
+    "columnsNumber": "Number of columns",
+    "keyColumns": "Key columns",
+    "actions": "Actions"
+  },
+  "reference": {
+    "label": "Name of the reference in {1}",
+    "frPlaceholder": "Espèces, ...",
+    "enPlaceholder": "Species, ...",
+    "columnName": "Column name",
+    "placeholder": "esp_nom",
+    "keyColumn": "Key column"
   },
   "dataTypes": {
     "title": "Data types",
-    "table": {
-      "dataTypeName": "Name of the data type"
-    },
-    "form": {
-      "fr": {
-        "label": "Name of the data type in French",
-        "placeholder": "Piégeage en Montée, ..."
-      },
-      "en": {
-        "label": "Name of the data type in English",
-        "placeholder": "Trap in ascent, ..."
-      }
-    }
+    "dataTypeName": "Name of the data type"
+  },
+  "dataType": {
+    "label": "Name of the data type in {1}",
+    "frPlaceholder": "Piégeage en Montée, ...",
+    "enPlaceholder": "Trap in ascent, ..."
   },
   "visualization": {
     "title": "Visualization"
   },
   "download": {
     "title": "Download",
-    "subtitle": "You can download your application configuration file!"
+    "subtitle": "You can download your application configuration file!",
+    "label": "Name of the file",
+    "placeholder": "monsore, ..."
+  },
+  "delete": {
+    "title": "Deleting a {1}"
   }
 }

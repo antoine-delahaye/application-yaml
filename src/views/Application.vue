@@ -1,5 +1,8 @@
 <script>
+  import {useI18n} from 'vue-i18n'
   import {reactive} from 'vue'
+
+  import {useYamlStore} from '/src/store/yaml'
 
   const lang = {
     'fr': false,
@@ -7,16 +10,21 @@
   }
 
   export default {
+    setup() {
+      const {t} = useI18n()
+      const yamlStore = useYamlStore()
+      return {t, yamlStore}
+    },
+
     data() {
       return {
-        t: this.i18n.t,
         application: reactive({}),
         nameFr: this.yamlStore.application.internationalizationName.fr,
         nameEn: this.yamlStore.application.internationalizationName.en,
         enByDefault: lang[this.yamlStore.application.defaultLanguage],
         inputRules: [
-          (v) => !!v || this.t('application.fr.errors.required'),
-          (v) => (v && v.length <= 26) || this.t('application.fr.errors.length')
+          (v) => !!v || this.t('application.errors.required'),
+          (v) => (v && v.length <= 26) || this.t('application.errors.length')
         ]
       }
     },
@@ -26,17 +34,6 @@
       this.nameEn = this.yamlStore.application.internationalizationName.en
       this.enByDefault = lang[this.yamlStore.application.defaultLanguage]
     },*/
-
-    props: {
-      i18n: {
-        type: Object,
-        required: true
-      },
-      yamlStore: {
-        type: Object,
-        required: true
-      }
-    },
 
     methods: {
       save() {
@@ -56,18 +53,24 @@
 </script>
 
 <template>
-  <v-main class="d-flex align-center">
+  <v-main>
+    <v-container fluid>
+      <v-alert type="info" border>
+        <v-alert-title v-text="t('alert.info')"/>
+        {{ t('alert.application') }}
+      </v-alert>
+    </v-container>
     <v-container fluid>
       <v-card max-width="50rem" class="mx-auto">
         <v-card-title>{{ t('application.title') }}</v-card-title>
         <v-card-content>
           <v-form ref="application">
             <div class="d-flex gap-3">
-              <v-text-field :label="t('application.fr.label')" :placeholder="t('application.fr.placeholder')"
-                            variant="outlined" color="primary" v-model="nameFr" :hint="t('application.fr.hint')"
+              <v-text-field :label="t('application.label', ['français', 'French'])" :placeholder="t('application.frPlaceholder')"
+                            variant="outlined" color="primary" v-model="nameFr" :hint="t('hint.required')"
                             persistent-hint :rules="inputRules"/>
-              <v-text-field :label="t('application.en.label')" :placeholder="t('application.en.placeholder')"
-                            variant="outlined" color="primary" :hint="t('application.en.hint')" v-model="nameEn"
+              <v-text-field :label="t('application.label', ['anglais', 'English'])" :placeholder="t('application.enPlaceholder')"
+                            variant="outlined" color="primary" :hint="t('hint.optional')" v-model="nameEn"
                             persistent-hint/>
             </div>
             <v-checkbox :label="t('application.checkbox')" color="primary" v-model="enByDefault" hide-details/>

@@ -1,16 +1,28 @@
 <script>
+  import {useI18n} from 'vue-i18n'
   import {reactive} from 'vue'
 
+  import {useYamlStore} from '/src/store/yaml'
+
   export default {
+    setup() {
+      const {t} = useI18n()
+      const yamlStore = useYamlStore()
+      return {t, yamlStore}
+    },
+
     data() {
       return {
-        t: this.i18n.t,
         referenceNameFr: null,
         referenceNameEn: null,
         keyColumns: [],
         columns: reactive({}),
         columnName: null,
-        update: false
+        update: false,
+        rules: {
+          referenceNameFr: v => !!v || this.t('rule.required'),
+          columns: v => Object.keys(this.columns).length > 0 || this.t('rule.required'),
+        }
       }
     },
 
@@ -25,14 +37,6 @@
     },
 
     props: {
-      i18n: {
-        type: Object,
-        required: true
-      },
-      yamlStore: {
-        type: Object,
-        required: true
-      },
       referenceName: {
         type: String,
         required: false
@@ -47,7 +51,7 @@
         }
       },
       addReference() {
-        if (this.referenceNameFr !== null && Object.keys(this.columns).length > 0) {
+        if (this.$refs.reference.validate() && this.referenceNameFr !== null && Object.keys(this.columns).length > 0) {
           let index = this.referenceNameFr.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
           this.yamlStore.references[index] = {
             internationalizationName: {
@@ -71,23 +75,25 @@
   <v-dialog>
     <v-card width="80rem">
       <v-card-content>
-        <v-form>
+        <v-form ref="reference">
           <div class="d-flex gap-3">
-            <v-text-field :label="t('references.form.fr.label')" :placeholder="t('references.form.fr.placeholder')"
-                          variant="outlined" color="primary" :hint="t('application.fr.hint')" persistent-hint v-model="referenceNameFr"/>
-            <v-text-field :label="t('references.form.en.label')" :placeholder="t('references.form.en.placeholder')"
-                          variant="outlined" color="primary" :hint="t('application.en.hint')" persistent-hint
-                          v-model="referenceNameEn"/>
+            <v-text-field :label="t('reference.label', ['français', 'French'])" :placeholder="t('reference.frPlaceholder')"
+                          variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint v-model="referenceNameFr" :rules="[rules.referenceNameFr]"/>
+            <v-text-field :label="t('reference.label', ['anglais', 'English'])" :placeholder="t('reference.enPlaceholder')"
+                          variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint v-model="referenceNameEn"/>
           </div>
-          <v-text-field :label="t('references.form.columnName')" :placeholder="t('references.form.placeholder')"
-                        variant="outlined" color="primary" hide-details append-icon="mdi-plus-circle"
-                        @click:append="addColumn" v-model="columnName" class="pr-2"/>
+          <div class="d-flex gap-3">
+            <v-text-field :label="t('reference.columnName')" :placeholder="t('reference.placeholder')"
+                          variant="outlined" color="primary" v-model="columnName" :rules="[rules.columns]"/>
+            <v-btn color="primary" @click="addColumn" icon="mdi-plus-circle" class="mt-1">
+            </v-btn>
+          </div>
           <v-table>
             <thead>
             <tr>
-              <th class="text-left" v-text="t('references.form.columnName')"/>
-              <th class="text-left" v-text="t('references.form.keyColumn')"/>
-              <th class="text-left" v-text="t('references.table.actions')"/>
+              <th class="text-left" v-text="t('reference.columnName')"/>
+              <th class="text-left" v-text="t('reference.keyColumn')"/>
+              <th class="text-left" v-text="t('references.actions')"/>
             </tr>
             </thead>
             <tbody>
@@ -107,19 +113,19 @@
             </tr>
             </tbody>
           </v-table>
-          <div class="d-flex justify-center gap-3 mt-5">
-            <v-btn prepend-icon="mdi-close" color="error" @click="$emit('close')">
-              {{ t('button.close') }}
-            </v-btn>
-            <v-btn v-if="update" prepend-icon="mdi-check" color="primary" @click="addReference">
-              {{ t('button.validate') }}
-            </v-btn>
-            <v-btn v-else prepend-icon="mdi-plus" color="primary" @click="addReference">
-              {{ t('button.add') }}
-            </v-btn>
-          </div>
         </v-form>
       </v-card-content>
+      <v-card-actions class="d-flex justify-center">
+        <v-btn prepend-icon="mdi-close" color="error" @click="$emit('close')">
+          {{ t('button.close') }}
+        </v-btn>
+        <v-btn v-if="update" prepend-icon="mdi-check" color="primary" @click="addReference">
+          {{ t('button.validate') }}
+        </v-btn>
+        <v-btn v-else prepend-icon="mdi-plus" color="primary" @click="addReference">
+          {{ t('button.add') }}
+        </v-btn>
+      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>

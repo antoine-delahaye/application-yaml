@@ -1,23 +1,20 @@
 <script>
+  import {useI18n} from 'vue-i18n'
   import {Document} from 'yaml'
   import {saveAs} from 'file-saver'
 
+  import {useYamlStore} from '/src/store/yaml'
+
   export default {
-    data() {
-      return {
-        t: this.i18n.t,
-        filename: null
-      }
+    setup() {
+      const {t} = useI18n()
+      const yamlStore = useYamlStore()
+      return {t, yamlStore}
     },
 
-    props: {
-      i18n: {
-        type: Object,
-        required: true
-      },
-      yamlStore: {
-        type: Object,
-        required: true
+    data() {
+      return {
+        filename: null
       }
     },
 
@@ -34,7 +31,13 @@
 </script>
 
 <template>
-  <v-main class="d-flex align-center">
+  <v-main>
+    <v-container fluid>
+      <v-alert type="info" border>
+        <v-alert-title v-text="t('alert.info')"/>
+        {{ t('alert.download') }}
+      </v-alert>
+    </v-container>
     <v-container fluid>
       <v-card max-width="40rem" class="mx-auto">
         <v-card-title v-text="t('download.title')"/>

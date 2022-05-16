@@ -23,6 +23,14 @@
     "columnRequired": "Veuillez ajouter au moins une colonne",
     "columnSelected": "Veuillez sélectionner au moins une colonne"
   },
+  "alert": {
+    "info": "Informations",
+    "application": "Cette section contient le nom de l'application. Il est possible de l'internationaliser en y mettant le nom en anglais.",
+    "references": "Les références sont un ensemble d'informations permettant de préciser le contexte de la mesure ou de l'observation. Pour décrire un référentiel, on y liste les noms des colonnes souhaitées et précisant la liste des colonnes qui forment la clé naturelle.",
+    "dataTypes": "Types de données",
+    "visualization": "Visualisation",
+    "download": "Télécharger"
+  },
   "nav": {
     "application": "Application",
     "references": "Référentiels",

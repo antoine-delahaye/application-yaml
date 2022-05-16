@@ -23,6 +23,14 @@
     "columnRequired": "Please add at least one column",
     "columnSelected": "Please select at least one column"
   },
+  "alert": {
+    "info": "Informations",
+    "application": "This section contains the name of the application. It is possible to internationalize it by putting the name in English.",
+    "references": "References are a set of information used to specify the context of the measurement or observation. To describe a reference, we list the names of the desired columns and specify the list of columns that form the natural key.",
+    "dataTypes": "Type de données",
+    "visualization": "Visualisation",
+    "download": "Télécharger"
+  },
   "nav": {
     "application": "Application",
     "references": "References",

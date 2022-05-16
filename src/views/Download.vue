@@ -31,7 +31,13 @@
 </script>
 
 <template>
-  <v-main class="d-flex align-center">
+  <v-main>
+    <v-container fluid>
+      <v-alert type="info" border>
+        <v-alert-title v-text="t('alert.info')"/>
+        {{ t('alert.download') }}
+      </v-alert>
+    </v-container>
     <v-container fluid>
       <v-card max-width="40rem" class="mx-auto">
         <v-card-title v-text="t('download.title')"/>

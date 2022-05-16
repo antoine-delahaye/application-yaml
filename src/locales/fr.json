@@ -25,7 +25,11 @@
   },
   "alert": {
     "info": "Informations",
-    "references": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae diam justo. Suspendisse ante mauris, pretium quis rutrum vitae, dictum non urna. Vestibulum quis neque metus. Vivamus quis ex vel nisi venenatis volutpat sed ornare metus. Cras accumsan eget eros quis rhoncus. Ut ut lacinia mauris. Sed mollis magna vel mauris gravida, eu pretium neque convallis. Suspendisse pulvinar erat nec neque ultricies vehicula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et iaculis purus, sit amet dignissim sapien."
+    "application": "Cette section contient le nom de l'application. Il est possible de l'internationaliser en y mettant le nom en anglais.",
+    "references": "Les références sont un ensemble d'informations permettant de préciser le contexte de la mesure ou de l'observation. Pour décrire un référentiel, on y liste les noms des colonnes souhaitées et précisant la liste des colonnes qui forment la clé naturelle.",
+    "dataTypes": "Types de données",
+    "visualization": "Visualisation",
+    "download": "Télécharger"
   },
   "nav": {
     "application": "Application",

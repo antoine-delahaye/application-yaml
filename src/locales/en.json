@@ -25,7 +25,11 @@
   },
   "alert": {
     "info": "Informations",
-    "references": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi vitae diam justo. Suspendisse ante mauris, pretium quis rutrum vitae, dictum non urna. Vestibulum quis neque metus. Vivamus quis ex vel nisi venenatis volutpat sed ornare metus. Cras accumsan eget eros quis rhoncus. Ut ut lacinia mauris. Sed mollis magna vel mauris gravida, eu pretium neque convallis. Suspendisse pulvinar erat nec neque ultricies vehicula. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec et iaculis purus, sit amet dignissim sapien."
+    "application": "This section contains the name of the application. It is possible to internationalize it by putting the name in English.",
+    "references": "References are a set of information used to specify the context of the measurement or observation. To describe a reference, we list the names of the desired columns and specify the list of columns that form the natural key.",
+    "dataTypes": "Type de données",
+    "visualization": "Visualisation",
+    "download": "Télécharger"
   },
   "nav": {
     "application": "Application",

@@ -22,6 +22,12 @@
 <template>
   <v-main>
     <v-container fluid>
+      <v-alert type="info" border>
+        <v-alert-title v-text="t('alert.info')"/>
+        {{ t('alert.visualization') }}
+      </v-alert>
+    </v-container>
+    <v-container fluid>
       <v-card>
         <v-card-title v-text="t('visualization.title')"/>
         <v-card-content>

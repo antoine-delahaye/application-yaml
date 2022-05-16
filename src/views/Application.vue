@@ -53,7 +53,13 @@
 </script>
 
 <template>
-  <v-main class="d-flex align-center">
+  <v-main>
+    <v-container fluid>
+      <v-alert type="info" border>
+        <v-alert-title v-text="t('alert.info')"/>
+        {{ t('alert.application') }}
+      </v-alert>
+    </v-container>
     <v-container fluid>
       <v-card max-width="50rem" class="mx-auto">
         <v-card-title>{{ t('application.title') }}</v-card-title>

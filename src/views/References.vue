@@ -1,6 +1,7 @@
 <script>
   import {useI18n} from 'vue-i18n'
   import {storeToRefs} from 'pinia'
+  import {parseDocument} from 'yaml'
 
   import Reference from '/src/components/Reference.vue'
   import DeleteAlert from '/src/components/DeleteAlert.vue'
@@ -16,13 +17,33 @@
 
     data() {
       return {
-        selectedKey: "null"
+        selectedKey: "null",
+        isSelecting: false,
+        selectedFile: null
       }
     },
 
     components: {
       Reference,
       DeleteAlert
+    },
+
+    methods: {
+      handleFileImport() {
+        this.isSelecting = true
+        window.addEventListener('focus', () => {
+          this.isSelecting = false
+        }, {once: true})
+        this.$refs.uploader.click()
+      },
+      onFileChanged(e) {
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          this.selectedFile = e.target.result
+          this.references = (parseDocument(this.selectedFile).toJSON()).references
+        }
+        reader.readAsText(e.target.files[0])
+      }
     }
   }
 </script>
@@ -77,7 +98,9 @@
     </v-container>
   </v-main>
   <v-container fluid class="d-flex justify-end gap-3">
-    <v-btn prepend-icon="mdi-upload" color="primary" rounded="pill" size="large">
+    <input ref="uploader" hidden type="file" @change="onFileChanged" accept=".yml, .yaml"/>
+    <v-btn prepend-icon="mdi-upload" color="primary" rounded="pill" size="large" :loading="isSelecting"
+           @click="handleFileImport">
       {{ t('button.upload') }}
     </v-btn>
     <v-btn prepend-icon="mdi-plus" color="primary" rounded="pill" size="large">

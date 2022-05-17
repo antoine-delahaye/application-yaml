@@ -20,6 +20,7 @@
   },
   "rule": {
     "required": "This field is required",
+    "length": "The length of this field must be lower than {length} characters",
     "columnRequired": "Please add at least one column",
     "columnSelected": "Please select at least one column"
   },

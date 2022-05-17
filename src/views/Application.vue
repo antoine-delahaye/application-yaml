@@ -14,14 +14,16 @@
     data() {
       return {
         inputRules: [
-          (v) => !!v || this.t('application.errors.required'),
-          (v) => (v && v.length <= 26) || this.t('application.errors.length')
+          (v) => !!v || this.t('rule.required'),
+          (v) => (v && v.length <= 26) || this.t('rule.length', {length: 27}),
         ]
       }
     },
 
     unmounted() {
-      this.application.name = (this.application.internationalizationName.fr).replace(/[&\/\\#, +()$~%.'":*?<>{}]/g, '_').toLowerCase()
+      if (this.application.name !== null) {
+        this.application.name = (this.application.internationalizationName.fr).replace(/[&\/\\#, +()$~%.'":*?<>{}]/g, '_').toLowerCase()
+      }
     }
   }
 </script>
@@ -42,14 +44,17 @@
             <div class="d-flex gap-3">
               <v-text-field :label="t('application.label', ['français', 'French'])"
                             :placeholder="t('application.frPlaceholder')"
-                            variant="outlined" color="primary" v-model="application.internationalizationName.fr" :hint="t('hint.required')"
+                            variant="outlined" color="primary" v-model="application.internationalizationName.fr"
+                            :hint="t('hint.required')"
                             persistent-hint :rules="inputRules"/>
               <v-text-field :label="t('application.label', ['anglais', 'English'])"
                             :placeholder="t('application.enPlaceholder')"
-                            variant="outlined" color="primary" :hint="t('hint.optional')" v-model="application.internationalizationName.en"
+                            variant="outlined" color="primary" :hint="t('hint.optional')"
+                            v-model="application.internationalizationName.en"
                             persistent-hint/>
             </div>
-            <v-switch v-model="application.defaultLanguage" color="primary" hide-details true-value="en" false-value="fr" :label="t('application.checkbox')"/>
+            <v-switch v-model="application.defaultLanguage" color="primary" hide-details true-value="en"
+                      false-value="fr" :label="t('application.checkbox')"/>
           </v-form>
         </v-card-content>
       </v-card>

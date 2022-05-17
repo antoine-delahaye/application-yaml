@@ -10,6 +10,12 @@
       return {t, yamlStore}
     },
 
+    data() {
+      return {
+        dialog: false
+      }
+    },
+
     props: {
       locale: {
         type: Array,
@@ -28,14 +34,14 @@
 </script>
 
 <template>
-  <v-dialog>
+  <v-dialog activator="parent" v-model="dialog">
     <v-card width="30rem">
       <v-card-title v-text="t('delete.title', locale)"/>
       <v-card-actions class="d-flex justify-center">
-        <v-btn prepend-icon="mdi-close" color="primary" @click="$emit('close')">
+        <v-btn prepend-icon="mdi-close" color="primary" @click="dialog = false">
           {{ t('button.cancel') }}
         </v-btn>
-        <v-btn prepend-icon="mdi-delete" color="error" @click="isReference ? delete yamlStore.references[selectedKey] : delete yamlStore.dataTypes[selectedKey]; $emit('close')">
+        <v-btn prepend-icon="mdi-delete" color="error" @click="isReference ? delete yamlStore.references[selectedKey] : delete yamlStore.dataTypes[selectedKey]; dialog = false">
           {{ t('button.delete') }}
         </v-btn>
       </v-card-actions>

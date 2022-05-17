@@ -17,7 +17,8 @@
         update: false,
         rules: {
           dataTypeNameFr: v => !!v || this.t('rule.required')
-        }
+        },
+        dialog: false
       }
     },
 
@@ -55,7 +56,7 @@
 </script>
 
 <template>
-  <v-dialog>
+  <v-dialog activator="parent" v-model="dialog">
     <v-card width="80rem">
       <v-card-content>
         <v-form ref="dataType">
@@ -68,7 +69,7 @@
         </v-form>
       </v-card-content>
       <v-card-actions class="d-flex justify-center">
-        <v-btn prepend-icon="mdi-close" color="error" @click="$emit('close')">
+        <v-btn prepend-icon="mdi-close" color="error" @click="dialog = false">
           {{ t('button.close') }}
         </v-btn>
         <v-btn v-if="update" prepend-icon="mdi-check" color="primary" @click="addDataType">

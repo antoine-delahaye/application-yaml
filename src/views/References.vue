@@ -15,10 +15,7 @@
 
     data() {
       return {
-        editReferenceDialog: false,
-        addReferenceDialog: false,
-        deleteAlertDialog: false,
-        selectedKey: null
+        selectedKey: "null"
       }
     },
 
@@ -39,34 +36,19 @@
     </v-container>
     <v-container fluid>
       <v-card>
-        <v-card-title>
-          {{ t('references.title') }}
-          <div class="d-flex gap-1 ml-auto">
-            <v-btn prepend-icon="mdi-pencil" color="primary" class="mr-3" :disabled="selectedKey === null">
-              {{ t('button.edit') }}
-              <Reference v-model="editReferenceDialog" @close="editReferenceDialog = false" activator="parent" :reference-name="selectedKey"/>
-            </v-btn>
-            <v-btn prepend-icon="mdi-delete" color="error" :disabled="selectedKey === null">
-              {{ t('button.delete') }}
-              <DeleteAlert v-model="deleteAlertDialog" @close="deleteAlertDialog = false" activator="parent" :locale="['référentiel', 'reference']" :is-reference="true" :selectedKey="selectedKey"/>
-            </v-btn>
-          </div>
-        </v-card-title>
+        <v-card-title v-text="t('references.title')"/>
         <v-card-content>
           <v-table>
             <thead>
             <tr>
-              <th/>
               <th class="text-left" v-text="t('references.referenceName')"/>
               <th class="text-left" v-text="t('references.columnsNumber')"/>
               <th class="text-left" v-text="t('references.keyColumns')"/>
+              <th class="text-left" v-text="'Actions'"/>
             </tr>
             </thead>
             <tbody>
             <tr v-for="(_, key) in yamlStore.references">
-              <td>
-                <v-checkbox color="primary" :value="key" v-model="selectedKey" hide-details/>
-              </td>
               <td>
                 {{ key }}
               </td>
@@ -75,6 +57,16 @@
               </td>
               <td>
                 {{ yamlStore.references[key].keyColumns.join(', ') }}
+              </td>
+              <td class="d-flex align-center gap-3">
+                <v-btn size="small" color="error">
+                  <v-icon icon="mdi-delete"/>
+                  <DeleteAlert :selected-key="key" :is-reference="true" :locale="['référentiel', 'reference']"/>
+                </v-btn>
+                <v-btn size="small" color="primary">
+                  <v-icon icon="mdi-pencil"/>
+                  <Reference :reference-name="key"/>
+                </v-btn>
               </td>
             </tr>
             </tbody>
@@ -89,7 +81,7 @@
     </v-btn>
     <v-btn prepend-icon="mdi-plus" color="primary" rounded="pill" size="large">
       {{ t('button.reference') }}
-      <Reference v-model="addReferenceDialog" @close="addReferenceDialog = false" activator="parent" :reference-name="null"/>
+      <Reference :reference-name="null"/>
     </v-btn>
   </v-container>
 </template>

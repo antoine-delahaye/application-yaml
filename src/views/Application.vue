@@ -1,52 +1,22 @@
 <script>
   import {useI18n} from 'vue-i18n'
-  import {reactive} from 'vue'
+  import {storeToRefs} from 'pinia'
 
   import {useYamlStore} from '/src/store/yaml'
-
-  const lang = {
-    'fr': false,
-    'en': true
-  }
 
   export default {
     setup() {
       const {t} = useI18n()
-      const yamlStore = useYamlStore()
-      return {t, yamlStore}
+      const {application} = storeToRefs(useYamlStore())
+      return {t, application}
     },
 
     data() {
       return {
-        application: reactive({}),
-        nameFr: this.yamlStore.application.internationalizationName.fr,
-        nameEn: this.yamlStore.application.internationalizationName.en,
-        enByDefault: lang[this.yamlStore.application.defaultLanguage],
         inputRules: [
           (v) => !!v || this.t('application.errors.required'),
           (v) => (v && v.length <= 26) || this.t('application.errors.length')
         ]
-      }
-    },
-
-    /*mounted() {
-      this.nameFr = this.yamlStore.application.internationalizationName.fr
-      this.nameEn = this.yamlStore.application.internationalizationName.en
-      this.enByDefault = lang[this.yamlStore.application.defaultLanguage]
-    },*/
-
-    methods: {
-      save() {
-        if (this.$refs.application.validate()) {
-          this.application['defaultLanguage'] = this.enByDefault ? 'en' : 'fr'
-          this.application['internationalizationName'] = {
-            'fr': this.nameFr,
-          }
-          if (this.nameEn !== null) {
-            this.application['internationalizationName']['en'] = this.nameEn
-          }
-          this.yamlStore.setApplication(this.application)
-        }
       }
     }
   }
@@ -64,23 +34,20 @@
       <v-card max-width="50rem" class="mx-auto">
         <v-card-title>{{ t('application.title') }}</v-card-title>
         <v-card-content>
-          <v-form ref="application">
+          <v-form>
             <div class="d-flex gap-3">
-              <v-text-field :label="t('application.label', ['français', 'French'])" :placeholder="t('application.frPlaceholder')"
-                            variant="outlined" color="primary" v-model="nameFr" :hint="t('hint.required')"
+              <v-text-field :label="t('application.label', ['français', 'French'])"
+                            :placeholder="t('application.frPlaceholder')"
+                            variant="outlined" color="primary" v-model="application.internationalizationName.fr" :hint="t('hint.required')"
                             persistent-hint :rules="inputRules"/>
-              <v-text-field :label="t('application.label', ['anglais', 'English'])" :placeholder="t('application.enPlaceholder')"
-                            variant="outlined" color="primary" :hint="t('hint.optional')" v-model="nameEn"
+              <v-text-field :label="t('application.label', ['anglais', 'English'])"
+                            :placeholder="t('application.enPlaceholder')"
+                            variant="outlined" color="primary" :hint="t('hint.optional')" v-model="application.internationalizationName.en"
                             persistent-hint/>
             </div>
-            <v-checkbox :label="t('application.checkbox')" color="primary" v-model="enByDefault" hide-details/>
+            <v-switch v-model="application.defaultLanguage" color="primary" hide-details true-value="en" false-value="fr" :label="t('application.checkbox')"/>
           </v-form>
         </v-card-content>
-        <v-card-actions class="d-flex justify-center">
-          <v-btn prepend-icon="mdi-check" color="primary" @click="save">
-            {{ t('button.validate') }}
-          </v-btn>
-        </v-card-actions>
       </v-card>
     </v-container>
   </v-main>

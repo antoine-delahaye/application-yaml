@@ -47,7 +47,7 @@
         <v-card-title v-text="t('home.title')"/>
         <v-card-content v-text="t('home.content')"/>
         <v-card-actions class="d-flex justify-center">
-          <input ref="uploader" class="d-none" type="file" @change="onFileChanged"/>
+          <input ref="uploader" hidden type="file" @change="onFileChanged" accept=".yml, .yaml"/>
           <v-btn prepend-icon="mdi-upload" color="primary" :loading="isSelecting" @click="handleFileImport">
             {{ t('button.upload') }}
           </v-btn>

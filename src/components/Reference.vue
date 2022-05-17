@@ -22,7 +22,8 @@
         rules: {
           referenceNameFr: v => !!v || this.t('rule.required'),
           columns: v => Object.keys(this.columns).length > 0 || this.t('rule.required'),
-        }
+        },
+        dialog: false
       }
     },
 
@@ -72,20 +73,25 @@
 </script>
 
 <template>
-  <v-dialog>
+  <v-dialog activator="parent" v-model="dialog">
     <v-card width="80rem">
       <v-card-content>
         <v-form ref="reference">
           <div class="d-flex gap-3">
-            <v-text-field :label="t('reference.label', ['français', 'French'])" :placeholder="t('reference.frPlaceholder')"
-                          variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint v-model="referenceNameFr" :rules="[rules.referenceNameFr]"/>
-            <v-text-field :label="t('reference.label', ['anglais', 'English'])" :placeholder="t('reference.enPlaceholder')"
-                          variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint v-model="referenceNameEn"/>
+            <v-text-field :label="t('reference.label', ['français', 'French'])"
+                          :placeholder="t('reference.frPlaceholder')"
+                          variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint
+                          v-model="referenceNameFr" :rules="[rules.referenceNameFr]"/>
+            <v-text-field :label="t('reference.label', ['anglais', 'English'])"
+                          :placeholder="t('reference.enPlaceholder')"
+                          variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint
+                          v-model="referenceNameEn"/>
           </div>
           <div class="d-flex gap-3">
             <v-text-field :label="t('reference.columnName')" :placeholder="t('reference.placeholder')"
                           variant="outlined" color="primary" v-model="columnName" :rules="[rules.columns]"/>
-            <v-btn color="primary" @click="addColumn" icon="mdi-plus-circle" class="mt-1">
+            <v-btn color="primary" @click="addColumn" class="mt-2">
+              <v-icon icon="mdi-plus-circle"/>
             </v-btn>
           </div>
           <v-table>
@@ -107,8 +113,14 @@
                 <v-checkbox color="primary" :value="key" v-model="keyColumns" hide-details/>
               </td>
               <td>
-                <v-btn icon="mdi-pencil" size="small" color="primary" class="mr-3"/>
-                <v-btn icon="mdi-delete" size="small" color="error" @click="delete columns[key]"/>
+                <div class="d-flex align-center gap-3">
+                  <v-btn size="small" color="error" @click="delete columns[key]">
+                    <v-icon icon="mdi-delete"/>
+                  </v-btn>
+                  <v-btn size="small" color="primary">
+                    <v-icon icon="mdi-pencil"/>
+                  </v-btn>
+                </div>
               </td>
             </tr>
             </tbody>
@@ -116,7 +128,7 @@
         </v-form>
       </v-card-content>
       <v-card-actions class="d-flex justify-center">
-        <v-btn prepend-icon="mdi-close" color="error" @click="$emit('close')">
+        <v-btn prepend-icon="mdi-close" color="error" @click="dialog = false">
           {{ t('button.close') }}
         </v-btn>
         <v-btn v-if="update" prepend-icon="mdi-check" color="primary" @click="addReference">

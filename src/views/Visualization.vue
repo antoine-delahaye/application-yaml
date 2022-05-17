@@ -1,24 +1,16 @@
 <script>
+  import {useI18n} from 'vue-i18n'
   import {JsonViewer} from 'vue3-json-viewer'
+
+  import {useYamlStore} from '/src/store/yaml'
 
   import 'vue3-json-viewer/dist/index.css'
 
   export default {
-    data() {
-      return {
-        t: this.i18n.t,
-      }
-    },
-
-    props: {
-      i18n: {
-        type: Object,
-        required: true
-      },
-      yamlStore: {
-        type: Object,
-        required: true
-      }
+    setup() {
+      const {t} = useI18n()
+      const yamlStore = useYamlStore()
+      return {t, yamlStore}
     },
 
     components: {
@@ -29,6 +21,12 @@
 
 <template>
   <v-main>
+    <v-container fluid>
+      <v-alert type="info" border>
+        <v-alert-title v-text="t('alert.info')"/>
+        {{ t('alert.visualization') }}
+      </v-alert>
+    </v-container>
     <v-container fluid>
       <v-card>
         <v-card-title v-text="t('visualization.title')"/>

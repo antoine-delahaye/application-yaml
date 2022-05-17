@@ -1,23 +1,20 @@
 <script>
+  import {useI18n} from 'vue-i18n'
   import {parseDocument} from 'yaml'
 
+  import {useYamlStore} from '/src/store/yaml'
+
   export default {
-    data() {
-      return {
-        t: this.i18n.t,
-        isSelecting: false,
-        selectedFile: null
-      }
+    setup() {
+      const {t} = useI18n()
+      const yamlStore = useYamlStore()
+      return {t, yamlStore}
     },
 
-    props: {
-      i18n: {
-        type: Object,
-        required: true
-      },
-      yamlStore: {
-        type: Object,
-        required: true
+    data() {
+      return {
+        isSelecting: false,
+        selectedFile: null
       }
     },
 
@@ -50,7 +47,7 @@
         <v-card-title v-text="t('home.title')"/>
         <v-card-content v-text="t('home.content')"/>
         <v-card-actions class="d-flex justify-center">
-          <input ref="uploader" class="d-none" type="file" @change="onFileChanged"/>
+          <input ref="uploader" hidden type="file" @change="onFileChanged" accept=".yml, .yaml"/>
           <v-btn prepend-icon="mdi-upload" color="primary" :loading="isSelecting" @click="handleFileImport">
             {{ t('button.upload') }}
           </v-btn>

@@ -18,6 +18,10 @@
           (v) => (v && v.length <= 26) || this.t('application.errors.length')
         ]
       }
+    },
+
+    unmounted() {
+      this.application.name = (this.application.internationalizationName.fr).replace(/[&\/\\#, +()$~%.'":*?<>{}]/g, '_').toLowerCase()
     }
   }
 </script>

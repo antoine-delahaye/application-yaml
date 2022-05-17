@@ -51,10 +51,6 @@ export const useYamlStore = defineStore({
             this.dataTypes = {}
         },
 
-        setApplication(application) {
-            this.application = application
-        },
-
         addReference(index, reference) {
             this.references[index] = reference
         }

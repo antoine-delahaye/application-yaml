@@ -1,5 +1,6 @@
 <script>
   import {useI18n} from 'vue-i18n'
+  import {storeToRefs} from 'pinia'
 
   import DataType from '/src/components/DataType.vue'
   import DeleteAlert from '/src/components/DeleteAlert.vue'
@@ -9,8 +10,8 @@
   export default {
     setup() {
       const {t} = useI18n()
-      const yamlStore = useYamlStore()
-      return {t, yamlStore}
+      const {dataTypes} = storeToRefs(useYamlStore())
+      return {t, dataTypes}
     },
 
     data() {
@@ -49,7 +50,7 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(_, key) in yamlStore.dataTypes">
+            <tr v-for="(_, key) in dataTypes">
               <td>
                 {{ key }}
               </td>

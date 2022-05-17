@@ -1,14 +1,15 @@
 <script>
   import {useI18n} from 'vue-i18n'
   import {reactive} from 'vue'
+  import {storeToRefs} from 'pinia'
 
   import {useYamlStore} from '/src/store/yaml'
 
   export default {
     setup() {
       const {t} = useI18n()
-      const yamlStore = useYamlStore()
-      return {t, yamlStore}
+      const {references} = storeToRefs(useYamlStore())
+      return {t, references}
     },
 
     data() {
@@ -30,10 +31,10 @@
     updated() {
       if (this.referenceName !== null) {
         this.update = true
-        this.referenceNameFr = this.yamlStore.references[this.referenceName].internationalizationName.fr
-        this.referenceNameEn = this.yamlStore.references[this.referenceName].internationalizationName.en
-        this.keyColumns = this.yamlStore.references[this.referenceName].keyColumns
-        this.columns = this.yamlStore.references[this.referenceName].columns
+        this.referenceNameFr = this.references[this.referenceName].internationalizationName.fr
+        this.referenceNameEn = this.references[this.referenceName].internationalizationName.en
+        this.keyColumns = this.references[this.referenceName].keyColumns
+        this.columns = this.references[this.referenceName].columns
       }
     },
 
@@ -53,15 +54,15 @@
       },
       addReference() {
         if (this.$refs.reference.validate() && this.referenceNameFr !== null && Object.keys(this.columns).length > 0) {
-          let index = this.referenceNameFr.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
-          this.yamlStore.references[index] = {
+          let index = this.referenceNameFr.replace(/[&\/\\#, +()$~%.'":*?<>{}]/g, '_').toLowerCase()
+          this.references[index] = {
             internationalizationName: {
               fr: this.referenceNameFr,
               en: this.referenceNameEn
             }
           }
-          this.yamlStore.references[index]['keyColumns'] = this.keyColumns
-          this.yamlStore.references[index]['columns'] = this.columns
+          this.references[index]['keyColumns'] = this.keyColumns
+          this.references[index]['columns'] = this.columns
           this.keyColumns = []
           this.columns = reactive({})
           this.referenceNameFr = null

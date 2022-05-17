@@ -1,5 +1,6 @@
 <script>
   import {useI18n} from 'vue-i18n'
+  import {storeToRefs} from 'pinia'
 
   import Reference from '/src/components/Reference.vue'
   import DeleteAlert from '/src/components/DeleteAlert.vue'
@@ -9,8 +10,8 @@
   export default {
     setup() {
       const {t} = useI18n()
-      const yamlStore = useYamlStore()
-      return {t, yamlStore}
+      const {references} = storeToRefs(useYamlStore())
+      return {t, references}
     },
 
     data() {
@@ -48,15 +49,15 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(_, key) in yamlStore.references">
+            <tr v-for="(_, key) in references">
               <td>
                 {{ key }}
               </td>
               <td>
-                {{ Object.keys(yamlStore.references[key].columns).length }}
+                {{ Object.keys(references[key].columns).length }}
               </td>
               <td>
-                {{ yamlStore.references[key].keyColumns.join(', ') }}
+                {{ references[key].keyColumns.join(', ') }}
               </td>
               <td class="d-flex align-center gap-3">
                 <v-btn size="small" color="error">

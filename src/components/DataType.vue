@@ -1,13 +1,14 @@
 <script>
   import {useI18n} from 'vue-i18n'
+  import {storeToRefs} from 'pinia'
 
   import {useYamlStore} from '/src/store/yaml'
 
   export default {
     setup() {
       const {t} = useI18n()
-      const yamlStore = useYamlStore()
-      return {t, yamlStore}
+      const {dataTypes} = storeToRefs(useYamlStore())
+      return {t, dataTypes}
     },
 
     data() {
@@ -25,8 +26,8 @@
     updated() {
       if (this.dataTypeName !== null) {
         this.update = true
-        this.dataTypeNameFr = this.yamlStore.dataTypes[this.dataTypeName].internationalizationName.fr
-        this.dataTypeNameEn = this.yamlStore.dataTypes[this.dataTypeName].internationalizationName.en
+        this.dataTypeNameFr = this.dataTypes[this.dataTypeName].internationalizationName.fr
+        this.dataTypeNameEn = this.dataTypes[this.dataTypeName].internationalizationName.en
       }
     },
 
@@ -40,8 +41,8 @@
     methods: {
       addDataType() {
         if (this.$refs.dataType.validate() && this.dataTypeNameFr !== null) {
-          let index = this.dataTypeNameFr.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
-          this.yamlStore.dataTypes[index] = {
+          let index = this.dataTypeNameFr.replace(/[&\/\\#, +()$~%.'":*?<>{}]/g, '_').toLowerCase()
+          this.dataTypes[index] = {
             internationalizationName: {
               fr: this.dataTypeNameFr,
               en: this.dataTypeNameEn

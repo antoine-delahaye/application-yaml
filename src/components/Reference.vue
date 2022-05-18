@@ -4,6 +4,7 @@
   import {storeToRefs} from 'pinia'
 
   import {useYamlStore} from '/src/store/yaml'
+  import getIndexName from '/src/utils'
 
   export default {
     setup() {
@@ -54,7 +55,7 @@
       },
       addReference() {
         if (this.$refs.reference.validate() && this.referenceNameFr !== null && Object.keys(this.columns).length > 0) {
-          let index = this.referenceNameFr.replace(/[&\/\\#, +()$~%.'":*?<>{}]/g, '_').toLowerCase()
+          let index = getIndexName(this.referenceNameFr)
           this.references[index] = {
             internationalizationName: {
               fr: this.referenceNameFr,

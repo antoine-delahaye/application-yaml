@@ -3,6 +3,7 @@
   import {storeToRefs} from 'pinia'
 
   import {useYamlStore} from '/src/store/yaml'
+  import getIndexName from '/src/utils'
 
   export default {
     setup() {
@@ -41,7 +42,7 @@
     methods: {
       addDataType() {
         if (this.$refs.dataType.validate() && this.dataTypeNameFr !== null) {
-          let index = this.dataTypeNameFr.replace(/[&\/\\#, +()$~%.'":*?<>{}]/g, '_').toLowerCase()
+          let index = getIndexName(this.dataTypeNameFr)
           this.dataTypes[index] = {
             internationalizationName: {
               fr: this.dataTypeNameFr,

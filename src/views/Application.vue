@@ -3,6 +3,7 @@
   import {storeToRefs} from 'pinia'
 
   import {useYamlStore} from '/src/store/yaml'
+  import getIndexName from '/src/utils'
 
   export default {
     setup() {
@@ -21,8 +22,8 @@
     },
 
     unmounted() {
-      if (this.application.name !== null) {
-        this.application.name = (this.application.internationalizationName.fr).replace(/[&\/\\#, +()$~%.'":*?<>{}]/g, '_').toLowerCase()
+      if (this.application.internationalizationName.fr !== null) {
+        this.application.name = getIndexName(this.application.internationalizationName.fr)
       }
     }
   }

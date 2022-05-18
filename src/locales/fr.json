@@ -2,7 +2,7 @@
   "button": {
     "fr": "Français",
     "en": "Anglais",
-    "upload": "Importer",
+    "upload": "Importer {accepted}",
     "new": "Nouveau",
     "validate": "Valider",
     "reference": "Référentiel",

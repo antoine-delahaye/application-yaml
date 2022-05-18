@@ -96,18 +96,18 @@
         </v-card-content>
       </v-card>
     </v-container>
+    <v-container fluid class="d-flex flex-wrap justify-end gap-3">
+      <input ref="uploader" hidden type="file" @change="onFileChanged" accept=".yml, .yaml"/>
+      <v-btn prepend-icon="mdi-upload" color="primary" rounded="pill" size="large" :loading="isSelecting"
+             @click="handleFileImport">
+        {{ t('button.upload', {accepted: '(.yaml)'}) }}
+      </v-btn>
+      <v-btn prepend-icon="mdi-plus" color="primary" rounded="pill" size="large">
+        {{ t('button.reference') }}
+        <Reference :reference-name="null"/>
+      </v-btn>
+    </v-container>
   </v-main>
-  <v-container fluid class="d-flex justify-end gap-3">
-    <input ref="uploader" hidden type="file" @change="onFileChanged" accept=".yml, .yaml"/>
-    <v-btn prepend-icon="mdi-upload" color="primary" rounded="pill" size="large" :loading="isSelecting"
-           @click="handleFileImport">
-      {{ t('button.upload') }}
-    </v-btn>
-    <v-btn prepend-icon="mdi-plus" color="primary" rounded="pill" size="large">
-      {{ t('button.reference') }}
-      <Reference :reference-name="null"/>
-    </v-btn>
-  </v-container>
 </template>
 
 <style scoped>

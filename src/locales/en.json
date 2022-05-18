@@ -2,7 +2,7 @@
   "button": {
     "fr": "French",
     "en": "English",
-    "upload": "Upload",
+    "upload": "Upload {accepted}",
     "new": "New",
     "validate": "Validate",
     "reference": "Reference",

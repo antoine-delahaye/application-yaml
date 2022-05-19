@@ -32,6 +32,12 @@
           this.selectedFile = e.target.result
           this.yamlStore.resetYaml()
           this.yamlStore.setYaml(parseDocument(this.selectedFile).toJSON())
+          if (this.yamlStore.application.internationalizationName === undefined) {
+            this.yamlStore.application['internationalizationName'] = {
+              fr: null,
+              en: null
+            }
+          }
         }
         reader.readAsText(e.target.files[0])
         this.$router.push('/application')

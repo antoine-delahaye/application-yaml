@@ -61,7 +61,7 @@
     "referenceName": "Name of the reference",
     "columnsNumber": "Number of columns",
     "keyColumns": "Key columns",
-    "actions": "Actions"
+    "deleteRow": "Delete row"
   },
   "reference": {
     "label": "Name of the reference in {1}",

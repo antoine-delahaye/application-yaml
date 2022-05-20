@@ -61,7 +61,7 @@
     "referenceName": "Nom du référentiel",
     "columnsNumber": "Nombre de colonnes",
     "keyColumns": "Colonnes clé",
-    "actions": "Actions"
+    "deleteRow": "Supprimer la ligne"
   },
   "reference": {
     "label": "Nom du référentiel en {0}",

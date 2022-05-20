@@ -34,6 +34,12 @@
     updated() {
       if (this.referenceName !== null) {
         this.reference = this.references[this.referenceName]
+        if (this.reference.internationalizationName === undefined) {
+          this.reference['internationalizationName'] = {
+            fr: this.referenceName,
+            en: null
+          }
+        }
       }
     },
 
@@ -68,7 +74,7 @@
 
     watch: {
       dialog(value) {
-        if (value === false && this.referenceName !== null) {
+        if (value === false && this.referenceName !== null && this.references[this.reference.internationalizationName.fr] === undefined) {
           const save = this.references[this.referenceName]
           delete this.references[this.referenceName]
           this.references[getIndexName(save.internationalizationName.fr)] = save
@@ -105,13 +111,13 @@
             <tr>
               <th class="text-left" v-text="t('reference.columnName')"/>
               <th class="text-left" v-text="t('reference.keyColumn')"/>
-              <th class="text-left" v-text="t('references.actions')"/>
+              <th class="text-left" v-text="t('references.deleteRow')"/>
             </tr>
             </thead>
             <tbody>
             <tr v-for="(_, key) in reference.columns">
               <td>
-                <v-text-field variant="contained" density="compact" single-line disabled hide-details>
+                <v-text-field variant="contained" density="compact" single-line hide-details disabled>
                   {{ key }}
                 </v-text-field>
               </td>

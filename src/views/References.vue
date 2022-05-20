@@ -63,10 +63,10 @@
           <v-table>
             <thead>
             <tr>
-              <th class="text-left" v-text="t('references.referenceName')"/>
-              <th class="text-left" v-text="t('references.columnsNumber')"/>
-              <th class="text-left" v-text="t('references.keyColumns')"/>
-              <th class="text-left" v-text="'Actions'"/>
+              <th v-text="t('references.referenceName')"/>
+              <th v-text="t('references.columnsNumber')"/>
+              <th v-text="t('references.keyColumns')"/>
+              <th v-text="'Actions'"/>
             </tr>
             </thead>
             <tbody>

@@ -109,9 +109,9 @@
           <v-table>
             <thead>
             <tr>
-              <th class="text-left" v-text="t('reference.columnName')"/>
-              <th class="text-left" v-text="t('reference.keyColumn')"/>
-              <th class="text-left" v-text="t('references.deleteRow')"/>
+              <th v-text="t('reference.columnName')"/>
+              <th v-text="t('reference.keyColumn')"/>
+              <th v-text="t('references.deleteRow')"/>
             </tr>
             </thead>
             <tbody>
@@ -128,9 +128,6 @@
                 <div class="d-flex align-center gap-3">
                   <v-btn size="small" color="error" @click="delete reference.columns[key]">
                     <v-icon icon="mdi-delete"/>
-                  </v-btn>
-                  <v-btn size="small" color="primary">
-                    <v-icon icon="mdi-pencil"/>
                   </v-btn>
                 </div>
               </td>

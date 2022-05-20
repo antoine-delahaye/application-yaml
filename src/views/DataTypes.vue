@@ -63,8 +63,8 @@
           <v-table>
             <thead>
             <tr>
-              <th class="text-left" v-text="t('dataTypes.dataTypeName')"/>
-              <th class="text-left" v-text="'Actions'"/>
+              <th v-text="t('dataTypes.dataTypeName')"/>
+              <th v-text="'Actions'"/>
             </tr>
             </thead>
             <tbody>

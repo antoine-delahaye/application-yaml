@@ -76,7 +76,7 @@ souris, tout en alimentant mon ordinateur avec un seul cable.
 
 ## Maquettage
 
-## Développement
+## Développement et tests
 
 ## Documentation
 

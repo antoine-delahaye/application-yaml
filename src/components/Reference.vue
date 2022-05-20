@@ -15,15 +15,17 @@
 
     data() {
       return {
-        referenceNameFr: null,
-        referenceNameEn: null,
-        keyColumns: [],
-        columns: reactive({}),
+        reference: reactive({
+          internationalizationName: {
+            fr: null,
+            en: null
+          },
+          keyColumns: [],
+          columns: {}
+        }),
         columnName: null,
-        update: false,
         rules: {
-          referenceNameFr: v => !!v || this.t('rule.required'),
-          columns: v => Object.keys(this.columns).length > 0 || this.t('rule.required'),
+          referenceNameFr: v => !!v || this.t('rule.required')
         },
         dialog: false
       }
@@ -31,11 +33,7 @@
 
     updated() {
       if (this.referenceName !== null) {
-        this.update = true
-        this.referenceNameFr = this.references[this.referenceName].internationalizationName.fr
-        this.referenceNameEn = this.references[this.referenceName].internationalizationName.en
-        this.keyColumns = this.references[this.referenceName].keyColumns
-        this.columns = this.references[this.referenceName].columns
+        this.reference = this.references[this.referenceName]
       }
     },
 
@@ -48,26 +46,32 @@
 
     methods: {
       addColumn() {
-        if (this.columnName !== null) {
-          this.columns[this.columnName] = null
+        if (this.$refs.reference.validate() && this.columnName !== null) {
+          this.reference.columns[this.columnName] = null
           this.columnName = null
         }
       },
       addReference() {
-        if (this.$refs.reference.validate() && this.referenceNameFr !== null && Object.keys(this.columns).length > 0) {
-          let index = getIndexName(this.referenceNameFr)
-          this.references[index] = {
+        if (this.$refs.reference.validate() && this.reference.internationalizationName.fr !== null) {
+          this.references[getIndexName(this.reference.internationalizationName.fr)] = this.reference
+          this.reference = reactive({
             internationalizationName: {
-              fr: this.referenceNameFr,
-              en: this.referenceNameEn
-            }
-          }
-          this.references[index]['keyColumns'] = this.keyColumns
-          this.references[index]['columns'] = this.columns
-          this.keyColumns = []
-          this.columns = reactive({})
-          this.referenceNameFr = null
-          this.referenceNameEn = null
+              fr: null,
+              en: null
+            },
+            keyColumns: [],
+            columns: {}
+          })
+        }
+      }
+    },
+
+    watch: {
+      dialog(value) {
+        if (value === false && this.referenceName !== null) {
+          const save = this.references[this.referenceName]
+          delete this.references[this.referenceName]
+          this.references[getIndexName(save.internationalizationName.fr)] = save
         }
       }
     }
@@ -83,15 +87,15 @@
             <v-text-field :label="t('reference.label', ['français', 'French'])"
                           :placeholder="t('reference.frPlaceholder')"
                           variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint
-                          v-model="referenceNameFr" :rules="[rules.referenceNameFr]"/>
+                          v-model="reference.internationalizationName.fr" :rules="[rules.referenceNameFr]"/>
             <v-text-field :label="t('reference.label', ['anglais', 'English'])"
                           :placeholder="t('reference.enPlaceholder')"
                           variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint
-                          v-model="referenceNameEn"/>
+                          v-model="reference.internationalizationName.en"/>
           </div>
           <div class="d-flex gap-3">
             <v-text-field :label="t('reference.columnName')" :placeholder="t('reference.placeholder')"
-                          variant="outlined" color="primary" v-model="columnName" :rules="[rules.columns]"/>
+                          variant="outlined" color="primary" v-model="columnName"/>
             <v-btn color="primary" @click="addColumn" class="mt-2">
               <v-icon icon="mdi-plus-circle"/>
             </v-btn>
@@ -105,18 +109,18 @@
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(_, key) in columns">
+            <tr v-for="(_, key) in reference.columns">
               <td>
                 <v-text-field variant="contained" density="compact" single-line disabled hide-details>
                   {{ key }}
                 </v-text-field>
               </td>
               <td>
-                <v-checkbox color="primary" :value="key" v-model="keyColumns" hide-details/>
+                <v-checkbox color="primary" :value="key" v-model="reference.keyColumns" hide-details/>
               </td>
               <td>
                 <div class="d-flex align-center gap-3">
-                  <v-btn size="small" color="error" @click="delete columns[key]">
+                  <v-btn size="small" color="error" @click="delete reference.columns[key]">
                     <v-icon icon="mdi-delete"/>
                   </v-btn>
                   <v-btn size="small" color="primary">
@@ -133,10 +137,7 @@
         <v-btn prepend-icon="mdi-close" color="error" @click="dialog = false">
           {{ t('button.close') }}
         </v-btn>
-        <v-btn v-if="update" prepend-icon="mdi-check" color="primary" @click="addReference">
-          {{ t('button.validate') }}
-        </v-btn>
-        <v-btn v-else prepend-icon="mdi-plus" color="primary" @click="addReference">
+        <v-btn v-if="referenceName === null" prepend-icon="mdi-plus" color="primary" @click="addReference">
           {{ t('button.add') }}
         </v-btn>
       </v-card-actions>

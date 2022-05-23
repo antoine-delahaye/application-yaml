@@ -1,23 +1,20 @@
 <script>
+  import {useI18n} from 'vue-i18n'
   import {parseDocument} from 'yaml'
 
+  import {useYamlStore} from '/src/store/yaml'
+
   export default {
-    data() {
-      return {
-        t: this.i18n.t,
-        isSelecting: false,
-        selectedFile: null
-      }
+    setup() {
+      const {t} = useI18n()
+      const yamlStore = useYamlStore()
+      return {t, yamlStore}
     },
 
-    props: {
-      i18n: {
-        type: Object,
-        required: true
-      },
-      yamlStore: {
-        type: Object,
-        required: true
+    data() {
+      return {
+        isSelecting: false,
+        selectedFile: null
       }
     },
 
@@ -35,6 +32,12 @@
           this.selectedFile = e.target.result
           this.yamlStore.resetYaml()
           this.yamlStore.setYaml(parseDocument(this.selectedFile).toJSON())
+          if (this.yamlStore.application.internationalizationName === undefined) {
+            this.yamlStore.application['internationalizationName'] = {
+              fr: null,
+              en: null
+            }
+          }
         }
         reader.readAsText(e.target.files[0])
         this.$router.push('/application')
@@ -50,9 +53,9 @@
         <v-card-title v-text="t('home.title')"/>
         <v-card-content v-text="t('home.content')"/>
         <v-card-actions class="d-flex justify-center">
-          <input ref="uploader" class="d-none" type="file" @change="onFileChanged"/>
+          <input ref="uploader" hidden type="file" @change="onFileChanged" accept=".yml, .yaml"/>
           <v-btn prepend-icon="mdi-upload" color="primary" :loading="isSelecting" @click="handleFileImport">
-            {{ t('button.upload') }}
+            {{ t('button.upload', {accepted: '(.yaml)'}) }}
           </v-btn>
           <v-btn prepend-icon="mdi-plus" color="primary" @click="yamlStore.resetYaml" to="/application">
             {{ t('button.new') }}

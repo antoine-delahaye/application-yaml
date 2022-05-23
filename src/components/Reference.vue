@@ -25,7 +25,8 @@
         }),
         columnName: null,
         rules: {
-          referenceNameFr: v => !!v || this.t('rule.required')
+          referenceNameFr: v => !!v || this.t('rule.required'),
+          columnAlreadyExist: this.t('rule.columnAlreadyExist')
         },
         dialog: false
       }
@@ -86,7 +87,7 @@
 
 <template>
   <v-dialog activator="parent" v-model="dialog">
-    <v-card width="80rem">
+    <v-card width="120vh">
       <v-card-content>
         <v-form ref="reference">
           <div class="d-flex gap-3">
@@ -122,7 +123,7 @@
                 </v-text-field>
               </td>
               <td>
-                <v-checkbox color="primary" :value="key" v-model="reference.keyColumns" hide-details/>
+                <v-checkbox class='isPrimaryKey'  color="primary" :value="key" v-model="reference.keyColumns" hide-details/>
               </td>
               <td>
                 <div class="d-flex align-center gap-3">

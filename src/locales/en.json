@@ -2,7 +2,7 @@
   "button": {
     "fr": "French",
     "en": "English",
-    "upload": "Upload",
+    "upload": "Upload {accepted}",
     "new": "New",
     "validate": "Validate",
     "reference": "Reference",
@@ -20,6 +20,7 @@
   },
   "rule": {
     "required": "This field is required",
+    "length": "The length of this field must be lower than {length} characters",
     "columnRequired": "Please add at least one column",
     "columnSelected": "Please select at least one column"
   },
@@ -60,7 +61,7 @@
     "referenceName": "Name of the reference",
     "columnsNumber": "Number of columns",
     "keyColumns": "Key columns",
-    "actions": "Actions"
+    "deleteRow": "Delete row"
   },
   "reference": {
     "label": "Name of the reference in {1}",

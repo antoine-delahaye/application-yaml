@@ -63,10 +63,10 @@
           <v-table>
             <thead>
             <tr>
-              <th class="text-left" v-text="t('references.referenceName')"/>
-              <th class="text-left" v-text="t('references.columnsNumber')"/>
-              <th class="text-left" v-text="t('references.keyColumns')"/>
-              <th class="text-left" v-text="'Actions'"/>
+              <th v-text="t('references.referenceName')"/>
+              <th v-text="t('references.columnsNumber')"/>
+              <th v-text="t('references.keyColumns')"/>
+              <th v-text="'Actions'"/>
             </tr>
             </thead>
             <tbody>
@@ -96,18 +96,18 @@
         </v-card-content>
       </v-card>
     </v-container>
+    <v-container fluid class="d-flex flex-wrap justify-end gap-3 fabs">
+      <input ref="uploader" hidden type="file" @change="onFileChanged" accept=".yml, .yaml"/>
+      <v-btn id='uploadReferentiel' prepend-icon="mdi-upload" color="primary" rounded="pill" size="large" :loading="isSelecting"
+             @click="handleFileImport">
+        {{ t('button.upload', {accepted: '(.yaml)'}) }}
+      </v-btn>
+      <v-btn id='addReferentiel' prepend-icon="mdi-plus" color="primary" rounded="pill" size="large">
+        {{ t('button.reference') }}
+        <Reference :reference-name="null"/>
+      </v-btn>
+    </v-container>
   </v-main>
-  <v-container fluid class="d-flex justify-end gap-3">
-    <input ref="uploader" hidden type="file" @change="onFileChanged" accept=".yml, .yaml"/>
-    <v-btn prepend-icon="mdi-upload" color="primary" rounded="pill" size="large" :loading="isSelecting"
-           @click="handleFileImport">
-      {{ t('button.upload') }}
-    </v-btn>
-    <v-btn prepend-icon="mdi-plus" color="primary" rounded="pill" size="large">
-      {{ t('button.reference') }}
-      <Reference :reference-name="null"/>
-    </v-btn>
-  </v-container>
 </template>
 
 <style scoped>

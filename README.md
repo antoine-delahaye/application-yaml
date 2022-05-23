@@ -7,12 +7,10 @@ Application permettant de générer le fichier de configuration pour l'applicati
 npm run dev
 ```
 
-## À faire
+```shell
+# Générer le PDF du README
+pandoc README.md -o docs/files/Documentation.pdf -V fontsize=12pt -V linestretch=1 -V linkcolor=black --number-sections --table-of-contents -V documentclass=scrreprt -V lang=french
 
-- [x] Retravailler les locales
-- [x] Popup d'alerte de suppression
-- [x] Validateurs
-- [ ] Augmenter la taille des popups
-- [ ] Retours utilisateur
-- [ ] Retravailler les champs textes
-- [ ] Modèle Swagger
+# Générer le PDF du rapport
+pandoc docs/report.md -o docs/files/Rapport.pdf -V fontsize=12pt -V linestretch=1 -V linkcolor=black --number-sections --table-of-contents -V documentclass=scrreprt -V lang=french
+```

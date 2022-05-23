@@ -6,6 +6,7 @@
   import DeleteAlert from '/src/components/DeleteAlert.vue'
 
   import {useYamlStore} from '/src/store/yaml'
+  import {parseDocument} from "yaml";
 
   export default {
     setup() {
@@ -16,16 +17,33 @@
 
     data() {
       return {
-        editDataTypesDialog: false,
-        addDataTypesDialog: false,
-        deleteAlertDialog: false,
-        selectedKey: null
+        selectedKey: null,
+        isSelecting: false,
+        selectedFile: null
       }
     },
 
     components: {
       DataType,
       DeleteAlert
+    },
+
+    methods: {
+      handleFileImport() {
+        this.isSelecting = true
+        window.addEventListener('focus', () => {
+          this.isSelecting = false
+        }, {once: true})
+        this.$refs.uploader.click()
+      },
+      onFileChanged(e) {
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          this.selectedFile = e.target.result
+          this.dataTypes = (parseDocument(this.selectedFile).toJSON()).dataTypes
+        }
+        reader.readAsText(e.target.files[0])
+      }
     }
   }
 </script>
@@ -45,8 +63,8 @@
           <v-table>
             <thead>
             <tr>
-              <th class="text-left" v-text="t('dataTypes.dataTypeName')"/>
-              <th class="text-left" v-text="'Actions'"/>
+              <th v-text="t('dataTypes.dataTypeName')"/>
+              <th v-text="'Actions'"/>
             </tr>
             </thead>
             <tbody>
@@ -70,17 +88,18 @@
         </v-card-content>
       </v-card>
     </v-container>
+    <v-container fluid class="d-flex flex-wrap justify-end gap-3">
+      <input ref="uploader" hidden type="file" @change="onFileChanged" accept=".yml, .yaml"/>
+      <v-btn prepend-icon="mdi-upload" color="primary" rounded="pill" size="large" :loading="isSelecting"
+             @click="handleFileImport">
+        {{ t('button.upload', {accepted: '(.yaml)'}) }}
+      </v-btn>
+      <v-btn prepend-icon="mdi-plus" color="primary" rounded="pill" size="large">
+        {{ t('button.dataType') }}
+        <DataType :data-type-name="selectedKey"/>
+      </v-btn>
+    </v-container>
   </v-main>
-  <v-container fluid class="d-flex justify-end gap-3">
-    <v-btn prepend-icon="mdi-upload" color="primary" rounded="pill" size="large">
-      {{ t('button.upload') }}
-    </v-btn>
-    <v-btn prepend-icon="mdi-plus" color="primary" rounded="pill" size="large">
-      {{ t('button.dataType') }}
-      <DataType v-model="addDataTypesDialog" @close="addDataTypesDialog = false" activator="parent"
-                :data-type-name="selectedKey"/>
-    </v-btn>
-  </v-container>
 </template>
 
 <style scoped>

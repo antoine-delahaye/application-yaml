@@ -32,6 +32,12 @@
           this.selectedFile = e.target.result
           this.yamlStore.resetYaml()
           this.yamlStore.setYaml(parseDocument(this.selectedFile).toJSON())
+          if (this.yamlStore.application.internationalizationName === undefined) {
+            this.yamlStore.application['internationalizationName'] = {
+              fr: null,
+              en: null
+            }
+          }
         }
         reader.readAsText(e.target.files[0])
         this.$router.push('/application')
@@ -49,7 +55,7 @@
         <v-card-actions class="d-flex justify-center">
           <input ref="uploader" hidden type="file" @change="onFileChanged" accept=".yml, .yaml"/>
           <v-btn prepend-icon="mdi-upload" color="primary" :loading="isSelecting" @click="handleFileImport">
-            {{ t('button.upload') }}
+            {{ t('button.upload', {accepted: '(.yaml)'}) }}
           </v-btn>
           <v-btn prepend-icon="mdi-plus" color="primary" @click="yamlStore.resetYaml" to="/application">
             {{ t('button.new') }}

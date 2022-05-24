@@ -16,16 +16,19 @@
     data() {
       return {
         reference: reactive({
+          validation: {},
           internationalizationName: {
             fr: null,
             en: null
           },
+          internationalizedColumns: {},
           keyColumns: [],
           columns: {}
         }),
-        columnName: null,
+        frColumnName: null,
+        enColumnName: null,
         rules: {
-          referenceNameFr: v => !!v || this.t('rule.required'),
+          required: v => !!v || this.t('rule.required'),
           columnAlreadyExist: this.t('rule.columnAlreadyExist')
         },
         dialog: false
@@ -53,19 +56,27 @@
 
     methods: {
       addColumn() {
-        if (this.$refs.reference.validate() && this.columnName !== null) {
-          this.reference.columns[this.columnName] = null
-          this.columnName = null
+        if (this.$refs.reference.validate() && this.frColumnName !== null) {
+          const index = getIndexName(this.frColumnName)
+          this.reference.internationalizedColumns[index] = {
+            fr: this.frColumnName,
+            en: this.enColumnName
+          }
+          this.reference.columns[index] = null
+          this.frColumnName = null
+          this.enColumnName = null
         }
       },
       addReference() {
         if (this.$refs.reference.validate() && this.reference.internationalizationName.fr !== null) {
           this.references[getIndexName(this.reference.internationalizationName.fr)] = this.reference
           this.reference = reactive({
+            validation: {},
             internationalizationName: {
               fr: null,
               en: null
             },
+            internationalizedColumns: {},
             keyColumns: [],
             columns: {}
           })
@@ -94,15 +105,17 @@
             <v-text-field :label="t('reference.label', ['français', 'French'])"
                           :placeholder="t('reference.frPlaceholder')"
                           variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint
-                          v-model="reference.internationalizationName.fr" :rules="[rules.referenceNameFr]"/>
+                          v-model="reference.internationalizationName.fr" :rules="[rules.required]"/>
             <v-text-field :label="t('reference.label', ['anglais', 'English'])"
                           :placeholder="t('reference.enPlaceholder')"
                           variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint
                           v-model="reference.internationalizationName.en"/>
           </div>
           <div class="d-flex gap-3">
-            <v-text-field :label="t('reference.columnName')" :placeholder="t('reference.placeholder')"
-                          variant="outlined" color="primary" v-model="columnName"/>
+            <v-text-field :label="t('reference.columnName', ['français', 'French'])" :placeholder="t('reference.frColumnPlaceholder')"
+                          variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint v-model="frColumnName" :rules="[rules.required]"/>
+            <v-text-field :label="t('reference.columnName', ['anglais', 'English'])" :placeholder="t('reference.enColumnPlaceholder')"
+                          variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint v-model="enColumnName"/>
             <v-btn color="primary" @click="addColumn" class="mt-2">
               <v-icon icon="mdi-plus-circle"/>
             </v-btn>

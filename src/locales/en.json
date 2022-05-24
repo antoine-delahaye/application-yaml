@@ -35,8 +35,8 @@
   "nav": {
     "application": "Application",
     "references": "References",
-    "compositeReferences": "Composite references",
     "dataTypes": "Data types",
+    "compositeReferences": "Composite references",
     "visualization": "Visualization",
     "download": "Download"
   },
@@ -65,10 +65,11 @@
   },
   "reference": {
     "label": "Name of the reference in {1}",
-    "frPlaceholder": "Espèces, ...",
-    "enPlaceholder": "Species, ...",
-    "columnName": "Column name",
-    "placeholder": "esp_nom",
+    "frReferencePlaceholder": "Espèces, ...",
+    "enReferencePlaceholder": "Species, ...",
+    "columnName": "Column name in {1}",
+    "frColumnPlaceholder": "esp_nom",
+    "enColumnPlaceholder": "spe_name,  ...",
     "keyColumn": "Key column"
   },
   "dataTypes": {

@@ -17,9 +17,9 @@
     data: () => ({
       routes: [
         {name: 'application', to: '/application'},
-        {name: 'compositeReferences', to: '/composite-references'},
         {name: 'references', to: '/references'},
         {name: 'dataTypes', to: '/data-types'},
+        {name: 'compositeReferences', to: '/composite-references'},
         {name: 'visualization', to: '/visualization'},
         {name: 'download', to: '/download'},
       ],

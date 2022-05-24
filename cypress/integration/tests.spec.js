@@ -6,7 +6,9 @@ describe('Testing', () => {
     it('Create a new file', () => {
         cy.get('input[type = file]').invoke('show').selectFile('cypress/fixtures/foret.yaml')
         cy.get('.v-navigation-drawer__scrim').click('center')
-        cy.get('#input-10').type('test')
+        cy.get('form').within(() => {
+            cy.get('input[placeholder="SOERE avec dépôt, ..."]').type('test')
+        })
         cy.get('.mdi-menu').click()
         cy.get('[href="/references"]').click()
         cy.get('.fabs #addReferentiel').click()

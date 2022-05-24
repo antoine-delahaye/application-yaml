@@ -64,6 +64,9 @@
     "deleteRow": "Delete row"
   },
   "reference": {
+    "title": "Add a reference",
+    "nameSubtitle": "Name of the reference",
+    "columnSubtitle": "Add a column",
     "label": "Name of the reference in {1}",
     "frReferencePlaceholder": "Espèces, ...",
     "enReferencePlaceholder": "Species, ...",

@@ -64,6 +64,9 @@
     "deleteRow": "Supprimer la ligne"
   },
   "reference": {
+    "title": "Ajouter un référentiel",
+    "nameSubtitle": "Nom du référentiel",
+    "columnSubtitle": "Ajouter une colonne",
     "label": "Nom du référentiel en {0}",
     "frReferencePlaceholder": "Espèces, ...",
     "enReferencePlaceholder": "Species, ...",

@@ -32,9 +32,9 @@ const router = createRouter({
     routes: [
         {path: '/', component: Home},
         {path: '/application', component: Application},
-        {path: '/composite-references', component: CompositeReferences},
         {path: '/references', component: References},
         {path: '/data-types', component: DataTypes},
+        {path: '/composite-references', component: CompositeReferences},
         {path: '/visualization', component: Visualization},
         {path: '/download', component: Download}
     ]

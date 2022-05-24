@@ -16,16 +16,19 @@
     data() {
       return {
         reference: reactive({
+          validation: {},
           internationalizationName: {
             fr: null,
             en: null
           },
+          internationalizedColumns: {},
           keyColumns: [],
           columns: {}
         }),
-        columnName: null,
+        frColumnName: null,
+        enColumnName: null,
         rules: {
-          referenceNameFr: v => !!v || this.t('rule.required'),
+          required: v => !!v || this.t('rule.required'),
           columnAlreadyExist: this.t('rule.columnAlreadyExist')
         },
         dialog: false
@@ -53,19 +56,27 @@
 
     methods: {
       addColumn() {
-        if (this.$refs.reference.validate() && this.columnName !== null) {
-          this.reference.columns[this.columnName] = null
-          this.columnName = null
+        if (this.$refs.addColumn.validate() && this.frColumnName !== null) {
+          const index = getIndexName(this.frColumnName)
+          this.reference.internationalizedColumns[index] = {
+            fr: this.frColumnName,
+            en: this.enColumnName
+          }
+          this.reference.columns[index] = null
+          this.frColumnName = null
+          this.enColumnName = null
         }
       },
       addReference() {
-        if (this.$refs.reference.validate() && this.reference.internationalizationName.fr !== null) {
+        if (this.$refs.referenceName.validate() && this.reference.internationalizationName.fr !== null) {
           this.references[getIndexName(this.reference.internationalizationName.fr)] = this.reference
           this.reference = reactive({
+            validation: {},
             internationalizationName: {
               fr: null,
               en: null
             },
+            internationalizedColumns: {},
             keyColumns: [],
             columns: {}
           })
@@ -88,54 +99,64 @@
 <template>
   <v-dialog activator="parent" v-model="dialog">
     <v-card width="120vh">
+      <v-card-title v-text="t('reference.title')"/>
+      <v-card-subtitle v-text="t('reference.nameSubtitle')"/>
       <v-card-content>
-        <v-form ref="reference">
-          <div class="d-flex gap-3">
-            <v-text-field :label="t('reference.label', ['français', 'French'])"
-                          :placeholder="t('reference.frPlaceholder')"
-                          variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint
-                          v-model="reference.internationalizationName.fr" :rules="[rules.referenceNameFr]"/>
-            <v-text-field :label="t('reference.label', ['anglais', 'English'])"
-                          :placeholder="t('reference.enPlaceholder')"
-                          variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint
-                          v-model="reference.internationalizationName.en"/>
-          </div>
-          <div class="d-flex gap-3">
-            <v-text-field :label="t('reference.columnName')" :placeholder="t('reference.placeholder')"
-                          variant="outlined" color="primary" v-model="columnName"/>
-            <v-btn color="primary" @click="addColumn" class="mt-2">
-              <v-icon icon="mdi-plus-circle"/>
-            </v-btn>
-          </div>
-          <v-table>
-            <thead>
-            <tr>
-              <th v-text="t('reference.columnName')"/>
-              <th v-text="t('reference.keyColumn')"/>
-              <th v-text="t('references.deleteRow')"/>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="(_, key) in reference.columns">
-              <td>
-                <v-text-field variant="contained" density="compact" single-line hide-details disabled>
-                  {{ key }}
-                </v-text-field>
-              </td>
-              <td>
-                <v-checkbox class='isPrimaryKey'  color="primary" :value="key" v-model="reference.keyColumns" hide-details/>
-              </td>
-              <td>
-                <div class="d-flex align-center gap-3">
-                  <v-btn size="small" color="error" @click="delete reference.columns[key]">
-                    <v-icon icon="mdi-delete"/>
-                  </v-btn>
-                </div>
-              </td>
-            </tr>
-            </tbody>
-          </v-table>
+        <v-form ref="referenceName" class="d-flex gap-3">
+          <v-text-field :label="t('reference.label', ['français', 'French'])"
+                        :placeholder="t('reference.frPlaceholder')"
+                        variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint
+                        v-model="reference.internationalizationName.fr" :rules="[rules.required]"/>
+          <v-text-field :label="t('reference.label', ['anglais', 'English'])"
+                        :placeholder="t('reference.enPlaceholder')"
+                        variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint
+                        v-model="reference.internationalizationName.en"/>
         </v-form>
+      </v-card-content>
+      <v-card-subtitle v-text="t('reference.columnSubtitle')"/>
+      <v-card-content>
+        <v-form ref="addColumn" class="d-flex gap-3">
+          <v-text-field :label="t('reference.columnName', ['français', 'French'])"
+                        :placeholder="t('reference.frColumnPlaceholder')"
+                        variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint
+                        v-model="frColumnName" :rules="[rules.required]"/>
+          <v-text-field :label="t('reference.columnName', ['anglais', 'English'])"
+                        :placeholder="t('reference.enColumnPlaceholder')"
+                        variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint
+                        v-model="enColumnName"/>
+          <v-btn color="primary" @click="addColumn" class="mt-2">
+            <v-icon icon="mdi-plus-circle"/>
+          </v-btn>
+        </v-form>
+        <v-table>
+          <thead>
+          <tr>
+            <th v-text="t('reference.columnName')"/>
+            <th v-text="t('reference.keyColumn')"/>
+            <th v-text="t('references.deleteRow')"/>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="(_, key) in reference.columns">
+            <td>
+              <v-text-field variant="contained" density="compact" single-line hide-details disabled>
+                {{ key }}
+              </v-text-field>
+            </td>
+            <td>
+              <v-checkbox class='isPrimaryKey' color="primary" :value="key" v-model="reference.keyColumns"
+                          hide-details/>
+            </td>
+            <td>
+              <div class="d-flex align-center gap-3">
+                <v-btn size="small" color="error" @click="delete reference.columns[key]">
+                  <v-icon icon="mdi-delete"/>
+                </v-btn>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </v-table>
       </v-card-content>
       <v-card-actions class="d-flex justify-center">
         <v-btn prepend-icon="mdi-close" color="error" @click="dialog = false">

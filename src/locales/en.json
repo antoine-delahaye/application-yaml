@@ -22,7 +22,8 @@
     "required": "This field is required",
     "length": "The length of this field must be lower than {length} characters",
     "columnRequired": "Please add at least one column",
-    "columnSelected": "Please select at least one column"
+    "columnSelected": "Please select at least one column",
+    "columnAlreadyExist": "This column already exists"
   },
   "alert": {
     "info": "Informations",
@@ -65,15 +66,25 @@
   },
   "reference": {
     "title": "Add a reference",
-    "nameSubtitle": "Name of the reference",
-    "columnSubtitle": "Add a column",
-    "label": "Name of the reference in {1}",
-    "frReferencePlaceholder": "Espèces, ...",
-    "enReferencePlaceholder": "Species, ...",
-    "columnName": "Column name in {1}",
-    "frColumnPlaceholder": "esp_nom",
-    "enColumnPlaceholder": "spe_name,  ...",
-    "keyColumn": "Key column"
+    "referenceName": "Reference's name {0}",
+    "frPlaceholder": "Espèces, ...",
+    "enPlaceholder": "Species, ...",
+    "columns": "Columns",
+    "keyColumn": "Key column",
+    "column": {
+      "subtitle": "Add a column",
+      "name": "Column's name {0}",
+      "frPlaceholder": "esp_nom, ...",
+      "enPlaceholder": "spe_name, ...",
+      "type": "Constraint type",
+      "selected": "Selected columns"
+    },
+    "constraint": {
+      "subtitle": "Add a constraint",
+      "name": "Constraint's name {0}",
+      "frPlaceholder": "Référence au projet,  ...",
+      "enPlaceholder": "Project reference,  ..."
+    }
   },
   "dataTypes": {
     "title": "Data types",

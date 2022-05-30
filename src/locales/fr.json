@@ -31,7 +31,9 @@
     "references": "Les références sont un ensemble d'informations permettant de préciser le contexte de la mesure ou de l'observation. Pour décrire un référentiel, on y liste les noms des colonnes souhaitées et précisant la liste des colonnes qui forment la clé naturelle.",
     "dataTypes": "Types de données",
     "visualization": "Visualisation",
-    "download": "Télécharger"
+    "download": "Télécharger",
+    "action": "Action impossible",
+    "column": "Impossible de supprimer la colonne car cette dernière est référencée dans une contrainte."
   },
   "nav": {
     "application": "Application",
@@ -69,7 +71,6 @@
     "name": "Nom du référentiel {0}",
     "frPlaceholder": "Espèces, ...",
     "enPlaceholder": "Species, ...",
-    "columns": "Colonnes",
     "keyColumn": "Colonne clé",
     "column": {
       "subtitle": "Ajouter une colonne",

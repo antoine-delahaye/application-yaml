@@ -22,7 +22,8 @@
     "required": "This field is required",
     "length": "The length of this field must be lower than {length} characters",
     "columnRequired": "Please add at least one column",
-    "columnSelected": "Please select at least one column"
+    "columnSelected": "Please select at least one column",
+    "columnAlreadyExist": "This column already exists"
   },
   "alert": {
     "info": "Informations",
@@ -30,7 +31,9 @@
     "references": "References are a set of information used to specify the context of the measurement or observation. To describe a reference, we list the names of the desired columns and specify the list of columns that form the natural key.",
     "dataTypes": "Type de données",
     "visualization": "Visualisation",
-    "download": "Télécharger"
+    "download": "Télécharger",
+    "action": "Action impossible",
+    "column": "Unable to delete this column because it is referenced in a constraint"
   },
   "nav": {
     "application": "Application",
@@ -46,7 +49,7 @@
   },
   "application": {
     "title": "Application",
-    "label": "Name of the application in {1}",
+    "label": "Name of the application {1}",
     "frPlaceholder": "SOERE avec dépôt, ...",
     "enPlaceholder": "SOERE with repository, ...",
     "checkbox": "Make English the default language",
@@ -60,20 +63,30 @@
     "subtitle": "You can add the application references from this page. Either from a CSV file to import, or by manually adding each reference.",
     "referenceName": "Name of the reference",
     "columnsNumber": "Number of columns",
+    "constraintsNumber": "Number of constraints",
     "keyColumns": "Key columns",
     "deleteRow": "Delete row"
   },
   "reference": {
     "title": "Add a reference",
-    "nameSubtitle": "Name of the reference",
-    "columnSubtitle": "Add a column",
-    "label": "Name of the reference in {1}",
-    "frReferencePlaceholder": "Espèces, ...",
-    "enReferencePlaceholder": "Species, ...",
-    "columnName": "Column name in {1}",
-    "frColumnPlaceholder": "esp_nom",
-    "enColumnPlaceholder": "spe_name,  ...",
-    "keyColumn": "Key column"
+    "referenceName": "Reference's name {0}",
+    "frPlaceholder": "Espèces, ...",
+    "enPlaceholder": "Species, ...",
+    "keyColumn": "Key column",
+    "column": {
+      "subtitle": "Add a column",
+      "name": "Column's name {0}",
+      "frPlaceholder": "esp_nom, ...",
+      "enPlaceholder": "spe_name, ...",
+      "type": "Constraint type",
+      "selected": "Selected columns"
+    },
+    "constraint": {
+      "subtitle": "Add a constraint",
+      "name": "Constraint's name {0}",
+      "frPlaceholder": "Référence au projet,  ...",
+      "enPlaceholder": "Project reference,  ..."
+    }
   },
   "dataTypes": {
     "title": "Data types",

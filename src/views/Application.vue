@@ -43,12 +43,12 @@
         <v-card-content>
           <v-form>
             <div class="d-flex gap-3">
-              <v-text-field :label="t('application.label', ['français', 'French'])"
+              <v-text-field :label="t('application.label', ['en français', 'in French'])"
                             :placeholder="t('application.frPlaceholder')"
                             variant="outlined" color="primary" v-model="application.internationalizationName.fr"
                             :hint="t('hint.required')"
                             persistent-hint :rules="inputRules"/>
-              <v-text-field :label="t('application.label', ['anglais', 'English'])"
+              <v-text-field :label="t('application.label', ['en anglais', 'in English'])"
                             :placeholder="t('application.enPlaceholder')"
                             variant="outlined" color="primary" :hint="t('hint.optional')"
                             v-model="application.internationalizationName.en"

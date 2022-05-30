@@ -101,7 +101,7 @@
     font-family: "Avenir Next Pro", sans-serif;
   }
 
-  .v-card-title, .v-list-item-title, .v-btn, th {
+  .v-card-title, .v-card-subtitle, .v-navigation-drawer .v-list-item-title, .v-btn, th {
     font-family: "Raleway", sans-serif;
   }
 

@@ -22,7 +22,8 @@
     "required": "Ce champ est obligatoire",
     "length": "La longueur de ce champ doit être inférieur à {length} caractères",
     "columnRequired": "Veuillez ajouter au moins une colonne",
-    "columnSelected": "Veuillez sélectionner au moins une colonne"
+    "columnSelected": "Veuillez sélectionner au moins une colonne",
+    "columnAlreadyExist": "Cette colonne existe déjà"
   },
   "alert": {
     "info": "Informations",
@@ -30,7 +31,9 @@
     "references": "Les références sont un ensemble d'informations permettant de préciser le contexte de la mesure ou de l'observation. Pour décrire un référentiel, on y liste les noms des colonnes souhaitées et précisant la liste des colonnes qui forment la clé naturelle.",
     "dataTypes": "Types de données",
     "visualization": "Visualisation",
-    "download": "Télécharger"
+    "download": "Télécharger",
+    "action": "Action impossible",
+    "column": "Impossible de supprimer la colonne car cette dernière est référencée dans une contrainte."
   },
   "nav": {
     "application": "Application",
@@ -46,7 +49,7 @@
   },
   "application": {
     "title": "Application",
-    "label": "Nom de l'application en {0}",
+    "label": "Nom de l'application {0}",
     "frPlaceholder": "SOERE avec dépôt, ...",
     "enPlaceholder": "SOERE with repository, ...",
     "checkbox": "Faire de l’anglais la langue par défaut",
@@ -60,20 +63,30 @@
     "subtitle": "Vous pouvez ajouter depuis cette page les référentiels de l’application. Soit à partir d’un fichier CSV à importer, soit en ajoutant manuellement chaque référentiel.",
     "referenceName": "Nom du référentiel",
     "columnsNumber": "Nombre de colonnes",
+    "constraintsNumber": "Nombre de contraintes",
     "keyColumns": "Colonnes clé",
     "deleteRow": "Supprimer la ligne"
   },
   "reference": {
     "title": "Ajouter un référentiel",
-    "nameSubtitle": "Nom du référentiel",
-    "columnSubtitle": "Ajouter une colonne",
-    "label": "Nom du référentiel en {0}",
-    "frReferencePlaceholder": "Espèces, ...",
-    "enReferencePlaceholder": "Species, ...",
-    "columnName": "Nom de la colonne en {0}",
-    "frColumnPlaceholder": "esp_nom,  ...",
-    "enColumnPlaceholder": "spe_name,  ...",
-    "keyColumn": "Colonne clé"
+    "name": "Nom du référentiel",
+    "frPlaceholder": "Espèces, ...",
+    "enPlaceholder": "Species, ...",
+    "keyColumn": "Colonne clé",
+    "column": {
+      "subtitle": "Ajouter une colonne",
+      "name": "Nom de la colonne {0}",
+      "frPlaceholder": "esp_nom,  ...",
+      "enPlaceholder": "spe_name,  ..."
+    },
+    "constraint": {
+      "subtitle": "Ajouter une contrainte",
+      "name": "Nom de la contrainte {0}",
+      "frPlaceholder": "Référence au projet,  ...",
+      "enPlaceholder": "Project reference,  ...",
+      "type": "Type de contrainte",
+      "selected": "Colonnes sélectionnées"
+    }
   },
   "dataTypes": {
     "title": "Types de données",

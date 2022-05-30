@@ -49,7 +49,7 @@
   },
   "application": {
     "title": "Application",
-    "label": "Name of the application in {1}",
+    "label": "Name of the application {1}",
     "frPlaceholder": "SOERE avec dépôt, ...",
     "enPlaceholder": "SOERE with repository, ...",
     "checkbox": "Make English the default language",
@@ -63,6 +63,7 @@
     "subtitle": "You can add the application references from this page. Either from a CSV file to import, or by manually adding each reference.",
     "referenceName": "Name of the reference",
     "columnsNumber": "Number of columns",
+    "constraintsNumber": "Number of constraints",
     "keyColumns": "Key columns",
     "deleteRow": "Delete row"
   },

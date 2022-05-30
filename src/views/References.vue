@@ -11,8 +11,8 @@
   export default {
     setup() {
       const {t} = useI18n()
-      const {references} = storeToRefs(useYamlStore())
-      return {t, references}
+      const {application, references} = storeToRefs(useYamlStore())
+      return {t, application, references}
     },
 
     data() {
@@ -65,20 +65,30 @@
             <tr>
               <th v-text="t('references.referenceName')"/>
               <th v-text="t('references.columnsNumber')"/>
+              <th v-text="t('references.constraintsNumber')"/>
               <th v-text="t('references.keyColumns')"/>
               <th v-text="'Actions'"/>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(_, key) in references">
-              <td>
-                {{ key }}
+            <tr v-for="(value, key) in references">
+              <td v-if="application.defaultLanguage === 'fr'">
+                {{ value.internationalizationName.fr }}
+              </td>
+              <td v-else>
+                {{ value.internationalizationName.en }}
+              </td>
+              <td v-if="value.validations !== undefined">
+                {{ Object.keys(value.validations).length }}
+              </td>
+              <td v-else>
+                0
               </td>
               <td>
-                {{ Object.keys(references[key].columns).length }}
+                {{ Object.keys(value.columns).length }}
               </td>
               <td>
-                {{ references[key].keyColumns.join(', ') }}
+                {{ value.keyColumns.join(', ') }}
               </td>
               <td class="d-flex align-center gap-3">
                 <v-btn size="small" color="error">

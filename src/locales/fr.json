@@ -49,7 +49,7 @@
   },
   "application": {
     "title": "Application",
-    "label": "Nom de l'application en {0}",
+    "label": "Nom de l'application {0}",
     "frPlaceholder": "SOERE avec dépôt, ...",
     "enPlaceholder": "SOERE with repository, ...",
     "checkbox": "Faire de l’anglais la langue par défaut",
@@ -63,12 +63,13 @@
     "subtitle": "Vous pouvez ajouter depuis cette page les référentiels de l’application. Soit à partir d’un fichier CSV à importer, soit en ajoutant manuellement chaque référentiel.",
     "referenceName": "Nom du référentiel",
     "columnsNumber": "Nombre de colonnes",
+    "constraintsNumber": "Nombre de contraintes",
     "keyColumns": "Colonnes clé",
     "deleteRow": "Supprimer la ligne"
   },
   "reference": {
     "title": "Ajouter un référentiel",
-    "name": "Nom du référentiel {0}",
+    "name": "Nom du référentiel",
     "frPlaceholder": "Espèces, ...",
     "enPlaceholder": "Species, ...",
     "keyColumn": "Colonne clé",

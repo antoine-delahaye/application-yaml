@@ -1,4 +1,5 @@
 {
+  "$vuetify.noDataText": "No data",
   "button": {
     "fr": "French",
     "en": "English",
@@ -77,15 +78,19 @@
       "subtitle": "Add a column",
       "name": "Column's name {0}",
       "frPlaceholder": "esp_nom, ...",
-      "enPlaceholder": "spe_name, ...",
-      "type": "Constraint type",
-      "selected": "Selected columns"
+      "enPlaceholder": "spe_name, ..."
     },
     "constraint": {
       "subtitle": "Add a constraint",
       "name": "Constraint's name {0}",
       "frPlaceholder": "Référence au projet,  ...",
-      "enPlaceholder": "Project reference,  ..."
+      "enPlaceholder": "Project reference,  ...",
+      "type": "Constraint type",
+      "references": "Selected columns",
+      "date": "Date pattern",
+      "groovy": "Groovy expression",
+      "regex": "Regular expression",
+      "value": "Value"
     }
   },
   "dataTypes": {

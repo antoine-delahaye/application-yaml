@@ -1,4 +1,5 @@
 {
+  "$vuetify.noDataText": "Aucune donnée",
   "button": {
     "fr": "Français",
     "en": "Anglais",
@@ -85,7 +86,11 @@
       "frPlaceholder": "Référence au projet,  ...",
       "enPlaceholder": "Project reference,  ...",
       "type": "Type de contrainte",
-      "selected": "Colonnes sélectionnées"
+      "references": "Colonnes sélectionnées",
+      "date": "Pattern de date",
+      "groovy": "Expression Groovy",
+      "regex": "Expression régulière",
+      "value": "Valeur"
     }
   },
   "dataTypes": {

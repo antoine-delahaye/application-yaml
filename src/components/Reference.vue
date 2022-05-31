@@ -35,7 +35,12 @@
           checker: {
             name: null,
             params: {
-              refType: null
+              refType: null,
+              required: null,
+              groovy: {
+                expression: null
+              },
+              pattern: null
             }
           },
           columns: []
@@ -107,7 +112,12 @@
             checker: {
               name: null,
               params: {
-                refType: null
+                refType: null,
+                required: null,
+                groovy: {
+                  expression: null
+                },
+                pattern: null
               }
             },
             columns: []
@@ -220,12 +230,17 @@
           </div>
           <div class="d-flex gap-3">
             <v-select v-model="validation.checker.name"
-                      :items="['Reference', 'Integer', 'Float', 'RegularExpression', 'Date', 'GroovyExpression']"
-                      :label="t('reference.constraint.type')" outlined :rules="[rules.required]"/>
+                      :items="['Reference', 'Integer', 'Float', 'Date', 'GroovyExpression', 'RegularExpression']"
+                      :label="t('reference.constraint.type')" variant="outlined" :rules="[rules.required]" color="primary"/>
             <v-select v-if="validation.checker.name === 'Reference'" v-model="validation.columns"
-                      :items="Object.keys(reference.columns)" :label="t('reference.constraint.selected')" multiple
-                      outlined
-                      chips :rules="[rules.required]"/>
+                      :items="Object.keys(reference.columns)" :label="t('reference.constraint.references')" multiple
+                      variant="outlined" chips :rules="[rules.required]" color="primary"/>
+            <v-text-field v-else-if="validation.checker.name === 'Date'" v-model="validation.checker.params.pattern"
+                          :label="t('reference.constraint.date')" variant="outlined" :rules="[rules.required]" color="primary"/>
+            <v-text-field v-else-if="validation.checker.name === 'GroovyExpression'" v-model="validation.checker.params.groovy.expression"
+                      :label="t('reference.constraint.groovy')" variant="outlined" :rules="[rules.required]" color="primary"/>
+            <v-text-field v-else-if="validation.checker.name === 'RegularExpression'" v-model="validation.checker.params.pattern"
+                      :label="t('reference.constraint.regex')" variant="outlined" :rules="[rules.required]" color="primary"/>
             <v-btn color="primary" @click="addConstraint" class="mt-2">
               <v-icon icon="mdi-plus-circle"/>
             </v-btn>
@@ -236,7 +251,7 @@
           <tr>
             <th v-text="t('reference.constraint.name')"/>
             <th v-text="t('reference.constraint.type')"/>
-            <th v-text="t('reference.constraint.selected')"/>
+            <th v-text="t('reference.constraint.value')"/>
             <th v-text="t('references.deleteRow')"/>
           </tr>
           </thead>
@@ -244,7 +259,10 @@
           <tr v-for="(value, key) in reference.validations">
             <td v-text="key"/>
             <td v-text="value.checker.name"/>
-            <td v-text="value.columns.join(', ')"/>
+            <td v-if="value.checker.name === 'Reference'" v-text="value.columns.join(', ')"/>
+            <td v-if="value.checker.name === 'Date'" v-text="value.checker.params.pattern"/>
+            <td v-if="value.checker.name === 'GroovyExpression'" v-text="value.checker.params.groovy.expression"/>
+            <td v-if="value.checker.name === 'RegularExpression'" v-text="value.checker.params.pattern"/>
             <td>
               <div class="d-flex align-center gap-3">
                 <v-btn size="small" color="error" @click="delete reference.validations[key]">

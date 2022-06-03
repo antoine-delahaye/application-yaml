@@ -285,13 +285,13 @@ développement, c'est ce que propose Vuetify, le framework UI le plus populaire.
 est le fait d'utiliser VueJS étant donné que OpenADOM utilise
 déjà VueJS et qu'il est nécessaire que cette application soit accessible partout sans avoir à installer un logiciel.
 Quant à VueJS, il s'agit d'un framework JavaScript qui permet de construire des interfaces utilisateur et des
-applications web mono-pages. Pour ce qui est de la version utilisée, il s'agit de la version 3 de Vue, cette dernière
+applications web mono-pages. Pour ce qui est de la version utilisée, il s'agit de la version 3 de VueJS, cette dernière
 apporte des améliorations notables sur les performances, la taille de l'application et la facilité de développement. De
 plus, j'ai utilisé Vite, un outil de développement de dernière génération permettant d'améliorer la vitesse construction
 du projet, par exemple lorsqu'on modifie un fichier qui influe sur la disposition de l'interface, ces modifications sont
 directement visibles.
 
-J'ai donc dans un premier temps installé Vite ainsi que Vue afin d'avoir la base de mon application, cela se fait très
+J'ai donc dans un premier temps installé Vite ainsi que VueJS afin d'avoir la base de mon application, cela se fait très
 simplement en suivant la documentation de Vite. La partie un peu plus ardue de l'installation viens de Vuetify. En
 effet, un framework UI nécessite un peu de configuration pour fonctionner correctement, notamment avec Vite afin que ce
 dernier puisse optimiser Vuetify pour le rechargement des pages.
@@ -318,7 +318,7 @@ Une fois cela fais, j'ai peu m'attaquer à la structure de mon application. Lors
 défini que l'application avait besoin de sept pages, une page application pour le nom et la langue, une page pour les
 références, une pour les types de données, une pour les références composite, une page permettant de visualiser
 l'évolution du fichier et enfin une pour télécharger le fichier. De ce fait, sept composants ont été créés, un pour
-chaque page. Un composant Vue correspond à une instance réutilisable d'un composant HTML, c'est-à-dire que c'est à
+chaque page. Un composant VueJS correspond à une instance réutilisable d'un composant HTML, c'est-à-dire que c'est à
 l'intérieur d'un composant qu'on va écrire le code HTML et JavaScript pour une page en question et il va être possible
 par la suite d'appeler se composant pour l'afficher. Avec cela, on va donc installer Vue Router afin de faire
 correspondre une route à un composant et donc de permettre de naviguer entre les différentes pages. Par exemple, si on
@@ -347,8 +347,8 @@ l'interface grâce aux composants cités précédemment. En effet, chaque compos
 le code JavaScript, une partie pour le code HTML et une pour le code CSS. Cela permet de tout regrouper dans un seul et
 même fichier et ainsi chaque composant aura son code qui lui ait propre. Mais cela n'est pas vrai pour tous les
 composants, en effet il existe un composant qui n'a pas évoqué, il s'agit du composant `App`. Ce dernier est présent sur
-n'importe quel projet Vue, c'est en quelque sorte le composant principal sur lequel les autres composants vont
-s'articuler grâce aux routes. La réutilisabilité étant un des concepts clé de Vue, cela va permettre de réutiliser des
+n'importe quel projet VueJS, c'est en quelque sorte le composant principal sur lequel les autres composants vont
+s'articuler grâce aux routes. La réutilisabilité étant un des concepts clé de VueJS, cela va permettre de réutiliser des
 éléments présents sur chaque page, comme la barre navigation ou l'entête sans avoir à réécrire le même code à chaque
 fois.
 
@@ -370,9 +370,81 @@ Comme expliqué precedent, je me suis d'abord attardé sur l'aspect visuel plut�
 l'application. C'est-à-dire que j'ai fait en sorte que l'on puisse naviguer dans l'application afin de pouvoir présenter
 un apercu de l'application et d'avoir un retour sur cette dernière.
 
+Une fois que le visuel validé, j'ai pu m'atteler à la partie fonctionnelle de l'application. Ici cela fait référence au
+fait de stocker les données du fichier, pour ce faire le format JSON a été utilisé. Le JSON est un format
+standard utilisé pour représenter des données structurées de façon semblable aux objets Javascript. Étant donné qu'il
+est très facile de convertir du YAML en JSON et inversement, cela va permettre d'avoir un objet que l'on va pouvoir
+manipuler pour ajouter nos données et qu'on pourra donc par la suite convertir en YAML, de même pour importer un fichier
+existant que l'on pourra convertir en JSON.
+
+Afin de stocker cet objet et qu'il soit accessible dans chaque composant, il est nécessaire d'utiliser Pinia. Il s'agit
+d'un gestionnaire d'état et une bibliothèque pour des applications VueJS. Il sert de zone de stockage de données
+centralisée pour tous les composants dans une application. C'est donc grâce à Pinia que l'ont défini un store, ce store
+va représenter notre objet JavaScript. Dans ce store, on va aussi pouvoir ajouter des getters afin de récupérer des
+données depuis le store et des actions afin d'agir avec l'objet.
+
+```javascript
+export const useYamlStore = defineStore({
+    id: 'yaml',
+    state: () => ({
+        application: {
+            defaultLanguage: 'fr',
+            internationalizationName: {
+                fr: null,
+                en: null
+            },
+            name: null,
+            version: 1
+        },
+        compositeReferences: {},
+        references: {},
+        dataTypes: {}
+    }),
+    getters: {
+        getYaml() {
+            return {...}
+        }
+    },
+    actions: {
+        setYaml(yaml) {
+        },
+
+        resetYaml() {
+        },
+
+        addReference(index, reference) {
+        }
+    }
+})
+```
+
 Ainsi, nous avons la page d'accueil qui permet de créer un nouveau fichier ou bien de charger un fichier existant.
 
-![Page d'accueil de l'application](docs/images/home.png)
+![Page d'accueil](docs/images/home.png)
+
+La page d'application quant à elle permet de donner un nom à l'application et de définir la langue par défaut. Chaque
+champ de texte est directement relié à l'objet JSON, ce qui permet de modifier en temps réel les données sans avoir
+besoin de bouton de validation.
+
+![Page de l'application](docs/images/application.png)
+
+Une des pages les plus importantes, cette dernière va permettre de visualiser les références, une référence possède des
+colonnes, des contraintes et des colonnes clés, on affiche ces informations pour chaque référence dans un tableau. Il y
+a aussi possibilité d'éditer ou de supprimer une référence. Un bouton permettant d'ajouter une nouvelle référence est
+aussi présent en dessous du tableau.
+
+![Page des références](docs/images/references.png)
+
+Afin ajouter ou éditer une référence, on utilise une boite de dialogue comprenant tous les champs nécessaires pour cette
+dernière. Cette boite de dialogue étant la même pour ajout et édition, un composant nommé Reference a été créé comme on
+peut le voir sur le diagramme reprenant la structure de l'application. On va donc pouvoir remplir les champs nécessaires
+comme le nom de la référence, les colonnes ou même les contraintes afin ajouter une référence.
+
+![Boite de dialogue pour l'ajout ou l'édition d'une référence](docs/images/reference.png)
+
+Un aspect important de l'application est la présence de validateur permettant de savoir quelle sont les requis.
+
+![Les validateurs](docs/images/validators.png)
 
 ## Documentation
 

@@ -131,15 +131,248 @@ compositeReferences:
 ```
 
 C'est donc à partir du constat que la création d'un tel fichier est se révèle trop complexe qu'il m'a été demandé de
-développer une application permettant de guider pas à pas l'utilisateur dans la création de ce fichier.
+développer une application permettant de guider pas à pas l'utilisateur dans la création de ce fichier. Ainsi, lors
+d'une
+des réunions hebdomadaires du SI ORE, il a été décider avec mon maitre de stage et notre directeur d'unité Monsieur
+SCHELLENBERGER Antoine d'établir un rétroplanning afin de gérer au mieux les tâches à réaliser dans le temps imparti de
+mon stage. De ce fait, il a été convenu de me laisser jusqu'à la mi-avril afin d'étudier et de comprendre le
+fonctionnement
+d'un fichier de configuration pour être capable d'en construire un par moi-même, jusqu'a la mi-mai pour concevoir des
+maquettes et ensuite jusqu'à la fin de mon stage pour développer et écrire la documentation de l'application.
 
 ## Structure du fichier de configuration
 
+Afin de comprendre correctement le sujet du stage, il est nécessaire d'apporter du vocabulaire et de détailler la
+structure
+d'un fichier. En effet, le fichier contient cinq parties permettant de décrire l'application :
 
+- version
+
+La version de l'analyseur du fichier de configuration (0, 1, 2, ...). Cette partie est propre au format
+YAML. En effet, tout fichier YAML comporte cette "clé" qui permet de savoir quelle version du format est utilisé étant
+donné que le style d'écriture du format YAML a évolué au fil du temps. Dans le cadre de OpenADOM, la version 1 est celle
+par défaut.
+
+```yaml
+version: 1
+...
+```
+
+- application
+
+Cette partie sert à la présentation l'application avec notamment le nom de l'application, une section optionnelle
+d'internationalisation
+du nom de l'application, la langue par défaut et la version du fichier de configuration. Si l'on apporte des
+modifications
+au fichier, on incrémente la version du fichier.
+
+```yaml
+application:
+  defaultLanguage: fr
+  internationalizationName:
+    fr: Ma première application
+    en: My first application
+  name: application_nom
+  version: 1
+```
+
+- references
+
+Il s'agit d'un ensemble d'informations permettant de préciser le contexte de la mesure ou de l'observation. On décrit un
+référentiel de données en y listant le nom des colonnes souhaitées dans la partie `columns`, les colonnes qui forment la
+clé naturelle dans `keyColumns` et on pourra aussi décrire des règles de validations sur une ou plusieurs colonnes dans
+une section `validations` qui sera détailler plus tard. De plus, des sections d'internationalisation optionnelle peuvent
+être détaillées.
+
+```yaml
+references:
+  especes:
+    internationalizationName:
+      fr: Espèces
+      en: Species
+    internationalizedColumns:
+      esp_definition_fr:
+        fr: esp_definition_fr
+        en: esp_definition_en
+    internationalizationDisplay:
+      pattern:
+        fr: '{esp_nom}'
+        en: '{esp_nom}'
+    keyColumns:
+      - esp_nom
+    columns:
+      esp_nom: null
+      esp_definition_fr: null
+      esp_definition_en: null
+      colonne_homonyme_entre_referentiels: null
+```
+
+- compositeReferences
+
+Une référence composite permet de définir une hiérarchie entre différentes données de référence.
+
+``` mermaid
+classDiagram
+sites *-- parcelles:site
+```
+
+```yaml
+compositeReferences:
+  localizations:
+    components:
+      - reference: sites
+      - reference: parcelles
+        parentKeyColumn: 'site'
+```
+
+- dataTypes
+
+Un type de donnée se compose d'une section data permettant de décrire le schéma des données enregistrées en base, du
+format
+du fichier (csv, json, ...), des autorisations et les validations de chaque ligne.
 
 ## Maquettage
 
+Afin de concevoir rapidement et efficacement des maquettes de l'application, Figma a été utilisé, il s'agit d'un
+éditeur de graphiques vectoriels et d'un outil de prototypage.
+
+Dans un premier temps, je suis parti sur dès maquettes sans règles de design spécifiques mis à part de respecter les
+couleurs et polices d'écriture de l'INRAE. La disposition était très simple avec un entête, au milieu le contenu de page
+sur un fond blanc et entre l'entête et le contenu, une barre de navigation.
+
+![Première version des maquettes](docs/images/figma_v1.png)
+
+![Page d'internationalisation](docs/images/model_internationalization_v1.png)
+
+Cependant, je me suis rapidement rendu compte de ses principaux défauts qui été de ne pas suivre de règles de design et
+d'avoir une interface beaucoup trop simpliste qui n'allait pas permettre d'évoluer rapidement. J'ai donc décidé après
+avoir produit trois maquettes de partir sur un nouveau design de maquettes repentant des règles de design.
+
+Après de longue recherche, j'ai décidé d'utiliser Material Design afin d'unifier le style de l'application. Material
+Design est un ensemble de règles de design fourni par Google afin de concevoir des interfaces de qualité plus
+rapidement.
+C'est donc grâce à des composants de Material Design que j'ai pu reprendre le maquettage de mon application et rattraper
+le temps perdu à changer de règles de design.
+
+![Deuxième version des maquettes](docs/images/figma_v2.png)
+
+![Page de la section application](docs/images/model_application_v2.png)
+
+J'ai donc pu grâce, aux retours qui m'avaient été fait lors de la première présentation des maquettes, retravailler ces
+dernières, notamment par rapport au nommage des pages et à la navigation. Même si la structure reste la même avec un
+entête aux couleurs de l'INRAE et une carte centrale avec le contenu de la page, j'y ai ajouté une barre de navigation
+latérale et supprimer celle entre le contenu de la page et l'entête afin de bien délimiter le contenu de la navigation.
+
+Ainsi nous avons la page d'accueil pour choisir si l'on veut créer un nouveau fichier ou bien importer un fichier
+existant, la page d'application qui contient deux champs de textes afin d'internationaliser le nom de
+l'application et une boite à cocher si on veut que l'anglais soit la langue par défaut et pour ce qui est de la page des
+références, nous avons un tableau affichant le nom des références, le nombre de colonnes, les colonnes clés et des
+boutons d'actions.
+
+Après avoir terminé le design de la page des références, je me suis attelé à concevoir une boite de dialogue
+pour ajouter des références. En effet, je souhaitais avoir une boite de dialogue pour ajouter des références et non une
+nouvelle page pour ça. Cependant, ayant déjà une idée de la disposition général qu'allait prendre cette page et n'ayant
+pas de visibilité sur la partie technique de l'application et donc de ce qui allait être possible de faire, je décidai
+de commencer le développement d'un premier prototype afin de présenter une première version fonctionnelle des maquettes.
+
 ## Développement et tests
+
+Avant de pouvoir commencer à développer un premier prototype, une phase de recherche concernant le framework UI à
+utiliser a été nécessaire, ce framework doit bien évidement respecter les règles de Material Design. Un framework UI est
+un ensemble de composants qui permettent de développer des interfaces utilisateur. En effet, utiliser un framework UI
+respectant Material Design va me permettre d'avoir à disposition des composants déjà construits afin de faciliter le
+développement, c'est ce que propose Vuetify, le framework UI le plus populaire. Un dès autre aspect technique important
+est le fait d'utiliser VueJS étant donné que OpenADOM utilise
+déjà VueJS et qu'il est nécessaire que cette application soit accessible partout sans avoir à installer un logiciel.
+Quant à VueJS, il s'agit d'un framework JavaScript qui permet de construire des interfaces utilisateur et des
+applications web mono-pages. Pour ce qui est de la version utilisée, il s'agit de la version 3 de Vue, cette dernière
+apporte des améliorations notables sur les performances, la taille de l'application et la facilité de développement. De
+plus, j'ai utilisé Vite, un outil de développement de dernière génération permettant d'améliorer la vitesse construction
+du projet, par exemple lorsqu'on modifie un fichier qui influe sur la disposition de l'interface, ces modifications sont
+directement visibles.
+
+J'ai donc dans un premier temps installé Vite ainsi que Vue afin d'avoir la base de mon application, cela se fait très
+simplement en suivant la documentation de Vite. La partie un peu plus ardue de l'installation viens de Vuetify. En
+effet, un framework UI nécessite un peu de configuration pour fonctionner correctement, notamment avec Vite afin que ce
+dernier puisse optimiser Vuetify pour le rechargement des pages.
+
+Par exemple, ce bout de code va permettre de construire un thème personnalisé pour l'INRAE avec la definition des
+couleurs.
+
+```typescript
+export const inrae: ThemeDefinition = {
+    dark: false, // On définit si le thème est sombre ou non
+    colors: {
+        background: '#ffffff', // Couleur de fond
+        surface: '#ffffff', // Couleur de surface
+        primary: '#00a3a6', // Couleur primaire
+        error: '#df463a' // Couleur d'erreur
+    }
+}
+```
+
+Ainsi, après avoir définie le thème, ce dernier est importé dans un fichier nommé `main.js`, c'est lui qui va permettre
+de charger et paramétrer les différents frameworks utilisés.
+
+Une fois cela fais, j'ai peu m'attaquer à la structure de mon application. Lors d'une précédente réunion, il a été
+défini que l'application avait besoin de sept pages, une page application pour le nom et la langue, une page pour les
+références, une pour les types de données, une pour les références composite, une page permettant de visualiser
+l'évolution du fichier et enfin une pour télécharger le fichier. De ce fait, sept composants ont été créés, un pour
+chaque page. Un composant Vue correspond à une instance réutilisable d'un composant HTML, c'est-à-dire que c'est à
+l'intérieur d'un composant qu'on va écrire le code HTML et JavaScript pour une page en question et il va être possible
+par la suite d'appeler se composant pour l'afficher. Avec cela, on va donc installer Vue Router afin de faire
+correspondre une route à un composant et donc de permettre de naviguer entre les différentes pages. Par exemple, si on
+veut aller sur la page des références, on va avoir `https://mon_application.fr/references` ou `references` correspond à
+la route.
+
+Ce code permet de lier une route à un composant.
+
+```javascript
+const router = createRouter({
+    history: createWebHistory(),
+    routes: [
+        {path: '/', component: Home},
+        {path: '/application', component: Application},
+        {path: '/references', component: References},
+        {path: '/data-types', component: DataTypes},
+        {path: '/composite-references', component: CompositeReferences},
+        {path: '/visualization', component: Visualization},
+        {path: '/download', component: Download}
+    ]
+})
+```
+
+Après avoir configuré le projet pour avoir une application fonctionnelle, j'ai pu attaquer le développement de
+l'interface grâce aux composants cités précédemment. En effet, chaque composant possède trois parties, une partie pour
+le code JavaScript, une partie pour le code HTML et une pour le code CSS. Cela permet de tout regrouper dans un seul et
+même fichier et ainsi chaque composant aura son code qui lui ait propre. Mais cela n'est pas vrai pour tous les
+composants, en effet il existe un composant qui n'a pas évoqué, il s'agit du composant `App`. Ce dernier est présent sur
+n'importe quel projet Vue, c'est en quelque sorte le composant principal sur lequel les autres composants vont
+s'articuler grâce aux routes. La réutilisabilité étant un des concepts clé de Vue, cela va permettre de réutiliser des
+éléments présents sur chaque page, comme la barre navigation ou l'entête sans avoir à réécrire le même code à chaque
+fois.
+
+Ce diagramme représente la structure de l'application. Reference et DataType seront détaillés plus tard.
+
+```mermaid
+classDiagram
+App <|-- Application
+App <|-- References
+References <|-- Reference
+App <|-- DataTypes
+DataTypes <|-- DataType
+App <|-- CompositeReferences
+App <|-- Visualization
+App <|-- Download
+```
+
+Comme expliqué precedent, je me suis d'abord attardé sur l'aspect visuel plutôt que la partie fonctionnelle de
+l'application. C'est-à-dire que j'ai fait en sorte que l'on puisse naviguer dans l'application afin de pouvoir présenter
+un apercu de l'application et d'avoir un retour sur cette dernière.
+
+Ainsi, nous avons la page d'accueil qui permet de créer un nouveau fichier ou bien de charger un fichier existant.
+
+![Page d'accueil de l'application](docs/images/home.png)
 
 ## Documentation
 

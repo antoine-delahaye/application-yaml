@@ -11,6 +11,8 @@ Je remercie toute l’équipe INFOSOL avec qui j’ai beaucoup appris lors de mo
 
 Je remercie aussi tout le personnel de l’INRAE avec lesquels j’ai pu travailler ou discuter.
 
+Enfin je remercie aussi Docteur DABROWSKI Frédéric, mon tuteur de stage.
+
 # Introduction
 
 Étudiant en troisième année de licence Informatique à l’Université d’Orléans, j’ai réalisé un stage de quatre mois, du 4
@@ -275,7 +277,7 @@ nouvelle page pour ça. Cependant, ayant déjà une idée de la disposition gén
 pas de visibilité sur la partie technique de l'application et donc de ce qui allait être possible de faire, je décidai
 de commencer le développement d'un premier prototype afin de présenter une première version fonctionnelle des maquettes.
 
-## Développement et tests
+## Développement
 
 Avant de pouvoir commencer à développer un premier prototype, une phase de recherche concernant le framework UI à
 utiliser a été nécessaire, ce framework doit bien évidement respecter les règles de Material Design. Un framework UI est
@@ -289,7 +291,10 @@ applications web mono-pages. Pour ce qui est de la version utilisée, il s'agit 
 apporte des améliorations notables sur les performances, la taille de l'application et la facilité de développement. De
 plus, j'ai utilisé Vite, un outil de développement de dernière génération permettant d'améliorer la vitesse construction
 du projet, par exemple lorsqu'on modifie un fichier qui influe sur la disposition de l'interface, ces modifications sont
-directement visibles.
+directement visibles. Concernant le versionnage, l'application a été versionnée avec le GitLab de l'INRAE. Le dépôt
+contient une branche `main` où il n'est possible de pousser des modifications qu'en effectuant une demande de fusion avec
+une autre branche (merge request) devant être accepté par mon maitre de stage ainsi que mes branches permettant de
+développer les différentes fonctionnalités
 
 J'ai donc dans un premier temps installé Vite ainsi que VueJS afin d'avoir la base de mon application, cela se fait très
 simplement en suivant la documentation de Vite. La partie un peu plus ardue de l'installation viens de Vuetify. En
@@ -445,6 +450,84 @@ comme le nom de la référence, les colonnes ou même les contraintes afin ajout
 Un aspect important de l'application est la présence de validateur permettant de savoir quelle sont les requis.
 
 ![Les validateurs](docs/images/validators.png)
+
+Concernant la page des types de données, à l'heure actuelle cette dernière est fonctionnelle, mais n'est pas pourvu de
+toutes les fonctionnalités, de même pour la page des références composites qui n'est pas encore accessibles. Ces
+fonctionnalités seront développées durant la suite de mon stage en juillet.
+
+## Tests
+
+Un autre aspect important du projet concerne les tests à réaliser. En effet, il est nécessaire de vérifier par exemple
+que le fichier YAML qui sera généré est correct. Pour ce faire, plusieurs fichiers test ont été générés. Ensuite, grâce
+à OpenADOM et sont API, il est possible de tester si un fichier est valide. Si tous les fichiers passent le test et
+qu'ils couvrent tous les cas d'utilisation, alors les fichiers générés par l'application seront toujours valides.
+
+D'autres testes sont bien évidemment nécessaires pour vérifier que l'application fonctionne correctement. Pour ce faire
+Cypress a été intégré au projet. Il s'agit d'un outil qui permet de tester l'application en utilisant un navigateur afin
+de tester la navigation et les fonctionnalités de l'application. Pour ce faire, on va écrire un test qui va décrire les
+actions à effectuer dans le navigateur, puis on va lancer le test et si ce dernier passe cela voudras dire qu'il a été
+possible d'effectuer toutes les actions demandées.
+
+Ce test permet par exemple de simplement vérifier qu'il est possible de créer un nouveau fichier avec notre application.
+
+```javascript
+describe('Testing', () => {
+    it('Navigate to the home page', () => {
+        cy.visit('http://localhost:3000/')
+    })
+
+    it('Create a new file', () => {
+        cy.get('input[type = file]').invoke('show').selectFile('cypress/fixtures/foret.yaml')
+        cy.get('.v-navigation-drawer__scrim').click('center')
+        cy.get('form').within(() => {
+            cy.get('input[placeholder="SOERE avec dépôt, ..."]').type('test')
+        })
+        cy.get('.mdi-menu').click()
+        cy.get('[href="/references"]').click()
+        cy.get('.fabs #addReferentiel').click()
+        cy.get(':nth-child(1) > :nth-child(1) > .v-input__control > .v-field > .v-field__field').type('test')
+        cy.get(':nth-child(2) > .v-input > .v-input__control > .v-field > .v-field__field').type('test1')
+        cy.wait(2000)
+        cy.get(':nth-child(2) > .v-btn').click()
+        cy.get(':nth-child(2) > .v-input > .v-input__control > .v-field > .v-field__field').type('test2')
+        cy.get(':nth-child(2) > .v-btn').click()
+        cy.get('.isPrimaryKey input[type=checkbox]').first().click()
+    })
+})
+```
+
+Pour aller plus loin, des tests continus ont été mis en place grâce à GitLab. Cela va permettre de tester
+automatiquement l'application dès qu'un changement est fait sur le dépôt.
+
+Grâce à un fichier YAML nommé `.gitlab-ci.yml`, on va décrire comment exécuter les tests.
+
+```yaml
+stages:
+  - test
+
+cache:
+  key: ${CI_COMMIT_REF_SLUG}
+  paths:
+    - node_modules/
+    - .npm/
+
+test:
+  image: cypress/browsers:node17.8.0-chrome99-ff97-slim
+  stage: test
+  script:
+    # install dependencies
+    - npm ci
+    # start the server in the background
+    - npm run dev &
+    # run Cypress tests
+    - npx cypress run --browser firefox
+  artifacts:
+    when: always
+    paths:
+      - cypress/videos/**/*.mp4
+      - cypress/screenshots/**/*.png
+    expire_in: 1 day
+```
 
 ## Documentation
 

@@ -160,7 +160,7 @@
       <v-card-subtitle v-text="t('reference.name')"/>
       <v-card-content>
         <v-form ref="referenceName" class="d-flex gap-3">
-          <v-text-field :label="t('reference.name', ['en français', 'in French'])"
+          <v-text-field id="referenceName" :label="t('reference.name', ['en français', 'in French'])"
                         :placeholder="t('reference.frPlaceholder')"
                         variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint
                         v-model="reference.internationalizationName.fr" :rules="[rules.required]"/>
@@ -173,7 +173,7 @@
       <v-card-subtitle v-text="t('reference.column.subtitle')"/>
       <v-card-content>
         <v-form ref="addColumn" class="d-flex gap-3">
-          <v-text-field :label="t('reference.column.name', ['en français', 'in French'])"
+          <v-text-field id="columnName" :label="t('reference.column.name', ['en français', 'in French'])"
                         :placeholder="t('reference.frPlaceholder')"
                         variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint
                         v-model="frColumnName" :rules="[rules.required]"/>
@@ -181,7 +181,7 @@
                         :placeholder="t('reference.enPlaceholder')"
                         variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint
                         v-model="enColumnName"/>
-          <v-btn color="primary" @click="addColumn" class="mt-2">
+          <v-btn id="addColumn" color="primary" @click="addColumn" class="mt-2">
             <v-icon icon="mdi-plus-circle"/>
           </v-btn>
         </v-form>
@@ -201,7 +201,7 @@
           <tr v-for="(_, key) in reference.columns">
             <td v-text="key"/>
             <td>
-              <v-checkbox class='isPrimaryKey' color="primary" :value="key" v-model="reference.keyColumns"
+              <v-checkbox id="primaryKey" class='isPrimaryKey' color="primary" :value="key" v-model="reference.keyColumns"
                           hide-details/>
             </td>
             <td>
@@ -219,7 +219,7 @@
       <v-card-content>
         <v-form ref="addConstraint">
           <div class="d-flex gap-3">
-            <v-text-field :label="t('reference.constraint.name', ['en français', 'in French'])"
+            <v-text-field id="constraintName" :label="t('reference.constraint.name', ['en français', 'in French'])"
                           :placeholder="t('reference.frPlaceholder')"
                           variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint
                           v-model="validation.internationalizationName.fr" :rules="[rules.required]"/>
@@ -229,10 +229,10 @@
                           v-model="validation.internationalizationName.en"/>
           </div>
           <div class="d-flex gap-3">
-            <v-select v-model="validation.checker.name"
+            <v-select id="constraintType" v-model="validation.checker.name"
                       :items="['Reference', 'Integer', 'Float', 'Date', 'GroovyExpression', 'RegularExpression']"
                       :label="t('reference.constraint.type')" variant="outlined" :rules="[rules.required]" color="primary"/>
-            <v-select v-if="validation.checker.name === 'Reference'" v-model="validation.columns"
+            <v-select id="selectedColumn" v-if="validation.checker.name === 'Reference'" v-model="validation.columns"
                       :items="Object.keys(reference.columns)" :label="t('reference.constraint.references')" multiple
                       variant="outlined" chips :rules="[rules.required]" color="primary"/>
             <v-text-field v-else-if="validation.checker.name === 'Date'" v-model="validation.checker.params.pattern"
@@ -241,7 +241,7 @@
                       :label="t('reference.constraint.groovy')" variant="outlined" :rules="[rules.required]" color="primary"/>
             <v-text-field v-else-if="validation.checker.name === 'RegularExpression'" v-model="validation.checker.params.pattern"
                       :label="t('reference.constraint.regex')" variant="outlined" :rules="[rules.required]" color="primary"/>
-            <v-btn color="primary" @click="addConstraint" class="mt-2">
+            <v-btn id="addConstraint" color="primary" @click="addConstraint" class="mt-2">
               <v-icon icon="mdi-plus-circle"/>
             </v-btn>
           </div>
@@ -275,10 +275,10 @@
         </v-table>
       </v-card-content>
       <v-card-actions class="d-flex justify-center">
-        <v-btn prepend-icon="mdi-close" color="error" @click="dialog = false">
+        <v-btn id="close" prepend-icon="mdi-close" color="error" @click="dialog = false">
           {{ t('button.close') }}
         </v-btn>
-        <v-btn v-if="referenceName === null" prepend-icon="mdi-plus" color="primary" @click="addReference">
+        <v-btn id="addReference" v-if="referenceName === null" prepend-icon="mdi-plus" color="primary" @click="addReference">
           {{ t('button.add') }}
         </v-btn>
       </v-card-actions>

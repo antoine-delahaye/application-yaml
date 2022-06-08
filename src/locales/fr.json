@@ -70,7 +70,7 @@
   },
   "reference": {
     "title": "Ajouter un référentiel",
-    "name": "Nom du référentiel",
+    "name": "Nom du référentiel {0}",
     "frPlaceholder": "Espèces, ...",
     "enPlaceholder": "Species, ...",
     "keyColumn": "Colonne clé",

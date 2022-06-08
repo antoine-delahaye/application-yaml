@@ -72,7 +72,10 @@
             </thead>
             <tbody>
             <tr v-for="(value, key) in references">
-              <td v-if="application.defaultLanguage === 'fr'">
+              <td v-if="value.internationalizationName === undefined">
+                {{ key }}
+              </td>
+              <td v-else-if="application.defaultLanguage === 'fr'">
                 {{ value.internationalizationName.fr }}
               </td>
               <td v-else>
@@ -106,13 +109,14 @@
         </v-card-content>
       </v-card>
     </v-container>
-    <v-container fluid class="d-flex flex-wrap justify-end gap-3 fabs">
+    <v-container fluid class="d-flex flex-wrap justify-end gap-3">
       <input ref="uploader" hidden type="file" @change="onFileChanged" accept=".yml, .yaml"/>
-      <v-btn id='uploadReferentiel' prepend-icon="mdi-upload" color="primary" rounded="pill" size="large" :loading="isSelecting"
+      <v-btn prepend-icon="mdi-upload" color="primary" rounded="pill" size="large"
+             :loading="isSelecting"
              @click="handleFileImport">
         {{ t('button.upload', {accepted: '(.yaml)'}) }}
       </v-btn>
-      <v-btn id='addReferentiel' prepend-icon="mdi-plus" color="primary" rounded="pill" size="large">
+      <v-btn id="addReference" prepend-icon="mdi-plus" color="primary" rounded="pill" size="large">
         {{ t('button.reference') }}
         <Reference :reference-name="null"/>
       </v-btn>

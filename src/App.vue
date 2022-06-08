@@ -59,7 +59,7 @@
       <v-img src="/src/assets/logo.svg" class="ml-3"/>
       <v-spacer/>
       <div>
-        <v-btn :hidden="hidden" to="/">
+        <v-btn id="home" :hidden="hidden" to="/">
           <v-icon size="large">mdi-home</v-icon>
         </v-btn>
         <v-menu :anchor="'bottom'">

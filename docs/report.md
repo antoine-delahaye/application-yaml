@@ -468,7 +468,7 @@ de tester la navigation et les fonctionnalités de l'application. Pour ce faire,
 actions à effectuer dans le navigateur, puis on va lancer le test et si ce dernier passe cela voudras dire qu'il a été
 possible d'effectuer toutes les actions demandées.
 
-Ce test permet par exemple de simplement vérifier qu'il est possible de créer un nouveau fichier avec notre application.
+Ce test permet par exemple de simplement vérifier qu'il est possible d'importer un fichier existant et de le charger.
 
 ```javascript
 describe('Testing', () => {
@@ -476,22 +476,10 @@ describe('Testing', () => {
         cy.visit('http://localhost:3000/')
     })
 
-    it('Create a new file', () => {
-        cy.get('input[type = file]').invoke('show').selectFile('cypress/fixtures/foret.yaml')
-        cy.get('.v-navigation-drawer__scrim').click('center')
-        cy.get('form').within(() => {
-            cy.get('input[placeholder="SOERE avec dépôt, ..."]').type('test')
-        })
-        cy.get('.mdi-menu').click()
+    it('Import a existing file', () => {
+        cy.get('#home').click()
+        cy.get('#import').invoke('show').selectFile('cypress/fixtures/foret.yaml')
         cy.get('[href="/references"]').click()
-        cy.get('.fabs #addReferentiel').click()
-        cy.get(':nth-child(1) > :nth-child(1) > .v-input__control > .v-field > .v-field__field').type('test')
-        cy.get(':nth-child(2) > .v-input > .v-input__control > .v-field > .v-field__field').type('test1')
-        cy.wait(2000)
-        cy.get(':nth-child(2) > .v-btn').click()
-        cy.get(':nth-child(2) > .v-input > .v-input__control > .v-field > .v-field__field').type('test2')
-        cy.get(':nth-child(2) > .v-btn').click()
-        cy.get('.isPrimaryKey input[type=checkbox]').first().click()
     })
 })
 ```

@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="public/favicon.ico" alt="Favicon" width="80"/>
+  <img src="src/assets/favicon.png" alt="Favicon" width="80"/>
   <h1>
     <a href="https://forgemia.inra.fr/anaee-dev/implementations-si-ore/si_v2_tools/si-ore-v2-yaml-configuration">
       Application YAML
@@ -141,6 +141,6 @@
 
 ### Maintenance
 
-<div style="display: flex; flex-direction: column; align-items: center">
+<div align="center">
   <img src="src/assets/logo_primary.svg" alt="Logo" width="150"/>
 </div>

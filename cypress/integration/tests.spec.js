@@ -26,6 +26,7 @@ describe('Testing', () => {
         cy.get('#addConstraint').click()
         cy.get('#addReference').click()
         cy.get('#close').click()
+        cy.wait(1000)
     })
 
     it('Import a existing file', () => {

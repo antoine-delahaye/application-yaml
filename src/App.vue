@@ -56,7 +56,7 @@
   <v-app>
     <v-app-bar color="primary">
       <v-app-bar-nav-icon icon="mdi-menu" @click.stop="drawer = !drawer" :hidden="hidden"/>
-      <v-img src="/src/assets/logo.svg" class="ml-3"/>
+      <v-img id="logo" src="/src/assets/logo_white.svg" class="ml-3"/>
       <v-spacer/>
       <div>
         <v-btn id="home" :hidden="hidden" to="/">

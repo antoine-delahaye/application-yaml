@@ -291,10 +291,11 @@ applications web mono-pages. Pour ce qui est de la version utilisée, il s'agit 
 apporte des améliorations notables sur les performances, la taille de l'application et la facilité de développement. De
 plus, j'ai utilisé Vite, un outil de développement de dernière génération permettant d'améliorer la vitesse construction
 du projet, par exemple lorsqu'on modifie un fichier qui influe sur la disposition de l'interface, ces modifications sont
-directement visibles. Concernant le versionnage, l'application a été versionnée avec le GitLab de l'INRAE. Le dépôt
-contient une branche `main` où il n'est possible de pousser des modifications qu'en effectuant une demande de fusion avec
-une autre branche (merge request) devant être accepté par mon maitre de stage ainsi que mes branches permettant de
-développer les différentes fonctionnalités
+directement visibles et de plus, Vite intègre des mécanismes d'optimisation afin de precompiler certaines ressources et
+importer uniquement celle nécessaire. Concernant le versionnage, l'application a été versionnée avec le GitLab de l'
+INRAE. Le dépôt contient une branche `main` où il n'est possible de pousser des modifications qu'en effectuant une
+demande de fusion avec une autre branche (merge request) devant être accepté par mon maitre de stage ainsi que mes
+branches permettant de développer les différentes fonctionnalités
 
 J'ai donc dans un premier temps installé Vite ainsi que VueJS afin d'avoir la base de mon application, cela se fait très
 simplement en suivant la documentation de Vite. La partie un peu plus ardue de l'installation viens de Vuetify. En
@@ -447,13 +448,82 @@ comme le nom de la référence, les colonnes ou même les contraintes afin ajout
 
 ![Boite de dialogue pour l'ajout ou l'édition d'une référence](docs/images/reference.png)
 
-Un aspect important de l'application est la présence de validateur permettant de savoir quelle sont les requis.
+Comme décrit précédemment, chaque champ texte qui modifie directement une donnée du fichier de configuration est relié à
+cette dernière dans l'objet enregistré dans le store, cela permet de modifier en temps réel les données dans l'objet.
+Ici par exemple, nous avons l'attribut `v-model` d'un composant de champ de texte qui permet de lier sa valeur d'entrée
+à la donnée de l'objet.
+
+```vue
+
+<v-text-field id="referenceName" :label="t('reference.name', ['en français', 'in French'])"
+              :placeholder="t('reference.frPlaceholder')" variant="outlined" color="primary" :hint="t('hint.required')"
+              persistent-hint v-model="reference.internationalizationName.fr" :rules="[rules.required]"
+/>
+```
+
+Un aspect important de l'application est la présence de validateur permettant de savoir quelle sont les requis. Il
+s'agit d'une fonctionnalité mise à disposition par Vuetify. Il est possible d'inclure des règles de validation dans
+chaque composant afin d'afficher une erreur lorsque les règles ne sont pas respectées. On peut le voir ci-dessus avec
+l'attribut `rules` qui fait appelle à une règle qui a été déclarée dans la section script du composant Vue.
+
+La règle en question. Si la valeur du champ est vide alors on affiche une erreur.
+
+```javascript
+rules = {
+    required: v => !!v || this.t('rule.required')
+}
+```
 
 ![Les validateurs](docs/images/validators.png)
+
+Une dès fonctionnalité qui avait été évoqué en réunion est le fait de pouvoir visualiser le fichier en cours de
+construction afin d'avoir une vue d'ensemble sur le fichier et notamment de pouvoir revenir plus facilement sur des
+points spécifiques en cliquant sur un élément. Pour l'instant, il est juste possible de visualiser l'objet, mais pas
+d'interagir, il s'agit d'une des fonctionnalités qui sera ajouté par la suite.
+
+![La page de visualisation](docs/images/visualization.png)
+
+La page de téléchargement va permettre de télécharger le fichier créé grâce à l'application. Le principe de
+fonctionnement est simple, lorsque l'on clique sur le bouton de téléchargement, on va récupérer l'objet contenu dans le
+store et on va utiliser une librairie qui se charge de convertir du JSON en YAML. Une fois le travail effectué, on
+génère un fichier avec l'extension YAML contenant les données.
 
 Concernant la page des types de données, à l'heure actuelle cette dernière est fonctionnelle, mais n'est pas pourvu de
 toutes les fonctionnalités, de même pour la page des références composites qui n'est pas encore accessibles. Ces
 fonctionnalités seront développées durant la suite de mon stage en juillet.
+
+## Internationalisation
+
+Un aspect important de l'application est la gestion de la langue. Il est possible de changer la langue de l'application
+depuis le bouton prévu à cet effet en haut de la page. Deux langues sont disponibles, français comme langue par défaut
+et l'anglais. Si on change la langue, un cookie est créé afin de garder la langue en mémoire. Pour cela, on utilise
+Vue i18n et Vue3 Cookies. Vue i18n est une API permettant de gérer l'internationalisation de l'application. Cette
+dernière va fonctionner avec Vite afin de precompiler les fichiers de traduction et de ce fait, cela permet de changer
+la langue à la volée sans recharger la page.
+
+Les données de traduction sont stockés dans des fichiers JSON qui sont importé par Vue i18n et mis à disposition dans
+les composants de Vue. Étant donné qu'il s'agit du format JSON, les traductions fonctionnent par système de clé/valeur.
+Par exemple, on veut un bouton fermer. Dans ce cas, on a créé une clé `close` et on lui associe la traduction en
+fonction de s'il s'agit du JSON en français ou en anglais.
+
+```json
+{
+  "close": "Fermer"
+}
+```
+
+```json
+{
+  "close": "Close"
+}
+```
+
+Après avoir définie la traduction, on peut utiliser cette clé dans un composant grâce à l'attribut `t`.
+
+```vue
+
+<v-btn @click="closeDialog">{{ t('close') }}</v-btn>
+```
 
 ## Tests
 
@@ -519,6 +589,43 @@ test:
 
 ## Documentation
 
+Pour ce qui est de la documentation, il s'agit du fichier README présent sur le dépôt, ce fichier étant au format
+Markdown, il a été possible d'y intégrer du code HTML afin de styliser la documentation.
+
+![La documentation](docs/images/documentation.png)
+
+Nous avons donc un sommaire qui présente les six parties de la documentation, à savoir :
+
+- Les prérequis, c'est-à-dire les logiciels nécessaires au lancement de l'application et comment les installer
+- Les commandes utiles à l'application
+- Les dépendances du projet, cela concerne tout framework et librairie utilisé
+- La structure du projet afin de savoir comment est construit l'application et où trouver certaines ressources
+- Le fonctionnement de l'application qui détaille les données stockées, comment les récupérer, les utiliser et comment
+  est construit l'application
+- La maintenance afin de garde une application stable et de pouvoir la faire évoluer en mettant à jour les dépendances
+  ou en ajoutant de nouvelles fonctionnalités par exemple
+
 # Bilan
 
+Travailler pendant quatre mois à l'INRAE a été une expérience très enrichissante pour moi, aussi bien sur le plan humain
+que technique. En effet j’ai beaucoup appris sur le monde en entreprise et dans le domaine de l’informatique grâce aux
+différentes personnes que j'ai côtoyées et avec lesquelles j'ai pu travailler. Ces dernières mon beaucoup appris grâce à
+leur expérience. Cela a donc été très enrichissant pour moi d'autant plus que j'ai pu suivre tout mon stage en
+présentiel contrairement à mon précédent stage.
+
+Ce stage m'a donc grandement apporté sur le plan technique et organisationnel. Cela est dû à l'autonomie que mon maitre
+de stage m'a donné et au fait d'être derrière moi en cas de besoin. En effet j'ai su monter en compétence dans des
+technologies et pratiques que je ne connaissais pas forcément. C'est le cas de VueJS où je n'avais eu que peu d'occasion
+de travailler sur ce framework et Figma, un outil très puissant que j'ai toujours voulu utiliser.
+
 # Conclusion
+
+Comme expliqué précédemment, ce stage m’a beaucoup apporté. Cela est pour moi une expérience très enrichissante. J’y ai
+rencontré des personnes formidables et très intéressantes, j’ai dû faire face à des difficultés, m’adapter dans
+certaines situations et apprendre à communiquer avec les gens avec lesquels j’ai pu travailler. Au-delà de ça,
+j’ai eu la chance de travailler sur un sujet très complet, ce qui a été pour moi quelque chose de très intéressant, cela
+m'a permis de toucher à beaucoup de domaine de la programmation web et de la conception d'interface.
+
+En fin de compte, je suis pour l'instant très satisfait de mon stage, il me reste encore un mois à travailler sur
+le projet et ce dernier avance bien. Toutes les fonctionnalités ne seront peut-être pas disponible à la fin, mais je
+suis confiant pour la suite grâce aux bases solide de ce dernier.

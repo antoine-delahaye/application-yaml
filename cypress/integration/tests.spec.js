@@ -19,14 +19,14 @@ describe('Testing', () => {
         cy.get('#addColumn').click()
         cy.get('#primaryKey').first().click()
         cy.get('#constraintName').type('Contrainte')
-        cy.get('#constraintType').click()
+        cy.get('#constraintType').click({force: true})
         cy.contains('Reference').click()
-        cy.get('#selectedColumn').click()
+        cy.get('#selectedColumn').click({force: true})
         cy.contains('colonne_1').last().click()
         cy.get('#addConstraint').click()
         cy.get('#addReference').click()
         cy.get('#close').click()
-        cy.wait(1000)
+        cy.wait(500)
     })
 
     it('Import a existing file', () => {

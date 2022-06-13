@@ -1,34 +1,48 @@
 <script>
+  import {useI18n} from 'vue-i18n'
+  import {storeToRefs} from 'pinia'
+  import {parseDocument} from 'yaml'
+
   import Reference from '/src/components/Reference.vue'
+  import DeleteAlert from '/src/components/DeleteAlert.vue'
+
+  import {useYamlStore} from '/src/store/yaml'
 
   export default {
-    data() {
-      return {
-        t: this.i18n.t,
-        editReferenceDialog: false,
-        addReferenceDialog: false,
-        selectedKey: null
-      }
+    setup() {
+      const {t} = useI18n()
+      const {application, references} = storeToRefs(useYamlStore())
+      return {t, application, references}
     },
 
-    props: {
-      i18n: {
-        type: Object,
-        required: true
-      },
-      yamlStore: {
-        type: Object,
-        required: true
+    data() {
+      return {
+        selectedKey: "null",
+        isSelecting: false,
+        selectedFile: null
       }
     },
 
     components: {
-      Reference
+      Reference,
+      DeleteAlert
     },
 
     methods: {
-      removeReference(reference) {
-        delete this.yamlStore.references[reference]
+      handleFileImport() {
+        this.isSelecting = true
+        window.addEventListener('focus', () => {
+          this.isSelecting = false
+        }, {once: true})
+        this.$refs.uploader.click()
+      },
+      onFileChanged(e) {
+        const reader = new FileReader()
+        reader.onload = (e) => {
+          this.selectedFile = e.target.result
+          this.references = (parseDocument(this.selectedFile).toJSON()).references
+        }
+        reader.readAsText(e.target.files[0])
       }
     }
   }
@@ -37,43 +51,57 @@
 <template>
   <v-main>
     <v-container fluid>
+      <v-alert type="info" border>
+        <v-alert-title v-text="t('alert.info')"/>
+        {{ t('alert.references') }}
+      </v-alert>
+    </v-container>
+    <v-container fluid>
       <v-card>
-        <v-card-title>
-          {{ t('references.title') }}
-          <div class="d-flex gap-1 ml-auto">
-            <v-btn prepend-icon="mdi-pencil" color="primary" class="mr-3" :disabled="selectedKey === null">
-              {{ t('button.edit') }}
-              <Reference v-model="editReferenceDialog" @close="editReferenceDialog = false" activator="parent" :i18n="{t}" :yaml-store="yamlStore" :reference-name="selectedKey"/>
-            </v-btn>
-            <v-btn prepend-icon="mdi-delete" color="error" @click="removeReference(selectedKey)"
-                   :disabled="selectedKey === null">
-              {{ t('button.delete') }}
-            </v-btn>
-          </div>
-        </v-card-title>
+        <v-card-title v-text="t('references.title')"/>
         <v-card-content>
           <v-table>
             <thead>
             <tr>
-              <th/>
-              <th class="text-left" v-text="t('references.table.referenceName')"/>
-              <th class="text-left" v-text="t('references.table.columnsNumber')"/>
-              <th class="text-left" v-text="t('references.table.keyColumns')"/>
+              <th v-text="t('references.referenceName')"/>
+              <th v-text="t('references.columnsNumber')"/>
+              <th v-text="t('references.constraintsNumber')"/>
+              <th v-text="t('references.keyColumns')"/>
+              <th v-text="'Actions'"/>
             </tr>
             </thead>
             <tbody>
-            <tr v-for="(_, key) in yamlStore.references">
-              <td>
-                <v-checkbox color="primary" :value="key" v-model="selectedKey" hide-details/>
-              </td>
-              <td>
+            <tr v-for="(value, key) in references">
+              <td v-if="value.internationalizationName === undefined">
                 {{ key }}
               </td>
-              <td>
-                {{ Object.keys(yamlStore.references[key].columns).length }}
+              <td v-else-if="application.defaultLanguage === 'fr'">
+                {{ value.internationalizationName.fr }}
+              </td>
+              <td v-else>
+                {{ value.internationalizationName.en }}
+              </td>
+              <td v-if="value.validations !== undefined">
+                {{ Object.keys(value.validations).length }}
+              </td>
+              <td v-else>
+                0
               </td>
               <td>
-                {{ yamlStore.references[key].keyColumns.join(', ') }}
+                {{ Object.keys(value.columns).length }}
+              </td>
+              <td>
+                {{ value.keyColumns.join(', ') }}
+              </td>
+              <td class="d-flex align-center gap-3">
+                <v-btn size="small" color="error">
+                  <v-icon icon="mdi-delete"/>
+                  <DeleteAlert :selected-key="key" :is-reference="true" :locale="['référentiel', 'reference']"/>
+                </v-btn>
+                <v-btn size="small" color="primary">
+                  <v-icon icon="mdi-pencil"/>
+                  <Reference :reference-name="key"/>
+                </v-btn>
               </td>
             </tr>
             </tbody>
@@ -81,16 +109,19 @@
         </v-card-content>
       </v-card>
     </v-container>
+    <v-container fluid class="d-flex flex-wrap justify-end gap-3">
+      <input ref="uploader" hidden type="file" @change="onFileChanged" accept=".yml, .yaml"/>
+      <v-btn prepend-icon="mdi-upload" color="primary" rounded="pill" size="large"
+             :loading="isSelecting"
+             @click="handleFileImport">
+        {{ t('button.upload', {accepted: '(.yaml)'}) }}
+      </v-btn>
+      <v-btn id="addReference" prepend-icon="mdi-plus" color="primary" rounded="pill" size="large">
+        {{ t('button.reference') }}
+        <Reference :reference-name="null"/>
+      </v-btn>
+    </v-container>
   </v-main>
-  <v-container fluid class="d-flex justify-end gap-3">
-    <v-btn prepend-icon="mdi-upload" color="primary" rounded="pill" size="large">
-      {{ t('button.upload') }}
-    </v-btn>
-    <v-btn prepend-icon="mdi-plus" color="primary" rounded="pill" size="large">
-      {{ t('button.reference') }}
-      <Reference v-model="addReferenceDialog" @close="addReferenceDialog = false" activator="parent" :i18n="{t}" :yaml-store="yamlStore" :reference-name="null"/>
-    </v-btn>
-  </v-container>
 </template>
 
 <style scoped>

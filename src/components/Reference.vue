@@ -1,38 +1,72 @@
 <script>
+  import {useI18n} from 'vue-i18n'
   import {reactive} from 'vue'
+  import {storeToRefs} from 'pinia'
+
+  import {useYamlStore} from '/src/store/yaml'
+  import getIndexName from '/src/utils'
 
   export default {
+    setup() {
+      const {t} = useI18n()
+      const {references} = storeToRefs(useYamlStore())
+      return {t, references}
+    },
+
     data() {
       return {
-        t: this.i18n.t,
-        referenceNameFr: null,
-        referenceNameEn: null,
-        keyColumns: [],
-        columns: reactive({}),
-        columnName: null,
-        update: false
+        reference: reactive({
+          validations: {},
+          internationalizationName: {
+            fr: null,
+            en: null
+          },
+          internationalizedColumns: {},
+          keyColumns: [],
+          columns: {}
+        }),
+        frColumnName: null,
+        enColumnName: null,
+        validation: reactive({
+          internationalizationName: {
+            fr: null,
+            en: null
+          },
+          checker: {
+            name: null,
+            params: {
+              refType: null,
+              required: null,
+              groovy: {
+                expression: null
+              },
+              pattern: null
+            }
+          },
+          columns: []
+        }),
+        rules: {
+          required: v => !!v || this.t('rule.required'),
+          columnAlreadyExist: this.t('rule.columnAlreadyExist')
+        },
+        dialog: false,
+        alert: false
       }
     },
 
     updated() {
       if (this.referenceName !== null) {
-        this.update = true
-        this.referenceNameFr = this.yamlStore.references[this.referenceName].internationalizationName.fr
-        this.referenceNameEn = this.yamlStore.references[this.referenceName].internationalizationName.en
-        this.keyColumns = this.yamlStore.references[this.referenceName].keyColumns
-        this.columns = this.yamlStore.references[this.referenceName].columns
+        this.reference = this.references[this.referenceName]
+        if (this.reference.internationalizationName === undefined) {
+          this.reference['internationalizationName'] = {
+            fr: this.referenceName,
+            en: null
+          }
+        }
       }
     },
 
     props: {
-      i18n: {
-        type: Object,
-        required: true
-      },
-      yamlStore: {
-        type: Object,
-        required: true
-      },
       referenceName: {
         type: String,
         required: false
@@ -41,88 +75,213 @@
 
     methods: {
       addColumn() {
-        if (this.columnName !== null) {
-          this.columns[this.columnName] = null
-          this.columnName = null
+        if (this.$refs.addColumn.validate()) {
+          const index = getIndexName(this.frColumnName)
+          this.reference.internationalizedColumns[index] = {
+            fr: this.frColumnName,
+            en: this.enColumnName
+          }
+          this.reference.columns[index] = null
+          this.frColumnName = null
+          this.enColumnName = null
         }
       },
       addReference() {
-        if (this.referenceNameFr !== null && Object.keys(this.columns).length > 0) {
-          let index = this.referenceNameFr.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase()
-          this.yamlStore.references[index] = {
+        if (this.$refs.referenceName.validate()) {
+          this.references[getIndexName(this.reference.internationalizationName.fr)] = this.reference
+          this.reference = reactive({
+            validation: {},
             internationalizationName: {
-              fr: this.referenceNameFr,
-              en: this.referenceNameEn
-            }
-          }
-          this.yamlStore.references[index]['keyColumns'] = this.keyColumns
-          this.yamlStore.references[index]['columns'] = this.columns
-          this.keyColumns = []
-          this.columns = reactive({})
-          this.referenceNameFr = null
-          this.referenceNameEn = null
+              fr: null,
+              en: null
+            },
+            internationalizedColumns: {},
+            keyColumns: [],
+            columns: {}
+          })
         }
       },
-      removeColumn(column) {
-        delete this.columns[column]
+      addConstraint() {
+        if (this.$refs.addConstraint.validate() && this.$refs.addColumn.validate()) {
+          this.reference.validations[getIndexName(this.validation.internationalizationName.fr)] = this.validation
+          this.validation = reactive({
+            internationalizationName: {
+              fr: null,
+              en: null
+            },
+            checker: {
+              name: null,
+              params: {
+                refType: null,
+                required: null,
+                groovy: {
+                  expression: null
+                },
+                pattern: null
+              }
+            },
+            columns: []
+          })
+        }
+      },
+      deleteColumn(index) {
+        let haveConstraint = false
+        for (const [_, value] of Object.entries(this.reference.validations)) {
+          if (value.columns.includes(index)) {
+            haveConstraint = true
+            this.alert = true
+            break
+          }
+        }
+        if (!haveConstraint) {
+          this.alert = false
+          delete this.reference.columns[index]
+          delete this.reference.internationalizedColumns[index]
+        }
+      }
+    },
+
+    watch: {
+      dialog(value) {
+        if (value === false && this.referenceName !== null && this.references[this.reference.internationalizationName.fr] === undefined) {
+          const save = this.references[this.referenceName]
+          delete this.references[this.referenceName]
+          this.references[getIndexName(save.internationalizationName.fr)] = save
+        }
       }
     }
   }
 </script>
 
 <template>
-  <v-dialog>
-    <v-card width="80rem">
+  <v-dialog activator="parent" v-model="dialog">
+    <v-card width="150vh">
+      <v-card-title v-text="t('reference.title')"/>
+      <v-card-subtitle v-text="t('reference.name')"/>
       <v-card-content>
-        <v-form>
+        <v-form ref="referenceName" class="d-flex gap-3">
+          <v-text-field id="referenceName" :label="t('reference.name', ['en français', 'in French'])"
+                        :placeholder="t('reference.frPlaceholder')"
+                        variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint
+                        v-model="reference.internationalizationName.fr" :rules="[rules.required]"/>
+          <v-text-field :label="t('reference.name', ['en anglais', 'in English'])"
+                        :placeholder="t('reference.enPlaceholder')"
+                        variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint
+                        v-model="reference.internationalizationName.en"/>
+        </v-form>
+      </v-card-content>
+      <v-card-subtitle v-text="t('reference.column.subtitle')"/>
+      <v-card-content>
+        <v-form ref="addColumn" class="d-flex gap-3">
+          <v-text-field id="columnName" :label="t('reference.column.name', ['en français', 'in French'])"
+                        :placeholder="t('reference.frPlaceholder')"
+                        variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint
+                        v-model="frColumnName" :rules="[rules.required]"/>
+          <v-text-field :label="t('reference.column.name', ['en anglais', 'in English'])"
+                        :placeholder="t('reference.enPlaceholder')"
+                        variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint
+                        v-model="enColumnName"/>
+          <v-btn id="addColumn" color="primary" @click="addColumn" class="mt-2">
+            <v-icon icon="mdi-plus-circle"/>
+          </v-btn>
+        </v-form>
+        <v-alert v-model="alert" type="warning" border closable>
+          <v-alert-title v-text="t('alert.action')"/>
+          {{ t('alert.column') }}
+        </v-alert>
+        <v-table>
+          <thead>
+          <tr>
+            <th v-text="t('reference.column.name')"/>
+            <th v-text="t('reference.keyColumn')"/>
+            <th v-text="t('references.deleteRow')"/>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="(_, key) in reference.columns">
+            <td v-text="key"/>
+            <td>
+              <v-checkbox id="primaryKey" class='isPrimaryKey' color="primary" :value="key" v-model="reference.keyColumns"
+                          hide-details/>
+            </td>
+            <td>
+              <div class="d-flex align-center gap-3">
+                <v-btn size="small" color="error" @click="deleteColumn(key)">
+                  <v-icon icon="mdi-delete"/>
+                </v-btn>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </v-table>
+      </v-card-content>
+      <v-card-subtitle v-text="t('reference.constraint.subtitle')"/>
+      <v-card-content>
+        <v-form ref="addConstraint">
           <div class="d-flex gap-3">
-            <v-text-field :label="t('references.form.fr.label')" :placeholder="t('references.form.fr.placeholder')"
-                          variant="outlined" color="primary" :hint="t('application.fr.hint')" persistent-hint v-model="referenceNameFr"/>
-            <v-text-field :label="t('references.form.en.label')" :placeholder="t('references.form.en.placeholder')"
-                          variant="outlined" color="primary" :hint="t('application.en.hint')" persistent-hint
-                          v-model="referenceNameEn"/>
+            <v-text-field id="constraintName" :label="t('reference.constraint.name', ['en français', 'in French'])"
+                          :placeholder="t('reference.frPlaceholder')"
+                          variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint
+                          v-model="validation.internationalizationName.fr" :rules="[rules.required]"/>
+            <v-text-field :label="t('reference.constraint.name', ['en anglais', 'in English'])"
+                          :placeholder="t('reference.enPlaceholder')"
+                          variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint
+                          v-model="validation.internationalizationName.en"/>
           </div>
-          <v-text-field :label="t('references.form.columnName')" :placeholder="t('references.form.placeholder')"
-                        variant="outlined" color="primary" hide-details append-icon="mdi-plus-circle"
-                        @click:append="addColumn" v-model="columnName" class="pr-2"/>
-          <v-table>
-            <thead>
-            <tr>
-              <th class="text-left" v-text="t('references.form.columnName')"/>
-              <th class="text-left" v-text="t('references.form.keyColumn')"/>
-              <th class="text-left" v-text="t('references.table.actions')"/>
-            </tr>
-            </thead>
-            <tbody>
-            <tr v-for="(_, key) in columns">
-              <td>
-                <v-text-field variant="contained" density="compact" single-line disabled hide-details>
-                  {{ key }}
-                </v-text-field>
-              </td>
-              <td>
-                <v-checkbox color="primary" :value="key" v-model="keyColumns" hide-details/>
-              </td>
-              <td>
-                <v-btn icon="mdi-pencil" size="small" color="primary" class="mr-3"/>
-                <v-btn icon="mdi-delete" size="small" color="error" @click="removeColumn(key)"/>
-              </td>
-            </tr>
-            </tbody>
-          </v-table>
-          <div class="d-flex justify-center gap-3 mt-5">
-            <v-btn prepend-icon="mdi-close" color="error" @click="$emit('close')">
-              {{ t('button.close') }}
-            </v-btn>
-            <v-btn v-if="update" prepend-icon="mdi-check" color="primary" @click="addReference">
-              {{ t('button.validate') }}
-            </v-btn>
-            <v-btn v-else prepend-icon="mdi-plus" color="primary" @click="addReference">
-              {{ t('button.add') }}
+          <div class="d-flex gap-3">
+            <v-select id="constraintType" v-model="validation.checker.name"
+                      :items="['Reference', 'Integer', 'Float', 'Date', 'GroovyExpression', 'RegularExpression']"
+                      :label="t('reference.constraint.type')" variant="outlined" :rules="[rules.required]" color="primary"/>
+            <v-select id="selectedColumn" v-if="validation.checker.name === 'Reference'" v-model="validation.columns"
+                      :items="Object.keys(reference.columns)" :label="t('reference.constraint.references')" multiple
+                      variant="outlined" chips :rules="[rules.required]" color="primary"/>
+            <v-text-field v-else-if="validation.checker.name === 'Date'" v-model="validation.checker.params.pattern"
+                          :label="t('reference.constraint.date')" variant="outlined" :rules="[rules.required]" color="primary"/>
+            <v-text-field v-else-if="validation.checker.name === 'GroovyExpression'" v-model="validation.checker.params.groovy.expression"
+                      :label="t('reference.constraint.groovy')" variant="outlined" :rules="[rules.required]" color="primary"/>
+            <v-text-field v-else-if="validation.checker.name === 'RegularExpression'" v-model="validation.checker.params.pattern"
+                      :label="t('reference.constraint.regex')" variant="outlined" :rules="[rules.required]" color="primary"/>
+            <v-btn id="addConstraint" color="primary" @click="addConstraint" class="mt-2">
+              <v-icon icon="mdi-plus-circle"/>
             </v-btn>
           </div>
         </v-form>
+        <v-table>
+          <thead>
+          <tr>
+            <th v-text="t('reference.constraint.name')"/>
+            <th v-text="t('reference.constraint.type')"/>
+            <th v-text="t('reference.constraint.value')"/>
+            <th v-text="t('references.deleteRow')"/>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="(value, key) in reference.validations">
+            <td v-text="key"/>
+            <td v-text="value.checker.name"/>
+            <td v-if="value.checker.name === 'Reference'" v-text="value.columns.join(', ')"/>
+            <td v-if="value.checker.name === 'Date'" v-text="value.checker.params.pattern"/>
+            <td v-if="value.checker.name === 'GroovyExpression'" v-text="value.checker.params.groovy.expression"/>
+            <td v-if="value.checker.name === 'RegularExpression'" v-text="value.checker.params.pattern"/>
+            <td>
+              <div class="d-flex align-center gap-3">
+                <v-btn size="small" color="error" @click="delete reference.validations[key]">
+                  <v-icon icon="mdi-delete"/>
+                </v-btn>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+        </v-table>
       </v-card-content>
+      <v-card-actions class="d-flex justify-center">
+        <v-btn id="close" prepend-icon="mdi-close" color="error" @click="dialog = false">
+          {{ t('button.close') }}
+        </v-btn>
+        <v-btn id="addReference" v-if="referenceName === null" prepend-icon="mdi-plus" color="primary" @click="addReference">
+          {{ t('button.add') }}
+        </v-btn>
+      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>

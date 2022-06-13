@@ -8,7 +8,7 @@
 
   export default {
     setup() {
-      const {t, locale} = useI18n({useScope: 'global'})
+      const {t, locale} = useI18n()
       const yamlStore = useYamlStore()
       const {cookies} = useCookies()
       return {t, locale, yamlStore, cookies}
@@ -17,9 +17,9 @@
     data: () => ({
       routes: [
         {name: 'application', to: '/application'},
-        {name: 'compositeReferences', to: '/composite-references'},
         {name: 'references', to: '/references'},
         {name: 'dataTypes', to: '/data-types'},
+        {name: 'compositeReferences', to: '/composite-references'},
         {name: 'visualization', to: '/visualization'},
         {name: 'download', to: '/download'},
       ],
@@ -56,10 +56,10 @@
   <v-app>
     <v-app-bar color="primary">
       <v-app-bar-nav-icon icon="mdi-menu" @click.stop="drawer = !drawer" :hidden="hidden"/>
-      <v-img src="/src/assets/logo.svg" class="ml-3"/>
+      <v-img id="logo" src="/src/assets/logo_white.svg" class="ml-3"/>
       <v-spacer/>
       <div>
-        <v-btn :hidden="hidden" to="/">
+        <v-btn id="home" :hidden="hidden" to="/">
           <v-icon size="large">mdi-home</v-icon>
         </v-btn>
         <v-menu :anchor="'bottom'">
@@ -82,7 +82,7 @@
     <v-navigation-drawer v-model="drawer">
       <v-list nav>
         <template v-for="route in routes">
-          <v-list-item v-if="['compositeReferences', 'dataTypes'].includes(route.name)"
+          <v-list-item v-if="['compositeReferences'].includes(route.name)"
                        prepend-icon="mdi-chevron-right" active-color="primary" :to="route.to"
                        :title="t('nav.'+ route.name )" disabled/>
           <v-list-item v-else prepend-icon="mdi-chevron-right" active-color="primary" :to="route.to"
@@ -91,7 +91,7 @@
       </v-list>
     </v-navigation-drawer>
 
-    <router-view :i18n="{t}" :yamlStore="yamlStore"/>
+    <router-view/>
 
   </v-app>
 </template>
@@ -101,7 +101,7 @@
     font-family: "Avenir Next Pro", sans-serif;
   }
 
-  .v-card-title, .v-list-item-title, .v-btn, th {
+  .v-card-title, .v-card-subtitle, .v-navigation-drawer .v-list-item-title, .v-btn, th {
     font-family: "Raleway", sans-serif;
   }
 

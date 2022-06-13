@@ -1,0 +1,37 @@
+describe('Testing', () => {
+    it('Navigate to the application', () => {
+        cy.visit('http://localhost:3000/')
+    })
+
+    it('Create a new file', () => {
+        cy.get('#new').click()
+        cy.get('.v-navigation-drawer__scrim').click('center')
+        cy.get('#applicationName').type('Application')
+        cy.get('.mdi-menu').click()
+        cy.get('[href="/references"]').click()
+        cy.get('#addReference').click()
+        cy.get('#referenceName').type('Référence')
+        cy.get('#columnName').type('Colonne 1')
+        cy.get('#addColumn').click()
+        cy.get('#columnName').type('Colonne 2')
+        cy.get('#addColumn').click()
+        cy.get('#columnName').type('Colonne 3')
+        cy.get('#addColumn').click()
+        cy.get('#primaryKey').first().click()
+        cy.get('#constraintName').type('Contrainte')
+        cy.get('#constraintType').click({force: true})
+        cy.contains('Reference').click()
+        cy.get('#selectedColumn').click({force: true})
+        cy.contains('colonne_1').last().click()
+        cy.get('#addConstraint').click()
+        cy.get('#addReference').click()
+        cy.get('#close').click()
+        cy.wait(500)
+    })
+
+    it('Import a existing file', () => {
+        cy.get('#home').click()
+        cy.get('#import').invoke('show').selectFile('cypress/fixtures/foret.yaml')
+        cy.get('[href="/references"]').click()
+    })
+})

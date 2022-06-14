@@ -12,18 +12,18 @@ export const useYamlStore = defineStore({
             name: null,
             version: 1
         },
-        compositeReferences: {},
         references: {},
-        dataTypes: {}
+        dataTypes: {},
+        compositeReferences: {}
     }),
     getters: {
         getYaml() {
             return {
                 version: 1,
                 application: this.application,
-                compositeReferences: this.compositeReferences,
                 references: this.references,
-                dataTypes: this.dataTypes
+                dataTypes: this.dataTypes,
+                compositeReferences: this.compositeReferences
 
             }
         }
@@ -31,9 +31,9 @@ export const useYamlStore = defineStore({
     actions: {
         setYaml(yaml) {
             this.application = yaml.application
-            this.compositeReferences = yaml.compositeReferences
             this.references = yaml.references
             this.dataTypes = yaml.dataTypes
+            this.compositeReferences = yaml.compositeReferences
         },
 
         resetYaml() {
@@ -46,9 +46,9 @@ export const useYamlStore = defineStore({
                 name: null,
                 version: 1
             }
-            this.compositeReferences = {}
             this.references = {}
             this.dataTypes = {}
+            this.compositeReferences = {}
         },
 
         addReference(index, reference) {

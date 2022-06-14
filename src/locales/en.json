@@ -103,7 +103,16 @@
     "enPlaceholder": "Trap in ascent, ..."
   },
   "visualization": {
-    "title": "Visualization"
+    "title": "Visualization",
+    "application": {
+      "name": "Application's name:",
+      "language": "Default language:",
+      "version": "Version:"
+    },
+    "references": {
+      "columns": "column | columns",
+      "constraints": "constraint | constraints"
+    }
   },
   "download": {
     "title": "Download",

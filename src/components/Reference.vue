@@ -260,6 +260,8 @@
             <td v-text="value.checker.name"/>
             <td v-if="value.checker.name === 'Reference'" v-text="value.columns.join(', ')"/>
             <td v-if="value.checker.name === 'Date'" v-text="value.columns[0] + ' - ' + value.columns[1]"/>
+            <td v-if="value.checker.name === 'Integer'"/>
+            <td v-if="value.checker.name === 'Float'"/>
             <td v-if="value.checker.name === 'GroovyExpression'" v-text="value.checker.params.groovy.expression"/>
             <td v-if="value.checker.name === 'RegularExpression'" v-text="value.checker.params.pattern"/>
             <td>

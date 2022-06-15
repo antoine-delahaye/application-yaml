@@ -90,7 +90,9 @@
       "date": "Date pattern",
       "groovy": "Groovy expression",
       "regex": "Regular expression",
-      "value": "Value"
+      "value": "Value",
+      "startDate": "Start date",
+      "endDate": "End date"
     }
   },
   "dataTypes": {

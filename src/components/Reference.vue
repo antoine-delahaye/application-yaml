@@ -34,14 +34,7 @@
           },
           checker: {
             name: null,
-            params: {
-              refType: null,
-              required: null,
-              groovy: {
-                expression: null
-              },
-              pattern: null
-            }
+            params: {}
           },
           columns: []
         }),
@@ -111,14 +104,7 @@
             },
             checker: {
               name: null,
-              params: {
-                refType: null,
-                required: null,
-                groovy: {
-                  expression: null
-                },
-                pattern: null
-              }
+              params: {}
             },
             columns: []
           })
@@ -201,7 +187,8 @@
           <tr v-for="(_, key) in reference.columns">
             <td v-text="key"/>
             <td>
-              <v-checkbox id="primaryKey" class='isPrimaryKey' color="primary" :value="key" v-model="reference.keyColumns"
+              <v-checkbox id="primaryKey" class='isPrimaryKey' color="primary" :value="key"
+                          v-model="reference.keyColumns"
                           hide-details/>
             </td>
             <td>
@@ -231,16 +218,28 @@
           <div class="d-flex gap-3">
             <v-select id="constraintType" v-model="validation.checker.name"
                       :items="['Reference', 'Integer', 'Float', 'Date', 'GroovyExpression', 'RegularExpression']"
-                      :label="t('reference.constraint.type')" variant="outlined" :rules="[rules.required]" color="primary"/>
+                      :label="t('reference.constraint.type')" variant="outlined" :rules="[rules.required]"
+                      color="primary"/>
             <v-select id="selectedColumn" v-if="validation.checker.name === 'Reference'" v-model="validation.columns"
                       :items="Object.keys(reference.columns)" :label="t('reference.constraint.references')" multiple
                       variant="outlined" chips :rules="[rules.required]" color="primary"/>
-            <v-text-field v-else-if="validation.checker.name === 'Date'" v-model="validation.checker.params.pattern"
-                          :label="t('reference.constraint.date')" variant="outlined" :rules="[rules.required]" color="primary"/>
-            <v-text-field v-else-if="validation.checker.name === 'GroovyExpression'" v-model="validation.checker.params.groovy.expression"
-                      :label="t('reference.constraint.groovy')" variant="outlined" :rules="[rules.required]" color="primary"/>
-            <v-text-field v-else-if="validation.checker.name === 'RegularExpression'" v-model="validation.checker.params.pattern"
-                      :label="t('reference.constraint.regex')" variant="outlined" :rules="[rules.required]" color="primary"/>
+            <template v-else-if="validation.checker.name === 'Date'">
+              <v-select v-model="validation.checker.params['pattern']"
+                        :items="['dd/MM/YYYY', 'YYYY/MM/dd', 'MM/dd/YYYY']" :label="t('reference.constraint.date')"
+                        variant="outlined" :rules="[rules.required]" color="primary"/>
+              <v-text-field v-model="validation.columns[0]" :label="t('reference.constraint.startDate')"
+                            variant="outlined" :rules="[rules.required]" color="primary"/>
+              <v-text-field v-model="validation.columns[1]" :label="t('reference.constraint.endDate')"
+                            variant="outlined" :rules="[rules.required]" color="primary"/>
+            </template>
+            <v-text-field v-else-if="validation.checker.name === 'GroovyExpression'"
+                          v-model="validation.checker.params['groovy']['expression']"
+                          :label="t('reference.constraint.groovy')" variant="outlined" :rules="[rules.required]"
+                          color="primary"/>
+            <v-text-field v-else-if="validation.checker.name === 'RegularExpression'"
+                          v-model="validation.checker.params['pattern']"
+                          :label="t('reference.constraint.regex')" variant="outlined" :rules="[rules.required]"
+                          color="primary"/>
             <v-btn id="addConstraint" color="primary" @click="addConstraint" class="mt-2">
               <v-icon icon="mdi-plus-circle"/>
             </v-btn>
@@ -260,7 +259,7 @@
             <td v-text="key"/>
             <td v-text="value.checker.name"/>
             <td v-if="value.checker.name === 'Reference'" v-text="value.columns.join(', ')"/>
-            <td v-if="value.checker.name === 'Date'" v-text="value.checker.params.pattern"/>
+            <td v-if="value.checker.name === 'Date'" v-text="value.columns[0] + ' - ' + value.columns[1]"/>
             <td v-if="value.checker.name === 'GroovyExpression'" v-text="value.checker.params.groovy.expression"/>
             <td v-if="value.checker.name === 'RegularExpression'" v-text="value.checker.params.pattern"/>
             <td>
@@ -278,7 +277,8 @@
         <v-btn id="close" prepend-icon="mdi-close" color="error" @click="dialog = false">
           {{ t('button.close') }}
         </v-btn>
-        <v-btn id="addReference" v-if="referenceName === null" prepend-icon="mdi-plus" color="primary" @click="addReference">
+        <v-btn id="addReference" v-if="referenceName === null" prepend-icon="mdi-plus" color="primary"
+               @click="addReference">
           {{ t('button.add') }}
         </v-btn>
       </v-card-actions>

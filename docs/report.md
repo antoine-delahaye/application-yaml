@@ -4,14 +4,14 @@
 
 # Remerciements
 
-Je souhaite tout d’abord remercier mon maître de stage, Monsieur Philippe TCHERNIATINSKY, de m’avoir permis
-de rejoindre son équipe afin de travailler sur un projet très intéressant et complet en terme applicatif.
+Je souhaite tout d’abord remercier mon maître de stage, Monsieur TCHERNIATINSKY Philippe, de m’avoir permis
+de rejoindre son équipe afin de travailler sur un projet très intéressant et complet en termes applicatif.
 
-Je remercie toute l’équipe INFOSOL avec qui j’ai beaucoup appris lors de mon stage.
+Je remercie Madame BOUKIR HAKIMA, ma collègue de bureau, de m'avoir supporté pendant quatre mois.
 
-Je remercie aussi tout le personnel de l’INRAE avec lesquels j’ai pu travailler ou discuter.
+Je remercie aussi toute l’équipe INFOSOL ET le personnel de l’INRAE avec lesquels j’ai pu travailler ou discuter.
 
-Enfin je remercie aussi Docteur DABROWSKI Frédéric, mon tuteur de stage.
+Enfin je remercie Monsieur DABROWSKI Frédéric, mon tuteur de stage pour son suivi.
 
 # Introduction
 
@@ -64,6 +64,8 @@ L'unité INFOSOL, qui gère un SI Sol depuis l'acquisition jusqu'à la valorisat
 traitement, s'est vu confiée la mission de réaliser une application destinée à gérer les données environnementales
 issues des ORE.
 
+![Organigramme de l'unité](docs/images/organizational_chart.png)
+
 # Environnement de travail
 
 Afin de pouvoir travailler dans de bonnes conditions, j'ai partagé pendant ma période de stage un bureau de travail avec
@@ -95,7 +97,7 @@ contraintes à utiliser pour créer des services web permettant de générer une
 visualiser
 des données à partir d'un fichier de configuration. Ces données sont généralement stockées dans des fichiers CSV. Ce
 fichier de configuration permettant de décrire les données à
-stocker, leurs référentiels, leurs types, leurs relations, leurs relations entre les entre les référentiels, et entre
+stocker, leurs référentiels, leurs types, leurs relations, leurs relations entre les référentiels, et entre
 les données et les référentiels.
 Le format utilisé par ce fichier est le YAML, il s'agit d'un format de représentation de données simple et facile à
 comprendre. Cependant, l'écriture d'un tel fichier est très fastidieuse. En effet, ce dernier relativement

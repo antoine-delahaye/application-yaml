@@ -85,14 +85,9 @@
   cypress open
   ```
 
-- Générer le PDF du README
-  ```shell
-  pandoc README.md -o docs/files/Documentation.pdf -V fontsize=12pt -V linestretch=1 -V linkcolor=black --number-sections --table-of-contents -V documentclass=scrreprt -V lang=french
-  ```
-
 - Générer le PDF du rapport
   ```shell
-  pandoc docs/report.md -o docs/files/Rapport.pdf -V fontsize=12pt -V linestretch=1 -V linkcolor=black --number-sections --table-of-contents -V documentclass=scrreprt -V lang=french
+  pandoc docs/report.md -o docs/files/Rapport.pdf --filter mermaid-filter --highlight-style tango
   ```
 
 ## À propos

@@ -1,6 +1,19 @@
-% Développement d'une application VueJS permettant de générer des fichiers de configuration pour OpenADOM
-% Antoine DELAHAYE
-% Stage du 04/04/2022 au 29/07/2022
+---
+title: Développement d'une application VueJS permettant de générer des fichiers de configuration pour OpenADOM
+subtitle: Stage du 04/04/2022 au 29/07/2022 à l'INRAE Val de Loire
+author: Antoine DELAHAYE
+date: |
+  ![](src/assets/logo_primary.svg){ height=64px }
+  ![](docs/images/logo_ufr.png){ height=64px }
+
+lang: fr
+numbersections: true
+documentclass: scrreprt
+toc: true
+fontsize: 12pt
+linestretch: 1
+linkcolor: black
+---
 
 # Remerciements
 
@@ -71,14 +84,14 @@ issues des ORE.
 Afin de pouvoir travailler dans de bonnes conditions, j'ai partagé pendant ma période de stage un bureau de travail avec
 Madame BOUKIR Hakima, développeuse pour l'équipe SI Sol.
 
-![Mon bureau de travail](docs/images/desk.jpg)
+![Mon bureau de travail](docs/images/desk.jpg){ width=80% }
 
 Concernant mon outil de travail, il s'agit d'un ordinateur portable Dell de 15,6 pouces sous Linux afin d'installer tous
 les paquets nécessaires pour faire du développement d'application web. J'ai aussi à disposition une station
 d'accueil à mon bureau afin de pouvoir brancher un écran externe de 27 pouces, un clavier et une
 souris, tout en alimentant mon ordinateur avec un seul cable.
 
-![Mon ordinateur](docs/images/computer.jpg)
+![Mon ordinateur](docs/images/computer.jpg){ width=80% }
 
 # Sujet
 
@@ -257,7 +270,7 @@ sur un fond blanc et entre l'entête et le contenu, une barre de navigation.
 
 ![Première version des maquettes](docs/images/figma_v1.png)
 
-![Page d'internationalisation](docs/images/model_internationalization_v1.png)
+![Page d'internationalisation](docs/images/model_internationalization_v1.png){ width=80% }
 
 Cependant, je me suis rapidement rendu compte de ses principaux défauts qui été de ne pas suivre de règles de design et
 d'avoir une interface beaucoup trop simpliste qui n'allait pas permettre d'évoluer rapidement. J'ai donc décidé après
@@ -271,7 +284,7 @@ le temps perdu à changer de règles de design.
 
 ![Deuxième version des maquettes](docs/images/figma_v2.png)
 
-![Page de la section application](docs/images/model_application_v2.png)
+![Page de la section application](docs/images/model_application_v2.png){ width=80% }
 
 J'ai pu, suite aux retours qui m'avaient été fait lors de la première présentation des maquettes, retravailler ces
 dernières, notamment par rapport au nommage des pages et à la navigation. Même si la structure reste la même avec un
@@ -452,13 +465,13 @@ export const useYamlStore = defineStore({
 
 Ainsi, nous avons la page d'accueil qui permet de créer un nouveau fichier ou bien de charger un fichier existant.
 
-![Page d'accueil](docs/images/home.png)
+![Page d'accueil](docs/images/home.png){ width=80% }
 
 La page d'application quant à elle permet de donner un nom à l'application et de définir la langue par défaut. Chaque
 champ de texte est directement relié à l'objet JSON, ce qui permet de modifier en temps réel les données sans avoir
 besoin de bouton de validation.
 
-![Page de l'application](docs/images/application.png)
+![Page de l'application](docs/images/application.png){ width=80% }
 
 Une des pages les plus importantes, cette dernière va permettre de voire, éditer et supprimer des référentiels, un
 référentiel possède des
@@ -466,7 +479,7 @@ colonnes, des contraintes et des colonnes clés, on affiche ces informations pou
 a aussi possibilité d'éditer ou de supprimer un référentiel. Un bouton permettant d'ajouter un nouveau référentiel est
 aussi présent en dessous du tableau.
 
-![Page des référentiels](docs/images/references.png)
+![Page des référentiels](docs/images/references.png){ width=80% }
 
 Afin ajouter ou éditer un référentiel, on utilise une boite de dialogue comprenant tous les champs nécessaires pour
 cette
@@ -474,18 +487,20 @@ dernière. Cette boite de dialogue étant la même pour ajout et édition, un co
 peut le voir sur le diagramme reprenant la structure de l'application. On va donc pouvoir remplir les champs nécessaires
 comme le nom du référentiel, les colonnes ou même les contraintes afin ajouter un référentiel.
 
-![Boite de dialogue pour l'ajout ou l'édition d'un référentiel](docs/images/reference.png)
+![Boite de dialogue pour l'ajout ou l'édition d'un référentiel](docs/images/reference.png){ width=80% }
 
 Comme décrit précédemment, chaque champ texte qui modifie directement une donnée du fichier de configuration est relié à
 cette dernière dans l'objet enregistré dans le store, cela permet de modifier en temps réel les données dans l'objet.
 Ici par exemple, nous avons l'attribut `v-model` d'un composant de champ de texte qui permet de lier sa valeur d'entrée
 à la donnée de l'objet.
 
-```vue
-
-<v-text-field id="referenceName" :label="t('reference.name', ['en français', 'in French'])"
-              :placeholder="t('reference.frPlaceholder')" variant="outlined" color="primary" :hint="t('hint.required')"
-              persistent-hint v-model="reference.internationalizationName.fr" :rules="[rules.required]"
+```html
+<v-text-field id="referenceName" :rules="[rules.required]"
+              :label="t('reference.name', ['en français', 'in French'])"
+              :placeholder="t('reference.frPlaceholder')"
+              variant="outlined" color="primary"
+              :hint="t('hint.required')" persistent-hint
+              v-model="reference.internationalizationName.fr"
 />
 ```
 
@@ -502,14 +517,14 @@ rules = {
 }
 ```
 
-![Les validateurs](docs/images/validators.png)
+![Les validateurs](docs/images/validators.png){ width=80% }
 
 Une dès fonctionnalité qui avait été évoqué en réunion est le fait de pouvoir visualiser le fichier en cours de
 construction afin d'avoir une vue d'ensemble sur le fichier et notamment de pouvoir revenir plus facilement sur des
 points spécifiques en cliquant sur un élément. Pour l'instant, il est juste possible de visualiser l'objet, mais pas
 d'interagir, il s'agit d'une des fonctionnalités qui sera ajouté par la suite.
 
-![La page de visualisation](docs/images/visualization.png)
+![La page de visualisation](docs/images/visualization.png){ width=80% }
 
 La page de téléchargement va permettre de télécharger le fichier créé grâce à l'application. Le principe de
 fonctionnement est simple, lorsque l'on clique sur le bouton de téléchargement, on va récupérer l'objet contenu dans le
@@ -548,7 +563,7 @@ fonction de s'il s'agit du JSON en français ou en anglais.
 
 Après avoir définie la traduction, on peut utiliser cette clé dans un composant grâce à l'attribut `t`.
 
-```vue
+```html
 
 <v-btn @click="closeDialog">{{ t('close') }}</v-btn>
 ```

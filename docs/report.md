@@ -22,7 +22,7 @@ de rejoindre son équipe afin de travailler sur un projet très intéressant et 
 
 Je remercie Madame BOUKIR HAKIMA, ma collègue de bureau, de m'avoir supporté pendant quatre mois.
 
-Je remercie aussi toute l’équipe INFOSOL ET le personnel de l’INRAE avec lesquels j’ai pu travailler ou discuter.
+Je remercie aussi toute l’équipe INFOSOL et le personnel de l’INRAE avec lesquels j’ai pu travailler ou discuter.
 
 Enfin je remercie Monsieur DABROWSKI Frédéric, mon tuteur de stage pour son suivi.
 
@@ -33,7 +33,7 @@ avril
 au 29 juillet, à l'INRAE Val de Loire à Ardon, au sein de l’unité INFOSOL.
 
 Mon rôle dans cette équipe consistait à développer une application web permettant l’aide
-à la création de fichier de configuration pour les applications du SI ORE (Observatoire de Recherche en Environnement).
+à la création du fichier de configuration pour les applications du SI ORE (Observatoire de Recherche en Environnement).
 
 # Structure d'accueil
 
@@ -44,9 +44,9 @@ Il est issu de la fusion entre l’INRA, Institut National de la Recherche Agron
 Recherche
 en Sciences et Technologies pour l’Environnement et l’Agriculture.
 
-L'INRA a été créé en réponse aux pénuries alimentaires provoquées par la fin de la Seconde Guerre mondiale : combiner
+L'INRA a été créé en réponse aux pénuries alimentaires provoquées par la fin de la Seconde Guerre mondiale : _combiner
 science
-et technologie pour améliorer les techniques agricoles et d'élevage. Une fois cette question résolue, les objectifs de
+et technologie pour améliorer les techniques agricoles et d'élevage_. Une fois cette question résolue, les objectifs de
 l'INRA
 ont changé et plusieurs missions ont été confiées à l'organisme. Ces missions couvrent un large éventail de domaines
 tels
@@ -55,7 +55,8 @@ environnementale, l'eau, la biodiversité, l'alimentation humaine, les biotechno
 émergentes.
 
 Aujourd'hui l'INRAE regroupe dix-huits centres régionaux (en plus de son siège à Paris) répartis sur plus de
-150 sites et emploi environ 8200 titulaires ainsi que de nombreux doctorants (environ 500) et stagiaires (environ 2600).
+150 sites et emploi environ 8200 titulaires ainsi que de nombreux doctorants (environ 500) et nom permanents (environ
+2600).
 
 Pour ce qui est de l'INRAE Val de Loire, elle compte 800 agents dont 632 titulaires et regroupe quatre pôles :
 
@@ -67,6 +68,7 @@ Pour ce qui est de l'INRAE Val de Loire, elle compte 800 agents dont 632 titulai
 ## L'unité INFOSOL
 
 J'ai donc réalisé mon stage au sein de l'équipe Éco-Informatique ORE, cette dernière fait partie de l'unité INFOSOL.
+
 INFOSOL est une unité de services. Ses activités s'exercent dans le cadre de la participation de l'INRAE à un Groupement
 d'Intérêt Scientifique Sol (GIS
 Sol)
@@ -74,7 +76,7 @@ qui propose un ensemble de programmes nationaux pour faciliter et encourager une
 sols.
 
 L'unité INFOSOL, qui gère un SI Sol depuis l'acquisition jusqu'à la valorisation de données sols, en passant par leur
-traitement, s'est vu confiée la mission de réaliser une application destinée à gérer les données environnementales
+traitement, s'est vue confiée la mission de réaliser une application destinée à gérer les données environnementales
 issues des ORE.
 
 ![Organigramme de l'unité](docs/images/organizational_chart.png)
@@ -97,23 +99,26 @@ souris, tout en alimentant mon ordinateur avec un seul cable.
 
 ## Introduction
 
-Comme expliqué precedent, la mission générale de l'unité INFOSOL est de constituer et de gérer un
+Comme expliqué précédent, la mission générale de l'unité INFOSOL est de constituer et de gérer un
 système d'information à vocation nationale et européenne sur les sols, par rapport à leur distribution spatiale, leurs
 propriétés et l'évolution de leur qualité. La mission de l'unité a été élargie aux données environnementales et aux
-données des pratiques culturales. De ce fait, afin de répondre à ces exigences, l'équipe des ORE a été chargé de
+données des pratiques culturales. De ce fait, afin de répondre à ces exigences, l'équipe des ORE a été chargée de
 développer outil permettant de gérer ces données. Ainsi, à la suite d'un audit sur la précédente application des SI ORE,
-le développement d'une nouvelle application a été initié, c'est de là qu'est né OpenADOM (Application for Data
+le développement d'une nouvelle application a été initié. C'est de là qu'est né OpenADOM (Application for Data
 Organization and Management).
 
-OpenADOM est donc avant tout une API REST, c'est-à-dire un style d'architecture logicielle définissant un ensemble de
+OpenADOM est donc avant tout une API REST (Interface de Programmation d'Application REpresentational State Transfer),
+c'est-à-dire un style d'architecture logicielle définissant un ensemble de
 contraintes à utiliser pour créer des services web permettant de générer une application pour stocker, gérer et
 visualiser
-des données à partir d'un fichier de configuration. Ces données sont généralement stockées dans des fichiers CSV. Ce
+des données à partir d'un fichier de configuration. Ces données sont stockées dans des fichiers CSV. Ce
 fichier de configuration permettant de décrire les données à
-stocker, leurs référentiels, leurs types, leurs relations, leurs relations entre les référentiels, et entre
+stocker, les référentiels, leurs types, les relations entre les référentiels et entre
 les données et les référentiels.
 Le format utilisé par ce fichier est le YAML, il s'agit d'un format de représentation de données simple et facile à
-comprendre. Cependant, l'écriture d'un tel fichier est très fastidieuse. En effet, ce dernier relativement
+comprendre.
+
+Cependant, l'écriture d'un tel fichier est très fastidieuse. En effet, ce dernier est relativement
 complexe étant donné qu'il est chargé de décrire la structure d'une application, il est possible de se retrouver avec
 des fichiers faisant plusieurs milliers de lignes.
 
@@ -139,15 +144,27 @@ compositeReferences:
       - reference: projet
 ```
 
-C'est donc à partir du constat que la création d'un tel fichier est se révèle trop complexe qu'il m'a été demandé de
+C'est donc à partir du constat que la création d'un tel fichier se révèle trop complexe, qu'il m'a été demandé de
 développer une application permettant de guider pas à pas l'utilisateur dans la création de ce fichier. Ainsi, lors
-d'une
-des réunions hebdomadaires du SI ORE, il a été décider avec mon maitre de stage et notre chef de projet Monsieur
+de l'une
+des réunions hebdomadaires du SI ORE, il a été décidé avec mon maitre de stage et notre chef de projet Monsieur
 SCHELLENBERGER Antoine d'établir un rétroplanning afin de gérer au mieux les tâches à réaliser dans le temps imparti de
-mon stage. De ce fait, il a été convenu de me laisser jusqu'à la mi-avril afin d'étudier et de comprendre le
-fonctionnement
-d'un fichier de configuration pour être capable d'en construire un par moi-même, jusqu'a la mi-mai pour concevoir des
-maquettes et ensuite jusqu'à la fin de mon stage pour développer et écrire la documentation de l'application.
+mon stage. De ce fait, il a été convenu de me laisser :
+
+- jusqu'à la mi-avril afin d'étudier et de comprendre le fonctionnement d'un fichier de configuration pour être capable
+  d'en construire un par moi-même
+- jusqu'a la mi-mai pour concevoir des maquettes
+- jusqu'à la fin de mon stage pour développer et écrire la documentation de l'application.
+
+```mermaid
+gantt
+dateFormat  DD/MM/YYYY
+title Retroplanning
+
+Etude du YAML : done, des1, 11/04/2022, 22/04/2022
+Maquettage : done, des2, 25/04/2022, 20/05/2022
+Developpement : active, des3, 23/05/2022, 29/07/2022
+```
 
 ## Structure du fichier de configuration
 
@@ -158,8 +175,8 @@ d'un fichier. En effet, le fichier contient cinq parties permettant de décrire 
 - version
 
 La version de l'analyseur du fichier de configuration (0, 1, 2, ...). Cette partie est propre au format
-YAML. En effet, tout fichier YAML comporte cette "clé" qui permet de savoir quelle version du format est utilisé étant
-donné que le style d'écriture du format YAML a évolué au fil du temps. Dans le cadre de OpenADOM, la version 1 est la
+YAML. En effet, tout fichier YAML comporte cette "clé" qui permet de savoir quelle version du format est utilisée étant
+donné que le format YAML peut évoluer au fil du temps. Dans le cadre de OpenADOM, la version 1 est la
 version courante.
 
 ```yaml
@@ -169,9 +186,9 @@ version: 1
 
 - application
 
-Cette partie sert à la présentation l'application avec notamment le nom de l'application, une section optionnelle
+Cette partie sert à la description de l'application avec notamment, le nom de l'application. Une section optionnelle
 d'internationalisation
-du nom de l'application, la langue par défaut et la version du fichier de configuration. Si l'on apporte des
+du nom de l'application, la langue par défaut et la version du fichier de configuration. Lorsque l'on apporte des
 modifications
 au fichier, on incrémente la version du fichier.
 
@@ -187,11 +204,15 @@ application:
 
 - references
 
-Il s'agit d'un ensemble d'informations permettant de préciser le contexte de la mesure ou de l'observation. On décrit un
+Il s'agit d'un ensemble d'informations permettant de préciser le contexte de la mesure ou de l'observation, fournies
+sous la forme de fichier CSV. Chaque fichier représentant un référentiel.
+
+On décrit un
 référentiel de données en y listant le nom des colonnes souhaitées dans la partie `columns` en fonction de celles
 présente dans le fichier CSV, les colonnes qui forment la
-clé naturelle dans `keyColumns` et on pourra aussi décrire des règles de validations sur une ou plusieurs colonnes dans
-une section `validations` qui seront détaillées plus tard. De plus, des sections d'internationalisation optionnelles
+clé naturelle sont renseignées dans `keyColumns` et on pourra aussi décrire des règles de validations sur une ou
+plusieurs colonnes dans
+une section `validations` qui sera détaillée plus tard. De plus, des sections d'internationalisation optionnelles
 peuvent
 être détaillées.
 
@@ -238,9 +259,12 @@ compositeReferences:
 
 - dataTypes
 
-Un type de donnée se compose d'une section `data` permettant de décrire le schéma des données enregistrées en base,
-d'une section `format` pour déclarer le mapping entre le fichier de données et le schéma déclaré dans `data`, du
-fichier (csv, json, ...), des autorisations et les validations de chaque ligne.
+Un type de donnée se compose :
+
+- d'une section `data` permettant de décrire le schéma des données enregistrées en base
+- d'une section `format` pour déclarer le mapping entre le fichier de données (CSV) et le schéma déclaré dans `data`
+- des autorisations
+- les validations de chaque ligne
 
 ```yaml
 dataTypes:
@@ -261,39 +285,41 @@ dataTypes:
 
 ## Maquettage
 
-Afin de concevoir rapidement et efficacement des maquettes de l'application, Figma a été utilisé, il s'agit d'un
-éditeur de graphiques vectoriels et d'un outil de prototypage.
+J'ai utilisé Figma pour concevoir des maquettes de l'application rapidement.
 
-Dans un premier temps, je suis parti sur dès maquettes sans règles de design spécifiques mis à part de respecter les
-couleurs et polices d'écriture de l'INRAE. La disposition était très simple avec un entête, au milieu le contenu de page
+Dans un premier temps, je suis parti sur des maquettes sans règles de design spécifiques mis à part de respecter la
+charte graphique de l'INRAE. La disposition était épurée avec un entête, au milieu le contenu de page
 sur un fond blanc et entre l'entête et le contenu, une barre de navigation.
 
 ![Première version des maquettes](docs/images/figma_v1.png)
 
 ![Page d'internationalisation](docs/images/model_internationalization_v1.png){ width=80% }
 
-Cependant, je me suis rapidement rendu compte de ses principaux défauts qui été de ne pas suivre de règles de design et
-d'avoir une interface beaucoup trop simpliste qui n'allait pas permettre d'évoluer rapidement. J'ai donc décidé après
-avoir produit trois maquettes de partir sur un nouveau design de maquettes respectant des règles de design.
+Cependant, je me suis rapidement rendu compte de ses principaux défauts qui sont de ne pas suivre de règles d'ergonomie
+et
+d'avoir une interface beaucoup trop simpliste qui ne permettent pas d'évoluer rapidement. J'ai donc décidé après
+avoir produit trois maquettes de partir sur un nouveau design de maquettes respectant des règles de conception.
 
 Après de longues recherches, j'ai décidé d'utiliser Material Design afin d'unifier le style de l'application. Material
 Design est un ensemble de règles de design fourni par Google afin de concevoir des interfaces de qualité plus
 rapidement.
-C'est donc grâce à des composants de Material Design que j'ai pu reprendre le maquettage de mon application et rattraper
-le temps perdu à changer de règles de design.
+C'est donc grâce à des composants de Material Design que j'ai pu reprendre le maquettage de mon application et repartir
+sur de bonnes bases.
 
 ![Deuxième version des maquettes](docs/images/figma_v2.png)
 
 ![Page de la section application](docs/images/model_application_v2.png){ width=80% }
 
-J'ai pu, suite aux retours qui m'avaient été fait lors de la première présentation des maquettes, retravailler ces
-dernières, notamment par rapport au nommage des pages et à la navigation. Même si la structure reste la même avec un
+J'ai pu, suite aux retours qui ont été fait lors de la première présentation des maquettes, retravailler ces
+panneaux, notamment par rapport au nommage des pages et à la navigation. Même si la structure reste la même avec un
 entête aux couleurs de l'INRAE et une carte centrale avec le contenu de la page, j'y ai ajouté une barre de navigation
-latérale et supprimer celle entre le contenu de la page et l'entête afin de bien délimiter le contenu de la navigation.
+latérale et supprimée celle entre le contenu de la page et l'en-tête afin de bien délimiter le contenu de la navigation.
 
-Ainsi nous avons la page d'accueil pour choisir si l'on veut créer un nouveau fichier ou bien importer un fichier
-existant, la page d'application qui contient deux champs de textes afin d'internationaliser le nom de
-l'application et une boite à cocher si on veut que l'anglais soit la langue par défaut et pour ce qui est de la page des
+Sur la page d'accueil, on peut choisir si l'on veut créer un nouveau fichier ou bien importer un fichier
+existant, la page application qui contient deux champs de textes afin d'internationaliser le nom de
+l'application et une boite à cocher si on veut que l'anglais soit la langue par défaut.
+
+Pour ce qui est de la page des
 référentiels, nous avons un tableau affichant le nom des référentiels, le nombre de colonnes, les colonnes clés et des
 boutons d'actions.
 
@@ -307,25 +333,36 @@ de commencer le développement d'un premier prototype afin de présenter une pre
 ## Développement
 
 Avant de pouvoir commencer à développer un premier prototype, une phase de recherche concernant le framework UI à
-utiliser a été nécessaire, ce framework doit bien évidement respecter les règles de Material Design. Un framework UI est
-un ensemble de composants qui permettent de développer des interfaces utilisateur. En effet, utiliser un framework UI
+utiliser a été nécessaire, ce framework doit bien évidement respecter les règles de Material Design.
+
+Un framework UI est un ensemble de composants qui permettent de développer des interfaces utilisateur. En effet,
+utiliser un framework UI
 respectant Material Design va me permettre d'avoir à disposition des composants déjà construits afin de faciliter le
 développement, c'est ce que propose Vuetify, le framework UI le plus populaire sous VueJS, ce dernier est libre, possède
-une communauté très active, est mis à jour chaque semaine et possède des versions avec un support long terme. Un dès
-autre aspect technique important
-est le fait d'utiliser VueJS étant donné que OpenADOM utilise
+une communauté très active, est mis à jour chaque semaine et possède des versions avec un support long terme.
+
+Un des autres aspect technique important est le fait d'utiliser VueJS étant donné que OpenADOM utilise
 déjà VueJS et qu'il est nécessaire que cette application soit accessible partout sans avoir à installer un logiciel.
 Quant à VueJS, il s'agit d'un framework JavaScript qui permet de construire des interfaces utilisateur et des
-applications web mono-pages. Pour ce qui est de la version utilisée, il s'agit de la version 3 de VueJS, cette dernière
-apporte des améliorations notables sur les performances, la taille de l'application et la facilité de développement. De
-plus, au lieu de d'utiliser Vue CLI qui permet simplement de construire le projet j'ai utilisé Vite, un outil de
+applications web mono-page. Pour ce qui est de la version utilisée, il s'agit de la version 3 de VueJS, cette dernière
+apporte des améliorations notables sur les performances, la taille de l'application et la facilité de développement.
+
+De plus, au lieu de d'utiliser Vue CLI qui permet simplement de construire le projet j'ai utilisé Vite, un outil de
 développement de dernière génération permettant d'améliorer la vitesse construction
 du projet, par exemple lorsqu'on modifie un fichier qui influe sur la disposition de l'interface, ces modifications sont
 directement visibles et de plus, Vite intègre des mécanismes d'optimisation afin de precompiler certaines ressources et
-importer uniquement celle nécessaire. Concernant le versionnage, l'application a été versionnée avec le GitLab de
+importer uniquement celle nécessaire.
+
+Concernant le versionnage, l'application a été versionnée avec le GitLab de
 l'INRAE. Le dépôt contient une branche `main` où il n'est possible de pousser des modifications qu'en effectuant une
-demande de fusion avec une autre branche (merge request) devant être accepté par mon maitre de stage ainsi que mes
-branches permettant de développer les différentes fonctionnalités
+demande de fusion avec une autre branche (merge request) devant être acceptée par mon maitre de stage ainsi que mes
+branches permettant de développer les différentes fonctionnalités.
+
+Concernant les outils de développement, j'ai utilisé :
+
+- WebStorm comme IDE étant donné qu'il s'agit d'un projet JavaScript
+- NodeJS en version 16 LTS (Long Term Support) comme plateforme de développement
+- NPM comme gestionnaire de paquets
 
 J'ai donc dans un premier temps installé Vite ainsi que VueJS afin d'avoir la base de mon application, cela se fait très
 simplement en suivant la documentation de Vite. La partie un peu plus ardue de l'installation viens de Vuetify. En
@@ -347,7 +384,7 @@ export const inrae: ThemeDefinition = {
 }
 ```
 
-Ainsi, après avoir définie le thème, ce dernier est importé dans un fichier nommé `main.js`, c'est lui qui va permettre
+Ainsi, après avoir défini le thème, ce dernier est importé dans un fichier nommé `main.js`, c'est lui qui va permettre
 de charger et paramétrer les différents frameworks utilisés.
 
 Une fois cela fais, j'ai peu m'attaquer à la structure de mon application. Lors d'une précédente réunion, il a été
@@ -361,7 +398,7 @@ défini que l'application avait besoin de sept pages :
 - Et une permettant de télécharger le fichier
 
 De ce fait, sept composants ont été créés, un pour
-chaque page. Un composant VueJS correspond à un composant HTML contenant le code HTML, JavaScript et CSS pour une page
+chacune pages. Un composant VueJS correspond à un composant HTML contenant le code HTML, JavaScript et CSS pour une page
 en question et il va être possible
 par la suite d'appeler une ou plusieurs instances du composant indépendant entre eux afin d'afficher ces derniers. Avec
 cela, on va donc installer Vue Router afin de faire
@@ -411,14 +448,17 @@ App <|-- Visualization
 App <|-- Download
 ```
 
-Comme expliqué precedent, je me suis d'abord attardé sur l'aspect visuel plutôt que la partie fonctionnelle de
+Comme expliqué precedent, je me suis d'abord attardé sur l'aspect ergonomique plutôt que la partie fonctionnelle de
 l'application. C'est-à-dire que j'ai fait en sorte que l'on puisse naviguer dans l'application afin de pouvoir présenter
 un apercu de l'application et d'avoir un retour sur cette dernière.
+
+En effet, l'aspect ergonomique est plus important dans notre cas étant donné que le but premier de l'application est de
+rendre la création du fichier le plus transparent possible.
 
 Une fois que le visuel validé, j'ai pu m'atteler à la partie fonctionnelle de l'application. Ici cela fait référence au
 fait de stocker les données du fichier, pour ce faire le format JSON a été utilisé. Le JSON est un format
 standard utilisé pour représenter des données structurées de façon semblable aux objets Javascript. Étant donné qu'il
-est très facile de convertir du YAML en JSON et inversement, cela permet d'avoir un objet que l'on peut
+existe des librairies pour convertir du YAML en JSON et inversement, cela permet d'avoir un objet que l'on peut
 manipuler pour ajouter nos données et qu'on pourra donc par la suite convertir en YAML, de même pour importer un fichier
 existant que l'on pourra convertir en JSON.
 
@@ -495,6 +535,7 @@ Ici par exemple, nous avons l'attribut `v-model` d'un composant de champ de text
 à la donnée de l'objet.
 
 ```html
+
 <v-text-field id="referenceName" :rules="[rules.required]"
               :label="t('reference.name', ['en français', 'in French'])"
               :placeholder="t('reference.frPlaceholder')"
@@ -519,10 +560,10 @@ rules = {
 
 ![Les validateurs](docs/images/validators.png){ width=80% }
 
-Une dès fonctionnalité qui avait été évoqué en réunion est le fait de pouvoir visualiser le fichier en cours de
+Une des fonctionnalité qui avait été évoqué en réunion est le fait de pouvoir visualiser le fichier en cours de
 construction afin d'avoir une vue d'ensemble sur le fichier et notamment de pouvoir revenir plus facilement sur des
 points spécifiques en cliquant sur un élément. Pour l'instant, il est juste possible de visualiser l'objet, mais pas
-d'interagir, il s'agit d'une des fonctionnalités qui sera ajouté par la suite.
+d'interagir, il s'agit d'une des fonctionnalités qui sera ajoutée par la suite.
 
 ![La page de visualisation](docs/images/visualization.png){ width=80% }
 
@@ -572,8 +613,7 @@ Après avoir définie la traduction, on peut utiliser cette clé dans un composa
 
 Un autre aspect important du projet concerne les tests à réaliser. En effet, il est nécessaire de vérifier par exemple
 que le fichier YAML qui sera généré est correct. Pour ce faire, plusieurs fichiers test ont été générés. Ensuite, grâce
-à OpenADOM et son API, il est possible de tester si un fichier est valide. Si tous les fichiers passent le test et
-qu'ils couvrent tous les cas d'utilisation, alors les fichiers générés par l'application seront toujours valides.
+à OpenADOM et son API, il est possible de tester si un fichier est valide.
 
 D'autres tests sont bien évidemment nécessaires pour vérifier que l'application fonctionne correctement. Pour ce faire
 Cypress a été intégré au projet. Il s'agit d'un outil qui permet de tester l'application en utilisant un navigateur
@@ -593,7 +633,8 @@ describe('Testing', () => {
     it('Import a existing file', () => {
         cy.get('#home').click()
         cy.get('#import').invoke('show').selectFile('cypress/fixtures/foret.yaml')
-        cy.get('[href="/references"]').click()
+        cy.get('.v-navigation-drawer__scrim').click('center')
+        cy.get('#applicationName').contains('foret')
     })
 })
 ```
@@ -653,8 +694,8 @@ Nous avons donc un sommaire qui présente les six parties de la documentation, �
 
 Travailler pendant quatre mois à l'INRAE a été une expérience très enrichissante pour moi, aussi bien sur le plan humain
 que technique. En effet j’ai beaucoup appris sur le monde en entreprise et dans le domaine de l’informatique grâce aux
-différentes personnes que j'ai côtoyées et avec lesquelles j'ai pu travailler. Ces dernières mon beaucoup appris grâce à
-leur expérience. Cela a donc été très enrichissant pour moi d'autant plus que j'ai pu suivre tout mon stage en
+différentes personnes que j'ai côtoyées et avec lesquelles j'ai pu travailler. Ces dernières m'ont beaucoup appris grâce
+à leur expérience. Cela a donc été très enrichissant pour moi d'autant plus que j'ai pu suivre tout mon stage en
 présentiel contrairement à mon précédent stage.
 
 Ce stage m'a donc grandement apporté sur le plan technique et organisationnel. Cela est dû à l'autonomie que mon maitre

@@ -32,6 +32,7 @@ describe('Testing', () => {
     it('Import a existing file', () => {
         cy.get('#home').click()
         cy.get('#import').invoke('show').selectFile('cypress/fixtures/foret.yaml')
-        cy.get('[href="/references"]').click()
+        cy.get('.v-navigation-drawer__scrim').click('center')
+        // cy.get('#applicationName').contains('foret')
     })
 })

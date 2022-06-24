@@ -1,128 +1,128 @@
 {
   "$vuetify.noDataText": "Aucune donnée",
-  "button": {
-    "fr": "Français",
-    "en": "Anglais",
-    "upload": "Importer {accepted}",
-    "new": "Nouveau",
-    "validate": "Valider",
-    "reference": "Référentiel",
-    "add": "Ajouter",
+  "alert": {
+    "action": "Action impossible",
+    "application": "Cette section contient le nom de l'application. Il est possible de l'internationaliser en y mettant le nom en anglais.",
+    "column": "Impossible de supprimer la colonne car cette dernière est référencée dans une contrainte.",
+    "dataTypes": "Types de données",
     "download": "Télécharger",
-    "edit": "Modifier",
-    "delete": "Supprimer",
+    "info": "Informations",
+    "references": "Les référentiels sont un ensemble d'informations permettant de préciser le contexte de la mesure ou de l'observation. Pour décrire un référentiel, on y liste les noms des colonnes souhaitées et précisant la liste des colonnes qui forment la clé naturelle.",
+    "visualization": "Visualisation"
+  },
+  "application": {
+    "checkbox": "Faire de l’anglais la langue par défaut",
+    "enPlaceholder": "SOERE with repository, ...",
+    "errors": {
+      "length": "Le nom de l'application doit contenir moins de 26 caractères",
+      "required": "Le nom de l'application est obligatoire"
+    },
+    "frPlaceholder": "SOERE avec dépôt, ...",
+    "label": "Nom de l'application {0}",
+    "title": "Application"
+  },
+  "button": {
+    "add": "Ajouter",
+    "cancel": "Annuler",
     "close": "Fermer",
     "dataType": "Type de données",
-    "cancel": "Annuler"
+    "delete": "Supprimer",
+    "download": "Télécharger",
+    "edit": "Modifier",
+    "en": "Anglais",
+    "fr": "Français",
+    "new": "Nouveau",
+    "reference": "Référentiel",
+    "upload": "Importer {accepted}",
+    "validate": "Valider"
+  },
+  "dataType": {
+    "enPlaceholder": "Trap in ascent, ...",
+    "frPlaceholder": "Piégeage en Montée, ...",
+    "label": "Nom du type de données en {0}"
+  },
+  "dataTypes": {
+    "dataTypeName": "Nom du type de données",
+    "title": "Types de données"
+  },
+  "delete": {
+    "title": "Suppression d'un {0}"
+  },
+  "download": {
+    "label": "Nom du fichier",
+    "placeholder": "monsore, ...",
+    "subtitle": "Vous pouvez télécharger le fichier de configuration de votre application !",
+    "title": "Téléchargement"
   },
   "hint": {
     "optional": "Optionnel",
     "required": "Obligatoire"
   },
-  "rule": {
-    "required": "Ce champ est obligatoire",
-    "length": "La longueur de ce champ doit être inférieur à {length} caractères",
-    "columnRequired": "Veuillez ajouter au moins une colonne",
-    "columnSelected": "Veuillez sélectionner au moins une colonne",
-    "columnAlreadyExist": "Cette colonne existe déjà"
-  },
-  "alert": {
-    "info": "Informations",
-    "application": "Cette section contient le nom de l'application. Il est possible de l'internationaliser en y mettant le nom en anglais.",
-    "references": "Les référentiels sont un ensemble d'informations permettant de préciser le contexte de la mesure ou de l'observation. Pour décrire un référentiel, on y liste les noms des colonnes souhaitées et précisant la liste des colonnes qui forment la clé naturelle.",
-    "dataTypes": "Types de données",
-    "visualization": "Visualisation",
-    "download": "Télécharger",
-    "action": "Action impossible",
-    "column": "Impossible de supprimer la colonne car cette dernière est référencée dans une contrainte."
+  "home": {
+    "content": "Bienvenue sur l'outil de création et modification de fichier de configuration d'application. Vous pouvez, soit continué ou modifier un fichier déjà existant en appuyant sur le bouton “Importer”, soit créée un nouveau fichier en appuyant sur le bouton “Nouveau”.",
+    "title": "Que souhaitez-vous faire ?"
   },
   "nav": {
     "application": "Application",
-    "references": "Référentiels",
-    "dataTypes": "Types de données",
     "compositeReferences": "Références composites",
-    "visualization": "Visualisation",
-    "download": "Téléchargement"
-  },
-  "home": {
-    "title": "Que souhaitez-vous faire ?",
-    "content": "Bienvenue sur l'outil de création et modification de fichier de configuration d'application. Vous pouvez, soit continué ou modifier un fichier déjà existant en appuyant sur le bouton “Importer”, soit créée un nouveau fichier en appuyant sur le bouton “Nouveau”."
-  },
-  "application": {
-    "title": "Application",
-    "label": "Nom de l'application {0}",
-    "frPlaceholder": "SOERE avec dépôt, ...",
-    "enPlaceholder": "SOERE with repository, ...",
-    "checkbox": "Faire de l’anglais la langue par défaut",
-    "errors": {
-      "required": "Le nom de l'application est obligatoire",
-      "length": "Le nom de l'application doit contenir moins de 26 caractères"
-    }
-  },
-  "references": {
-    "title": "Référentiels",
-    "subtitle": "Vous pouvez ajouter depuis cette page les référentiels de l’application. Soit à partir d’un fichier CSV à importer, soit en ajoutant manuellement chaque référentiel.",
-    "referenceName": "Nom du référentiel",
-    "columnsNumber": "Nombre de colonnes",
-    "constraintsNumber": "Nombre de contraintes",
-    "keyColumns": "Colonnes clé",
-    "deleteRow": "Supprimer la ligne"
+    "dataTypes": "Types de données",
+    "download": "Téléchargement",
+    "references": "Référentiels",
+    "visualization": "Visualisation"
   },
   "reference": {
-    "title": "Ajouter un référentiel",
-    "name": "Nom du référentiel {0}",
-    "frPlaceholder": "Espèces, ...",
-    "enPlaceholder": "Species, ...",
-    "keyColumn": "Colonne clé",
     "column": {
-      "subtitle": "Ajouter une colonne",
-      "name": "Nom de la colonne {0}",
+      "enPlaceholder": "spe_name,  ...",
       "frPlaceholder": "esp_nom,  ...",
-      "enPlaceholder": "spe_name,  ..."
+      "name": "Nom de la colonne {0}",
+      "subtitle": "Ajouter une colonne"
     },
     "constraint": {
-      "subtitle": "Ajouter une contrainte",
-      "name": "Nom de la contrainte {0}",
-      "frPlaceholder": "Référence au projet,  ...",
-      "enPlaceholder": "Project reference,  ...",
-      "type": "Type de contrainte",
-      "references": "Colonnes sélectionnées",
       "date": "Pattern de date",
+      "enPlaceholder": "Project reference,  ...",
+      "endDate": "Date de fin",
+      "frPlaceholder": "Référence au projet,  ...",
       "groovy": "Expression Groovy",
+      "name": "Nom de la contrainte {0}",
+      "references": "Colonnes sélectionnées",
       "regex": "Expression régulière",
-      "value": "Valeur",
       "startDate": "Date de début",
-      "endDate": "Date de fin"
-    }
+      "subtitle": "Ajouter une contrainte",
+      "type": "Type de contrainte",
+      "value": "Valeur"
+    },
+    "enPlaceholder": "Species, ...",
+    "frPlaceholder": "Espèces, ...",
+    "keyColumn": "Colonne clé",
+    "name": "Nom du référentiel {0}",
+    "title": "Ajouter un référentiel"
   },
-  "dataTypes": {
-    "title": "Types de données",
-    "dataTypeName": "Nom du type de données"
+  "references": {
+    "columnsNumber": "Nombre de colonnes",
+    "constraintsNumber": "Nombre de contraintes",
+    "deleteRow": "Supprimer la ligne",
+    "keyColumns": "Colonnes clé",
+    "referenceName": "Nom du référentiel",
+    "subtitle": "Vous pouvez ajouter depuis cette page les référentiels de l’application. Soit à partir d’un fichier CSV à importer, soit en ajoutant manuellement chaque référentiel.",
+    "title": "Référentiels"
   },
-  "dataType": {
-    "label": "Nom du type de données en {0}",
-    "frPlaceholder": "Piégeage en Montée, ...",
-    "enPlaceholder": "Trap in ascent, ..."
+  "rule": {
+    "columnAlreadyExist": "Cette colonne existe déjà",
+    "columnRequired": "Veuillez ajouter au moins une colonne",
+    "columnSelected": "Veuillez sélectionner au moins une colonne",
+    "length": "La longueur de ce champ doit être inférieur à {length} caractères",
+    "required": "Ce champ est obligatoire"
   },
   "visualization": {
-    "title": "Visualisation",
     "application": {
-      "name": "Nom de l'application :",
       "language": "Langue par défaut :",
+      "name": "Nom de l'application :",
       "version": "Version :"
     },
     "references": {
       "column": "colonne | colonnes",
       "constraint": "contrainte | contraintes"
-    }
-  },
-  "download": {
-    "title": "Téléchargement",
-    "subtitle": "Vous pouvez télécharger le fichier de configuration de votre application !",
-    "label": "Nom du fichier",
-    "placeholder": "monsore, ..."
-  },
-  "delete": {
-    "title": "Suppression d'un {0}"
+    },
+    "title": "Visualisation"
   }
 }

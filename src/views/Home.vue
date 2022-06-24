@@ -33,9 +33,16 @@
           this.yamlStore.resetYaml()
           this.yamlStore.setYaml(parseDocument(this.selectedFile).toJSON())
           if (this.yamlStore.application.internationalizationName === undefined) {
-            this.yamlStore.application['internationalizationName'] = {
-              fr: null,
-              en: null
+            if (this.yamlStore.application.defaultLanguage === 'fr') {
+              this.yamlStore.application['internationalizationName'] = {
+                fr: this.yamlStore.application.name,
+                en: null
+              }
+            } else {
+              this.yamlStore.application['internationalizationName'] = {
+                fr: null,
+                en: this.yamlStore.application.name
+              }
             }
           }
         }

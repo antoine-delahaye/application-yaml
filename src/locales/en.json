@@ -1,128 +1,128 @@
 {
   "$vuetify.noDataText": "No data",
+  "alert": {
+    "action": "Action impossible",
+    "application": "This section contains the name of the application. It is possible to internationalize it by putting the name in English.",
+    "column": "Unable to delete this column because it is referenced in a constraint",
+    "dataTypes": "Type de données",
+    "download": "Télécharger",
+    "info": "Informations",
+    "references": "References are a set of information used to specify the context of the measurement or observation. To describe a reference, we list the names of the desired columns and specify the list of columns that form the natural key.",
+    "visualization": "Visualisation"
+  },
+  "application": {
+    "checkbox": "Make English the default language",
+    "enPlaceholder": "SOERE with repository, ...",
+    "errors": {
+      "length": "The application name must be less than 26 characters",
+      "required": "The application name is mandatory"
+    },
+    "frPlaceholder": "SOERE avec dépôt, ...",
+    "label": "Name of the application {1}",
+    "title": "Application"
+  },
   "button": {
-    "fr": "French",
-    "en": "English",
-    "upload": "Upload {accepted}",
-    "new": "New",
-    "validate": "Validate",
-    "reference": "Reference",
     "add": "Add",
-    "download": "Download",
-    "edit": "Edit",
-    "delete": "Delete",
+    "cancel": "Cancel",
     "close": "Close",
     "dataType": "Data type",
-    "cancel": "Cancel"
+    "delete": "Delete",
+    "download": "Download",
+    "edit": "Edit",
+    "en": "English",
+    "fr": "French",
+    "new": "New",
+    "reference": "Reference",
+    "upload": "Upload {accepted}",
+    "validate": "Validate"
+  },
+  "dataType": {
+    "enPlaceholder": "Trap in ascent, ...",
+    "frPlaceholder": "Piégeage en Montée, ...",
+    "label": "Name of the data type in {1}"
+  },
+  "dataTypes": {
+    "dataTypeName": "Name of the data type",
+    "title": "Data types"
+  },
+  "delete": {
+    "title": "Deleting a {1}"
+  },
+  "download": {
+    "label": "Name of the file",
+    "placeholder": "monsore, ...",
+    "subtitle": "You can download your application configuration file!",
+    "title": "Download"
   },
   "hint": {
     "optional": "Optional",
     "required": "Required"
   },
-  "rule": {
-    "required": "This field is required",
-    "length": "The length of this field must be lower than {length} characters",
-    "columnRequired": "Please add at least one column",
-    "columnSelected": "Please select at least one column",
-    "columnAlreadyExist": "This column already exists"
-  },
-  "alert": {
-    "info": "Informations",
-    "application": "This section contains the name of the application. It is possible to internationalize it by putting the name in English.",
-    "references": "References are a set of information used to specify the context of the measurement or observation. To describe a reference, we list the names of the desired columns and specify the list of columns that form the natural key.",
-    "dataTypes": "Type de données",
-    "visualization": "Visualisation",
-    "download": "Télécharger",
-    "action": "Action impossible",
-    "column": "Unable to delete this column because it is referenced in a constraint"
+  "home": {
+    "content": "Welcome to the application configuration file creation and editing tool. You can either continue or modify an existing file by pressing the “Upload” button, or create a new file by pressing the “New” button.",
+    "title": "What do you want to do?"
   },
   "nav": {
     "application": "Application",
-    "references": "References",
-    "dataTypes": "Data types",
     "compositeReferences": "Composite references",
-    "visualization": "Visualization",
-    "download": "Download"
-  },
-  "home": {
-    "title": "What do you want to do?",
-    "content": "Welcome to the application configuration file creation and editing tool. You can either continue or modify an existing file by pressing the “Upload” button, or create a new file by pressing the “New” button."
-  },
-  "application": {
-    "title": "Application",
-    "label": "Name of the application {1}",
-    "frPlaceholder": "SOERE avec dépôt, ...",
-    "enPlaceholder": "SOERE with repository, ...",
-    "checkbox": "Make English the default language",
-    "errors": {
-      "required": "The application name is mandatory",
-      "length": "The application name must be less than 26 characters"
-    }
-  },
-  "references": {
-    "title": "References",
-    "subtitle": "You can add the application references from this page. Either from a CSV file to import, or by manually adding each reference.",
-    "referenceName": "Name of the reference",
-    "columnsNumber": "Number of columns",
-    "constraintsNumber": "Number of constraints",
-    "keyColumns": "Key columns",
-    "deleteRow": "Delete row"
+    "dataTypes": "Data types",
+    "download": "Download",
+    "references": "References",
+    "visualization": "Visualization"
   },
   "reference": {
-    "title": "Add a reference",
-    "referenceName": "Reference's name {0}",
-    "frPlaceholder": "Espèces, ...",
-    "enPlaceholder": "Species, ...",
-    "keyColumn": "Key column",
     "column": {
-      "subtitle": "Add a column",
-      "name": "Column's name {0}",
+      "enPlaceholder": "spe_name, ...",
       "frPlaceholder": "esp_nom, ...",
-      "enPlaceholder": "spe_name, ..."
+      "name": "Column's name {0}",
+      "subtitle": "Add a column"
     },
     "constraint": {
-      "subtitle": "Add a constraint",
-      "name": "Constraint's name {0}",
-      "frPlaceholder": "Référence au projet,  ...",
-      "enPlaceholder": "Project reference,  ...",
-      "type": "Constraint type",
-      "references": "Selected columns",
       "date": "Date pattern",
+      "enPlaceholder": "Project reference,  ...",
+      "endDate": "End date",
+      "frPlaceholder": "Référence au projet,  ...",
       "groovy": "Groovy expression",
+      "name": "Constraint's name {0}",
+      "references": "Selected columns",
       "regex": "Regular expression",
-      "value": "Value",
       "startDate": "Start date",
-      "endDate": "End date"
-    }
+      "subtitle": "Add a constraint",
+      "type": "Constraint type",
+      "value": "Value"
+    },
+    "enPlaceholder": "Species, ...",
+    "frPlaceholder": "Espèces, ...",
+    "keyColumn": "Key column",
+    "name": "Reference's name {0}",
+    "title": "Add a reference"
   },
-  "dataTypes": {
-    "title": "Data types",
-    "dataTypeName": "Name of the data type"
+  "references": {
+    "columnsNumber": "Number of columns",
+    "constraintsNumber": "Number of constraints",
+    "deleteRow": "Delete row",
+    "keyColumns": "Key columns",
+    "referenceName": "Name of the reference",
+    "subtitle": "You can add the application references from this page. Either from a CSV file to import, or by manually adding each reference.",
+    "title": "References"
   },
-  "dataType": {
-    "label": "Name of the data type in {1}",
-    "frPlaceholder": "Piégeage en Montée, ...",
-    "enPlaceholder": "Trap in ascent, ..."
+  "rule": {
+    "columnAlreadyExist": "This column already exists",
+    "columnRequired": "Please add at least one column",
+    "columnSelected": "Please select at least one column",
+    "length": "The length of this field must be lower than {length} characters",
+    "required": "This field is required"
   },
   "visualization": {
-    "title": "Visualization",
     "application": {
-      "name": "Application's name:",
       "language": "Default language:",
+      "name": "Application's name:",
       "version": "Version:"
     },
     "references": {
-      "columns": "column | columns",
-      "constraints": "constraint | constraints"
-    }
-  },
-  "download": {
-    "title": "Download",
-    "subtitle": "You can download your application configuration file!",
-    "label": "Name of the file",
-    "placeholder": "monsore, ..."
-  },
-  "delete": {
-    "title": "Deleting a {1}"
+      "column": "column | columns",
+      "constraint": "constraint | constraints"
+    },
+    "title": "Visualization"
   }
 }

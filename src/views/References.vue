@@ -81,14 +81,14 @@
               <td v-else>
                 {{ value.internationalizationName.en }}
               </td>
+              <td>
+                {{ Object.keys(value.columns).length }}
+              </td>
               <td v-if="value.validations !== undefined">
                 {{ Object.keys(value.validations).length }}
               </td>
               <td v-else>
                 0
-              </td>
-              <td>
-                {{ Object.keys(value.columns).length }}
               </td>
               <td>
                 {{ value.keyColumns.join(', ') }}

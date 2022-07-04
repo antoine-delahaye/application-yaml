@@ -5,9 +5,9 @@ describe('Testing', () => {
 
     it('Create a new file', () => {
         cy.get('#new').click()
-        cy.get('.v-navigation-drawer__scrim').click('center')
+        // cy.get('.v-navigation-drawer__scrim').click('center')
         cy.get('#applicationName').type('Application')
-        cy.get('.mdi-menu').click()
+        // cy.get('.mdi-menu').click()
         cy.get('[href="/references"]').click()
         cy.get('#addReference').click()
         cy.get('#referenceName').type('Référence')
@@ -32,7 +32,7 @@ describe('Testing', () => {
     it('Import a existing file', () => {
         cy.get('#home').click()
         cy.get('#import').invoke('show').selectFile('cypress/fixtures/foret.yaml')
-        cy.get('.v-navigation-drawer__scrim').click('center')
+        // cy.get('.v-navigation-drawer__scrim').click('center')
         // cy.get('#applicationName').contains('foret')
     })
 })

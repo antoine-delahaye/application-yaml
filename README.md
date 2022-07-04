@@ -103,7 +103,6 @@
 - [Cypress](https://www.cypress.io/)
 - [Vue3 Cookies](https://github.com/KanHarI/vue3-cookies)
 - [YAML](https://github.com/eemeli/yaml)
-- [Vue3 JSON Viewer](https://github.com/qiuquanwu/vue3-json-viewer)
 - [FileSaver.js](https://github.com/eligrey/FileSaver.js)
 
 ### Structure

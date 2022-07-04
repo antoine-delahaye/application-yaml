@@ -22,7 +22,7 @@ de rejoindre son équipe afin de travailler sur un projet très intéressant et 
 
 Je remercie Madame BOUKIR HAKIMA, ma collègue de bureau, de m'avoir supporté pendant quatre mois.
 
-Je remercie aussi toute l’équipe INFOSOL et le personnel de l’INRAE avec lesquels j’ai pu travailler ou discuter.
+Je remercie aussi toute l’équipe InfoSol et le personnel de l’INRAE avec lesquels j’ai pu travailler ou discuter.
 
 Enfin je remercie Monsieur DABROWSKI Frédéric, mon tuteur de stage pour son suivi.
 
@@ -30,7 +30,7 @@ Enfin je remercie Monsieur DABROWSKI Frédéric, mon tuteur de stage pour son su
 
 Étudiant en troisième année de licence Informatique à l’Université d’Orléans, j’ai réalisé un stage de quatre mois, du 4
 avril
-au 29 juillet, à l'INRAE Val de Loire à Ardon, au sein de l’unité INFOSOL.
+au 29 juillet, à l'INRAE Val de Loire à Ardon, au sein de l’unité InfoSol.
 
 Mon rôle dans cette équipe consistait à développer une application web permettant l’aide
 à la création du fichier de configuration pour les applications du SI ORE (Observatoire de Recherche en Environnement).
@@ -65,17 +65,17 @@ Pour ce qui est de l'INRAE Val de Loire, elle compte 800 agents dont 632 titulai
 - Infectiologie et one health
 - Biologie animale intégrative et durabilité des systèmes d'élevage
 
-## L'unité INFOSOL
+## L'unité InfoSol
 
-J'ai donc réalisé mon stage au sein de l'équipe Éco-Informatique ORE, cette dernière fait partie de l'unité INFOSOL.
+J'ai donc réalisé mon stage au sein de l'équipe Éco-Informatique ORE, cette dernière fait partie de l'unité InfoSol.
 
-INFOSOL est une unité de services. Ses activités s'exercent dans le cadre de la participation de l'INRAE à un Groupement
+InfoSol est une unité de services. Ses activités s'exercent dans le cadre de la participation de l'INRAE à un Groupement
 d'Intérêt Scientifique Sol (GIS
 Sol)
 qui propose un ensemble de programmes nationaux pour faciliter et encourager une gestion patrimoniale et durable des
 sols.
 
-L'unité INFOSOL, qui gère un SI Sol depuis l'acquisition jusqu'à la valorisation de données sols, en passant par leur
+L'unité InfoSol, qui gère un SI Sol depuis l'acquisition jusqu'à la valorisation de données sols, en passant par leur
 traitement, s'est vue confiée la mission de réaliser une application destinée à gérer les données environnementales
 issues des ORE.
 
@@ -99,7 +99,7 @@ souris, tout en alimentant mon ordinateur avec un seul cable.
 
 ## Introduction
 
-Comme expliqué précédent, la mission générale de l'unité INFOSOL est de constituer et de gérer un
+Comme expliqué précédent, la mission générale de l'unité InfoSol est de constituer et de gérer un
 système d'information à vocation nationale et européenne sur les sols, par rapport à leur distribution spatiale, leurs
 propriétés et l'évolution de leur qualité. La mission de l'unité a été élargie aux données environnementales et aux
 données des pratiques culturales. De ce fait, afin de répondre à ces exigences, l'équipe des ORE a été chargée de

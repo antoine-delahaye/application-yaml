@@ -1,6 +1,5 @@
 <script>
   import {useI18n} from 'vue-i18n'
-  import {storeToRefs} from 'pinia'
 
   import {useYamlStore} from '/src/store/yaml'
 
@@ -13,7 +12,15 @@
 
     data() {
       return {
-        dialog: false
+        dialog: false,
+        language: 'fr'
+      }
+    },
+
+    methods: {
+      newFile() {
+        this.yamlStore.resetYaml()
+        this.yamlStore.setLanguage(this.language)
       }
     }
   }
@@ -24,7 +31,7 @@
     <v-card width="30rem">
       <v-card-title v-text="t('defaultLanguage.title')"/>
       <v-card-content>
-        <v-radio-group v-model="yamlStore.application.defaultLanguage" hide-details>
+        <v-radio-group v-model="language" hide-details>
           <v-radio :label="t('fr')" value="fr" color="primary"/>
           <v-radio :label="t('en')" value="en" color="primary"/>
         </v-radio-group>
@@ -33,7 +40,7 @@
         <v-btn prepend-icon="mdi-close" color="error" @click="dialog = false">
           {{ t('button.cancel') }}
         </v-btn>
-        <v-btn prepend-icon="mdi-check" color="primary" @click="yamlStore.resetYaml" to="/application">
+        <v-btn id="validate" prepend-icon="mdi-check" color="primary" @click.prevent="newFile" to="/application">
           {{ t('button.validate') }}
         </v-btn>
       </v-card-actions>

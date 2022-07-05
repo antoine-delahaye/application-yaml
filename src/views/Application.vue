@@ -43,7 +43,7 @@
               <v-list-item-avatar start>
                 <v-icon icon="mdi-git"/>
               </v-list-item-avatar>
-              <v-list-item-title v-text="t('application.version') + ' ' + t(application.version)"/>
+              <v-list-item-title v-text="t('application.version') + ' ' + application.version"/>
             </v-list-item>
             <v-list-item>
               <v-list-item-avatar start>

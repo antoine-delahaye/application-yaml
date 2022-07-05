@@ -40,14 +40,14 @@
 </script>
 
 <template>
-  <div v-if="yamlStore.getDefaultLanguage === 'fr'" class="d-flex gap-3">
-    <v-text-field v-model="model.fr" :rules="inputRules" variant="outlined" color="primary" persistent-hint
+  <div v-if="yamlStore.getLanguage === 'fr'" class="d-flex gap-3">
+    <v-text-field :id="label" v-model="model.fr" :rules="inputRules" variant="outlined" color="primary" persistent-hint
                   :label="t(label, labelParams.fr)" :placeholder="t(placeholder + '.fr')" :hint="t('hint.required')"/>
     <v-text-field v-model="model.en" variant="outlined" color="primary" persistent-hint
                   :label="t(label, labelParams.en)" :placeholder="t(placeholder + '.en')" :hint="t('hint.optional')"/>
   </div>
   <div v-else class="d-flex gap-3">
-    <v-text-field v-model="model.en" :rules="inputRules" variant="outlined" color="primary" persistent-hint
+    <v-text-field :id="label" v-model="model.en" :rules="inputRules" variant="outlined" color="primary" persistent-hint
                   :label="t(label, labelParams.en)" :placeholder="t(placeholder + '.en')" :hint="t('hint.required')"/>
     <v-text-field v-model="model.fr" variant="outlined" color="primary" persistent-hint
                   :label="t(label, labelParams.fr)" :placeholder="t(placeholder + '.fr')" :hint="t('hint.optional')"/>

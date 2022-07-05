@@ -7,8 +7,9 @@
   export default {
     setup() {
       const {t} = useI18n()
-      const {application, references} = storeToRefs(useYamlStore())
-      return {t, application, references}
+      const yamlStore = useYamlStore()
+      const {application, references} = storeToRefs(yamlStore)
+      return {t, yamlStore, application, references}
     }
   }
 </script>
@@ -36,30 +37,16 @@
                   <router-link class="value-link" to="application">{{ application.name }}</router-link>
                 </v-list-item>
               </template>
-              <template v-else-if="application.defaultLanguage === 'fr'">
-                <v-list-item>
-                  {{ t('application.label', [' : ', ': ']) }}
-                  <router-link class="value-link" to="application">{{
-                      application.internationalizationName.fr
-                    }}
-                  </router-link>
-                </v-list-item>
-                <v-list-item>
-                  {{ t('application.language') }}
-                  <router-link class="value-link" to="application">{{ t('fr') }}</router-link>
-                </v-list-item>
-              </template>
               <template v-else>
                 <v-list-item>
                   {{ t('application.label', [' : ', ': ']) }}
-                  <router-link class="value-link" to="application">{{
-                      application.internationalizationName.en
-                    }}
+                  <router-link class="value-link" to="application">
+                    {{ application.internationalizationName[yamlStore.getLanguage] }}
                   </router-link>
                 </v-list-item>
                 <v-list-item>
                   {{ t('application.language') }}
-                  <router-link class="value-link" to="application">{{ t('en') }}</router-link>
+                  <router-link class="value-link" to="application">{{ t(yamlStore.getLanguage) }}</router-link>
                 </v-list-item>
               </template>
               <v-list-item :title="t('application.version') + ' ' + application.version"/>
@@ -71,9 +58,8 @@
               <v-list-group v-for="(value, key) in references">
                 <template v-slot:activator="{ props }">
                   <v-list-item rounded v-if="value.internationalizationName === undefined" v-bind="props" v-text="key"/>
-                  <v-list-item rounded v-else-if="application.defaultLanguage === 'fr'" v-bind="props"
-                               v-text="value.internationalizationName.fr"/>
-                  <v-list-item rounded v-else v-bind="props" v-text="value.internationalizationName.en"/>
+                  <v-list-item rounded v-else v-bind="props"
+                               v-text="value.internationalizationName[yamlStore.getLanguage]"/>
                 </template>
                 <v-list-item class="d-flex flex-column align-start" rounded to="references">
                   <p v-text="Object.keys(value.columns).length + ' ' + t('visualization.references.column', Object.keys(value.columns).length)"/>

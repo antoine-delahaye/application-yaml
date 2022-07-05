@@ -56,7 +56,7 @@
       if (this.referenceName !== null) {
         this.reference = this.references[this.referenceName]
         if (this.reference.internationalizationName === undefined) {
-          if (this.yamlStore.getDefaultLanguage) {
+          if (this.yamlStore.getLanguage) {
             this.reference['internationalizationName'] = {
               fr: this.referenceName,
               en: null
@@ -85,7 +85,7 @@
     methods: {
       addColumn() {
         if (this.$refs.addColumn.validate()) {
-          const index = getIndexName(this.columnName[this.yamlStore.getDefaultLanguage])
+          const index = getIndexName(this.columnName[this.yamlStore.getLanguage])
           this.reference.internationalizedColumns[index] = this.columnName
           this.reference.columns[index] = null
           this.columnName = {
@@ -96,7 +96,7 @@
       },
       addReference() {
         if (this.$refs.referenceName.validate()) {
-          this.references[getIndexName(this.reference.internationalizationName[this.yamlStore.getDefaultLanguage])] = this.reference
+          this.references[getIndexName(this.reference.internationalizationName[this.yamlStore.getLanguage])] = this.reference
           this.reference = reactive({
             validation: {},
             internationalizationName: {
@@ -144,10 +144,10 @@
 
     watch: {
       dialog(value) {
-        if (value === false && this.referenceName !== null && this.references[this.reference.internationalizationName[this.yamlStore.getDefaultLanguage]] === undefined) {
+        if (value === false && this.referenceName !== null && this.references[this.reference.internationalizationName[this.yamlStore.getLanguage]] === undefined) {
           const save = this.references[this.referenceName]
           delete this.references[this.referenceName]
-          this.references[getIndexName(save.internationalizationName[this.yamlStore.getDefaultLanguage])] = save
+          this.references[getIndexName(save.internationalizationName[this.yamlStore.getLanguage])] = save
         }
       }
     }

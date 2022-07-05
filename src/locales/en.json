@@ -12,38 +12,45 @@
   },
   "application": {
     "checkbox": "Make English the default language",
-    "enPlaceholder": "SOERE with repository, ...",
     "errors": {
       "length": "The application name must be less than 26 characters",
       "required": "The application name is mandatory"
     },
-    "frPlaceholder": "SOERE avec dépôt, ...",
     "label": "Name of the application {1}",
-    "title": "Application"
+    "language": "Default language:",
+    "placeholder": {
+      "en": "SOERE with repository, ...",
+      "fr": "SOERE avec dépôt, ..."
+    },
+    "title": "Application",
+    "version": "Version:"
   },
   "button": {
-    "add": "Add",
+    "add": "Add {1}",
     "cancel": "Cancel",
     "close": "Close",
     "dataType": "Data type",
     "delete": "Delete",
     "download": "Download",
     "edit": "Edit",
-    "en": "English",
-    "fr": "French",
     "new": "New",
     "reference": "Reference",
     "upload": "Upload {accepted}",
     "validate": "Validate"
   },
   "dataType": {
-    "enPlaceholder": "Trap in ascent, ...",
-    "frPlaceholder": "Piégeage en Montée, ...",
-    "label": "Name of the data type in {1}"
+    "label": "Name of the data type in {1}",
+    "placeholder": {
+      "en": "Trap in ascent, ...",
+      "fr": "Piégeage en Montée, ..."
+    }
   },
   "dataTypes": {
     "dataTypeName": "Name of the data type",
     "title": "Data types"
+  },
+  "defaultLanguage": {
+    "title": "Default language configuration"
   },
   "delete": {
     "title": "Deleting a {1}"
@@ -54,6 +61,8 @@
     "subtitle": "You can download your application configuration file!",
     "title": "Download"
   },
+  "en": "English",
+  "fr": "French",
   "hint": {
     "optional": "Optional",
     "required": "Required"
@@ -72,18 +81,22 @@
   },
   "reference": {
     "column": {
-      "enPlaceholder": "spe_name, ...",
-      "frPlaceholder": "esp_nom, ...",
-      "name": "Column's name {0}",
+      "name": "Column's name {1}",
+      "placeholder": {
+        "en": "spe_name, ...",
+        "fr": "esp_nom, ..."
+      },
       "subtitle": "Add a column"
     },
     "constraint": {
       "date": "Date pattern",
-      "enPlaceholder": "Project reference,  ...",
       "endDate": "End date",
-      "frPlaceholder": "Référence au projet,  ...",
       "groovy": "Groovy expression",
-      "name": "Constraint's name {0}",
+      "name": "Constraint's name {1}",
+      "placeholder": {
+        "en": "Project reference,  ...",
+        "fr": "Référence au projet,  ..."
+      },
       "references": "Selected columns",
       "regex": "Regular expression",
       "startDate": "Start date",
@@ -91,10 +104,12 @@
       "type": "Constraint type",
       "value": "Value"
     },
-    "enPlaceholder": "Species, ...",
-    "frPlaceholder": "Espèces, ...",
     "keyColumn": "Key column",
-    "name": "Reference's name {0}",
+    "name": "Reference's name {1}",
+    "placeholder": {
+      "en": "Species, ...",
+      "fr": "Espèces, ..."
+    },
     "title": "Add a reference"
   },
   "references": {
@@ -114,11 +129,6 @@
     "required": "This field is required"
   },
   "visualization": {
-    "application": {
-      "language": "Default language:",
-      "name": "Application's name:",
-      "version": "Version:"
-    },
     "references": {
       "column": "column | columns",
       "constraint": "constraint | constraints"

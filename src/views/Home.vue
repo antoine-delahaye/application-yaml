@@ -4,6 +4,8 @@
 
   import {useYamlStore} from '/src/store/yaml'
 
+  import DefaultLanguage from '/src/components/DefaultLanguage.vue'
+
   export default {
     setup() {
       const {t} = useI18n()
@@ -16,6 +18,10 @@
         isSelecting: false,
         selectedFile: null
       }
+    },
+
+    components: {
+      DefaultLanguage
     },
 
     methods: {
@@ -64,8 +70,9 @@
           <v-btn prepend-icon="mdi-upload" color="primary" :loading="isSelecting" @click="handleFileImport">
             {{ t('button.upload', {accepted: '(.yaml)'}) }}
           </v-btn>
-          <v-btn id="new" prepend-icon="mdi-plus" color="primary" @click="yamlStore.resetYaml" to="/application">
+          <v-btn id="new" prepend-icon="mdi-plus" color="primary">
             {{ t('button.new') }}
+            <DefaultLanguage/>
           </v-btn>
         </v-card-actions>
       </v-card>

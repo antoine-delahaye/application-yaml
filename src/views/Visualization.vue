@@ -32,31 +32,37 @@
               </template>
               <template v-if="application.internationalizationName === undefined">
                 <v-list-item>
-                  {{ t('visualization.application.name') }}
+                  {{ t('application.label', [' : ', ': ']) }}
                   <router-link class="value-link" to="application">{{ application.name }}</router-link>
                 </v-list-item>
               </template>
               <template v-else-if="application.defaultLanguage === 'fr'">
                 <v-list-item>
-                  {{ t('visualization.application.name') }}
-                  <router-link class="value-link" to="application">{{ application.internationalizationName.fr }}</router-link>
+                  {{ t('application.label', [' : ', ': ']) }}
+                  <router-link class="value-link" to="application">{{
+                      application.internationalizationName.fr
+                    }}
+                  </router-link>
                 </v-list-item>
                 <v-list-item>
-                  {{ t('visualization.application.language') }}
-                  <router-link class="value-link" to="application">{{ t('button.fr') }}</router-link>
+                  {{ t('application.language') }}
+                  <router-link class="value-link" to="application">{{ t('fr') }}</router-link>
                 </v-list-item>
               </template>
               <template v-else>
                 <v-list-item>
-                  {{ t('visualization.application.name') }}
-                  <router-link class="value-link" to="application">{{ application.internationalizationName.en }}</router-link>
+                  {{ t('application.label', [' : ', ': ']) }}
+                  <router-link class="value-link" to="application">{{
+                      application.internationalizationName.en
+                    }}
+                  </router-link>
                 </v-list-item>
                 <v-list-item>
-                  {{ t('visualization.application.language') }}
-                  <router-link class="value-link" to="application">{{ t('button.en') }}</router-link>
+                  {{ t('application.language') }}
+                  <router-link class="value-link" to="application">{{ t('en') }}</router-link>
                 </v-list-item>
               </template>
-              <v-list-item :title="t('visualization.application.version') + application.version"/>
+              <v-list-item :title="t('application.version') + ' ' + application.version"/>
             </v-list-group>
             <v-list-group>
               <template v-slot:activator="{ props }">
@@ -65,12 +71,14 @@
               <v-list-group v-for="(value, key) in references">
                 <template v-slot:activator="{ props }">
                   <v-list-item rounded v-if="value.internationalizationName === undefined" v-bind="props" v-text="key"/>
-                  <v-list-item rounded v-else-if="application.defaultLanguage === 'fr'" v-bind="props" v-text="value.internationalizationName.fr"/>
+                  <v-list-item rounded v-else-if="application.defaultLanguage === 'fr'" v-bind="props"
+                               v-text="value.internationalizationName.fr"/>
                   <v-list-item rounded v-else v-bind="props" v-text="value.internationalizationName.en"/>
                 </template>
                 <v-list-item class="d-flex flex-column align-start" rounded to="references">
                   <p v-text="Object.keys(value.columns).length + ' ' + t('visualization.references.column', Object.keys(value.columns).length)"/>
-                  <p v-if="value.validations !== undefined" v-text="Object.keys(value.validations).length + ' ' + t('visualization.references.constraint', Object.keys(value.validations).length)"/>
+                  <p v-if="value.validations !== undefined"
+                     v-text="Object.keys(value.validations).length + ' ' + t('visualization.references.constraint', Object.keys(value.validations).length)"/>
                   <p v-else v-text="'0 ' + t('visualization.references.constraint', 0)"/>
                 </v-list-item>
               </v-list-group>

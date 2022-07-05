@@ -12,38 +12,45 @@
   },
   "application": {
     "checkbox": "Faire de l’anglais la langue par défaut",
-    "enPlaceholder": "SOERE with repository, ...",
     "errors": {
       "length": "Le nom de l'application doit contenir moins de 26 caractères",
       "required": "Le nom de l'application est obligatoire"
     },
-    "frPlaceholder": "SOERE avec dépôt, ...",
     "label": "Nom de l'application {0}",
-    "title": "Application"
+    "language": "Langue par défaut :",
+    "placeholder": {
+      "en": "SOERE with repository, ...",
+      "fr": "SOERE avec dépôt, ..."
+    },
+    "title": "Application",
+    "version": "Version :"
   },
   "button": {
-    "add": "Ajouter",
+    "add": "Ajouter {0}",
     "cancel": "Annuler",
     "close": "Fermer",
     "dataType": "Type de données",
     "delete": "Supprimer",
     "download": "Télécharger",
     "edit": "Modifier",
-    "en": "Anglais",
-    "fr": "Français",
     "new": "Nouveau",
     "reference": "Référentiel",
     "upload": "Importer {accepted}",
     "validate": "Valider"
   },
   "dataType": {
-    "enPlaceholder": "Trap in ascent, ...",
-    "frPlaceholder": "Piégeage en Montée, ...",
-    "label": "Nom du type de données en {0}"
+    "label": "Nom du type de données en {0}",
+    "placeholder": {
+      "en": "Trap in ascent, ...",
+      "fr": "Piégeage en Montée, ..."
+    }
   },
   "dataTypes": {
     "dataTypeName": "Nom du type de données",
     "title": "Types de données"
+  },
+  "defaultLanguage": {
+    "title": "Configuration de la langue par défaut"
   },
   "delete": {
     "title": "Suppression d'un {0}"
@@ -54,6 +61,8 @@
     "subtitle": "Vous pouvez télécharger le fichier de configuration de votre application !",
     "title": "Téléchargement"
   },
+  "en": "Anglais",
+  "fr": "Français",
   "hint": {
     "optional": "Optionnel",
     "required": "Obligatoire"
@@ -72,18 +81,22 @@
   },
   "reference": {
     "column": {
-      "enPlaceholder": "spe_name,  ...",
-      "frPlaceholder": "esp_nom,  ...",
       "name": "Nom de la colonne {0}",
+      "placeholder": {
+        "en": "spe_name,  ...",
+        "fr": "esp_nom,  ..."
+      },
       "subtitle": "Ajouter une colonne"
     },
     "constraint": {
       "date": "Pattern de date",
-      "enPlaceholder": "Project reference,  ...",
       "endDate": "Date de fin",
-      "frPlaceholder": "Référence au projet,  ...",
       "groovy": "Expression Groovy",
       "name": "Nom de la contrainte {0}",
+      "placeholder": {
+        "en": "Project reference,  ...",
+        "fr": "Référence au projet,  ..."
+      },
       "references": "Colonnes sélectionnées",
       "regex": "Expression régulière",
       "startDate": "Date de début",
@@ -91,10 +104,12 @@
       "type": "Type de contrainte",
       "value": "Valeur"
     },
-    "enPlaceholder": "Species, ...",
-    "frPlaceholder": "Espèces, ...",
     "keyColumn": "Colonne clé",
     "name": "Nom du référentiel {0}",
+    "placeholder": {
+      "en": "Species, ...",
+      "fr": "Espèces, ..."
+    },
     "title": "Ajouter un référentiel"
   },
   "references": {
@@ -114,11 +129,6 @@
     "required": "Ce champ est obligatoire"
   },
   "visualization": {
-    "application": {
-      "language": "Langue par défaut :",
-      "name": "Nom de l'application :",
-      "version": "Version :"
-    },
     "references": {
       "column": "colonne | colonnes",
       "constraint": "contrainte | contraintes"

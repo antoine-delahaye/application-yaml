@@ -71,9 +71,9 @@
           </template>
           <v-list nav>
             <v-list-item active-color="primary" :active="locale === 'fr'" @click="locale = 'fr'"
-                         :title="t('button.fr')"/>
+                         :title="t('fr')"/>
             <v-list-item active-color="primary" :active="locale === 'en'" @click="locale = 'en'"
-                         :title="t('button.en')"/>
+                         :title="t('en')"/>
           </v-list>
         </v-menu>
       </div>

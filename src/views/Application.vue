@@ -5,6 +5,8 @@
   import {useYamlStore} from '/src/store/yaml'
   import getIndexName from '/src/utils'
 
+  import Internationalization from '/src/components/Internationalization.vue'
+
   export default {
     setup() {
       const {t} = useI18n()
@@ -12,19 +14,14 @@
       return {t, application}
     },
 
-    data() {
-      return {
-        inputRules: [
-          (v) => !!v || this.t('rule.required'),
-          (v) => (v && v.length <= 26) || this.t('rule.length', {length: 27}),
-        ]
-      }
-    },
-
     unmounted() {
       if (this.application.internationalizationName.fr !== null) {
         this.application.name = getIndexName(this.application.internationalizationName.fr)
       }
+    },
+
+    components: {
+      Internationalization
     }
   }
 </script>
@@ -40,22 +37,26 @@
     <v-container fluid>
       <v-card max-width="50rem" class="mx-auto">
         <v-card-title>{{ t('application.title') }}</v-card-title>
+        <v-card-subtitle>
+          <v-list density="compact">
+            <v-list-item>
+              <v-list-item-avatar start>
+                <v-icon icon="mdi-git"/>
+              </v-list-item-avatar>
+              <v-list-item-title v-text="t('application.version') + ' ' + t(application.version)"/>
+            </v-list-item>
+            <v-list-item>
+              <v-list-item-avatar start>
+                <v-icon icon="mdi-translate"/>
+              </v-list-item-avatar>
+              <v-list-item-title v-text="t('application.language') + ' ' + t(application.defaultLanguage)"/>
+            </v-list-item>
+          </v-list>
+        </v-card-subtitle>
         <v-card-content>
           <v-form>
-            <div class="d-flex gap-3">
-              <v-text-field id="applicationName" :label="t('application.label', ['en français', 'in French'])"
-                            :placeholder="t('application.frPlaceholder')"
-                            variant="outlined" color="primary" v-model="application.internationalizationName.fr"
-                            :hint="t('hint.required')"
-                            persistent-hint :rules="inputRules"/>
-              <v-text-field :label="t('application.label', ['en anglais', 'in English'])"
-                            :placeholder="t('application.enPlaceholder')"
-                            variant="outlined" color="primary" :hint="t('hint.optional')"
-                            v-model="application.internationalizationName.en"
-                            persistent-hint/>
-            </div>
-            <v-switch v-model="application.defaultLanguage" color="primary" hide-details true-value="en"
-                      false-value="fr" :label="t('application.checkbox')"/>
+            <Internationalization :model="application.internationalizationName"
+                                  label="application.label" placeholder="application.placeholder"/>
           </v-form>
         </v-card-content>
       </v-card>

@@ -26,6 +26,10 @@ export const useYamlStore = defineStore({
                 compositeReferences: this.compositeReferences
 
             }
+        },
+
+        getDefaultLanguage() {
+            return this.application.defaultLanguage
         }
     },
     actions: {

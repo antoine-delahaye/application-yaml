@@ -6,11 +6,14 @@
   import {useYamlStore} from '/src/store/yaml'
   import getIndexName from '/src/utils'
 
+  import Internationalization from '/src/components/Internationalization.vue'
+
   export default {
     setup() {
       const {t} = useI18n()
-      const {references} = storeToRefs(useYamlStore())
-      return {t, references}
+      const yamlStore = useYamlStore()
+      const {references} = storeToRefs(yamlStore)
+      return {t, yamlStore, references}
     },
 
     data() {
@@ -25,8 +28,10 @@
           keyColumns: [],
           columns: {}
         }),
-        frColumnName: null,
-        enColumnName: null,
+        columnName: {
+          fr: null,
+          en: null
+        },
         validation: reactive({
           internationalizationName: {
             fr: null,
@@ -51,9 +56,16 @@
       if (this.referenceName !== null) {
         this.reference = this.references[this.referenceName]
         if (this.reference.internationalizationName === undefined) {
-          this.reference['internationalizationName'] = {
-            fr: this.referenceName,
-            en: null
+          if (this.yamlStore.getDefaultLanguage) {
+            this.reference['internationalizationName'] = {
+              fr: this.referenceName,
+              en: null
+            }
+          } else {
+            this.reference['internationalizationName'] = {
+              fr: null,
+              en: this.referenceName
+            }
           }
         }
       }
@@ -66,22 +78,25 @@
       }
     },
 
+    components: {
+      Internationalization
+    },
+
     methods: {
       addColumn() {
         if (this.$refs.addColumn.validate()) {
-          const index = getIndexName(this.frColumnName)
-          this.reference.internationalizedColumns[index] = {
-            fr: this.frColumnName,
-            en: this.enColumnName
-          }
+          const index = getIndexName(this.columnName[this.yamlStore.getDefaultLanguage])
+          this.reference.internationalizedColumns[index] = this.columnName
           this.reference.columns[index] = null
-          this.frColumnName = null
-          this.enColumnName = null
+          this.columnName = {
+            fr: null,
+            en: null
+          }
         }
       },
       addReference() {
         if (this.$refs.referenceName.validate()) {
-          this.references[getIndexName(this.reference.internationalizationName.fr)] = this.reference
+          this.references[getIndexName(this.reference.internationalizationName[this.yamlStore.getDefaultLanguage])] = this.reference
           this.reference = reactive({
             validation: {},
             internationalizationName: {
@@ -129,10 +144,10 @@
 
     watch: {
       dialog(value) {
-        if (value === false && this.referenceName !== null && this.references[this.reference.internationalizationName.fr] === undefined) {
+        if (value === false && this.referenceName !== null && this.references[this.reference.internationalizationName[this.yamlStore.getDefaultLanguage]] === undefined) {
           const save = this.references[this.referenceName]
           delete this.references[this.referenceName]
-          this.references[getIndexName(save.internationalizationName.fr)] = save
+          this.references[getIndexName(save.internationalizationName[this.yamlStore.getDefaultLanguage])] = save
         }
       }
     }
@@ -145,31 +160,20 @@
       <v-card-title v-text="t('reference.title')"/>
       <v-card-subtitle v-text="t('reference.name')"/>
       <v-card-content>
-        <v-form ref="referenceName" class="d-flex gap-3">
-          <v-text-field id="referenceName" :label="t('reference.name', ['en français', 'in French'])"
-                        :placeholder="t('reference.frPlaceholder')"
-                        variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint
-                        v-model="reference.internationalizationName.fr" :rules="[rules.required]"/>
-          <v-text-field :label="t('reference.name', ['en anglais', 'in English'])"
-                        :placeholder="t('reference.enPlaceholder')"
-                        variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint
-                        v-model="reference.internationalizationName.en"/>
+        <v-form ref="referenceName">
+          <Internationalization :model="reference.internationalizationName" label="reference.name"
+                                placeholder="reference.placeholder"/>
         </v-form>
       </v-card-content>
       <v-card-subtitle v-text="t('reference.column.subtitle')"/>
       <v-card-content>
-        <v-form ref="addColumn" class="d-flex gap-3">
-          <v-text-field id="columnName" :label="t('reference.column.name', ['en français', 'in French'])"
-                        :placeholder="t('reference.frPlaceholder')"
-                        variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint
-                        v-model="frColumnName" :rules="[rules.required]"/>
-          <v-text-field :label="t('reference.column.name', ['en anglais', 'in English'])"
-                        :placeholder="t('reference.enPlaceholder')"
-                        variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint
-                        v-model="enColumnName"/>
-          <v-btn id="addColumn" color="primary" @click="addColumn" class="mt-2">
-            <v-icon icon="mdi-plus-circle"/>
-          </v-btn>
+        <v-form ref="addColumn">
+          <Internationalization :model="columnName" label="reference.column.name" placeholder="reference.placeholder"/>
+          <div class="text-center">
+            <v-btn id="addColumn" prepend-icon="mdi-plus-circle" color="primary" @click="addColumn">
+              {{ t('button.add', ['une colonne', 'a column']) }}
+            </v-btn>
+          </div>
         </v-form>
         <v-alert v-model="alert" type="warning" border closable>
           <v-alert-title v-text="t('alert.action')"/>
@@ -205,16 +209,8 @@
       <v-card-subtitle v-text="t('reference.constraint.subtitle')"/>
       <v-card-content>
         <v-form ref="addConstraint">
-          <div class="d-flex gap-3">
-            <v-text-field id="constraintName" :label="t('reference.constraint.name', ['en français', 'in French'])"
-                          :placeholder="t('reference.frPlaceholder')"
-                          variant="outlined" color="primary" :hint="t('hint.required')" persistent-hint
-                          v-model="validation.internationalizationName.fr" :rules="[rules.required]"/>
-            <v-text-field :label="t('reference.constraint.name', ['en anglais', 'in English'])"
-                          :placeholder="t('reference.enPlaceholder')"
-                          variant="outlined" color="primary" :hint="t('hint.optional')" persistent-hint
-                          v-model="validation.internationalizationName.en"/>
-          </div>
+          <Internationalization :model="validation.internationalizationName" label="reference.constraint.name"
+                                placeholder="reference.placeholder"/>
           <div class="d-flex gap-3">
             <v-select id="constraintType" v-model="validation.checker.name"
                       :items="['Reference', 'Integer', 'Float', 'Date', 'GroovyExpression', 'RegularExpression']"
@@ -240,8 +236,10 @@
                           v-model="validation.checker.params['pattern']"
                           :label="t('reference.constraint.regex')" variant="outlined" :rules="[rules.required]"
                           color="primary"/>
-            <v-btn id="addConstraint" color="primary" @click="addConstraint" class="mt-2">
-              <v-icon icon="mdi-plus-circle"/>
+          </div>
+          <div class="text-center">
+            <v-btn id="addConstraint" prepend-icon="mdi-plus-circle" color="primary" @click="addConstraint">
+              {{ t('button.add', ['une contrainte', 'a constraint']) }}
             </v-btn>
           </div>
         </v-form>

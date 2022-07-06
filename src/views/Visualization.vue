@@ -31,24 +31,13 @@
               <template v-slot:activator="{ props }">
                 <v-list-item rounded v-bind="props" :title="t('nav.application')"></v-list-item>
               </template>
-              <template v-if="application.internationalizationName === undefined">
-                <v-list-item>
-                  {{ t('application.label', [' : ', ': ']) }}
-                  <router-link class="value-link" to="application">{{ application.name }}</router-link>
-                </v-list-item>
+              <template v-if="application.internationalizationName[yamlStore.getLanguage]">
+                <v-list-item to="application" :title="t('application.label', [' : ', ': ']) + ' ' + application.internationalizationName[yamlStore.getLanguage]"/>
               </template>
-              <template v-else>
-                <v-list-item>
-                  {{ t('application.label', [' : ', ': ']) }}
-                  <router-link class="value-link" to="application">
-                    {{ application.internationalizationName[yamlStore.getLanguage] }}
-                  </router-link>
-                </v-list-item>
-                <v-list-item>
-                  {{ t('application.language') }}
-                  <router-link class="value-link" to="application">{{ t(yamlStore.getLanguage) }}</router-link>
-                </v-list-item>
+              <template v-else-if="application.name">
+                <v-list-item to="application" :title="t('application.label', [' : ', ': ']) + ' ' + application.name"/>
               </template>
+              <v-list-item :title="t('application.language') + ' ' + t(yamlStore.getLanguage)"/>
               <v-list-item :title="t('application.version') + ' ' + application.version"/>
             </v-list-group>
             <v-list-group>
@@ -77,12 +66,4 @@
 </template>
 
 <style scoped>
-  .value-link {
-    color: #00a3a6;
-    text-decoration: none;
-  }
-
-  .value-link:hover {
-    text-decoration: underline;
-  }
 </style>

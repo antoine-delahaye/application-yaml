@@ -17,10 +17,10 @@
       }
     },
 
-    methods: {
-      newFile() {
-        this.yamlStore.resetYaml()
-        this.yamlStore.setLanguage(this.language)
+    props: {
+      isNewFile: {
+        type: Boolean,
+        default: true
       }
     }
   }
@@ -36,11 +36,19 @@
           <v-radio :label="t('en')" value="en" color="primary"/>
         </v-radio-group>
       </v-card-content>
-      <v-card-actions class="d-flex justify-center">
+      <v-card-actions v-if="isNewFile" class="d-flex justify-center">
         <v-btn prepend-icon="mdi-close" color="error" @click="dialog = false">
           {{ t('button.cancel') }}
         </v-btn>
-        <v-btn id="validate" prepend-icon="mdi-check" color="primary" @click.prevent="newFile" to="/application">
+        <v-btn id="validate" prepend-icon="mdi-check" color="primary" @click.prevent="yamlStore.resetYaml(); yamlStore.setLanguage(language)" to="application">
+          {{ t('button.validate') }}
+        </v-btn>
+      </v-card-actions>
+      <v-card-actions v-else class="d-flex justify-center">
+        <v-btn prepend-icon="mdi-close" color="error" @click.prevent="$emit('closeDialog')">
+          {{ t('button.cancel') }}
+        </v-btn>
+        <v-btn id="validate" prepend-icon="mdi-check" color="primary" @click.prevent="yamlStore.setLanguage(language); $emit('languageSet')" to="application">
           {{ t('button.validate') }}
         </v-btn>
       </v-card-actions>

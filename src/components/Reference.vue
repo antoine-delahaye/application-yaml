@@ -172,7 +172,7 @@
 
 <template>
   <v-dialog activator="parent" v-model="dialog">
-    <v-card width="150vh">
+    <v-card width="100vh">
       <v-card-title v-text="t('reference.title')"/>
       <v-card-subtitle class="d-flex justify-center">
         <v-tabs v-model="tab">

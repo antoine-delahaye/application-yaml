@@ -1,6 +1,7 @@
 <script>
   import {useI18n} from 'vue-i18n'
   import {parseDocument} from 'yaml'
+  import {storeToRefs} from 'pinia'
 
   import {useYamlStore} from '/src/store/yaml'
 
@@ -10,13 +11,15 @@
     setup() {
       const {t} = useI18n()
       const yamlStore = useYamlStore()
-      return {t, yamlStore}
+      const {application} = storeToRefs(yamlStore)
+      return {t, yamlStore, application}
     },
 
     data() {
       return {
         isSelecting: false,
-        selectedFile: null
+        selectedFile: null,
+        languageDialog: false
       }
     },
 
@@ -38,22 +41,33 @@
           this.selectedFile = e.target.result
           this.yamlStore.resetYaml()
           this.yamlStore.setYaml(parseDocument(this.selectedFile).toJSON())
-          if (this.yamlStore.application.internationalizationName === undefined) {
-            if (this.yamlStore.application.defaultLanguage === 'fr') {
-              this.yamlStore.application['internationalizationName'] = {
-                fr: this.yamlStore.application.name,
-                en: null
-              }
-            } else {
-              this.yamlStore.application['internationalizationName'] = {
-                fr: null,
-                en: this.yamlStore.application.name
-              }
+          if (!this.application) {
+            this.application = {
+              name: null
             }
+          }
+          if (!this.application.defaultLanguage) {
+            this.languageDialog = true
+          } else {
+            this.checkFile()
           }
         }
         reader.readAsText(e.target.files[0])
-        this.$router.push('/application')
+      },
+      checkFile() {
+        if (!this.application.version) {
+          this.application['version'] = 1
+        } else {
+          this.application.version++
+        }
+        if (!this.application.internationalizationName) {
+          this.application['internationalizationName'] = {
+            fr: null,
+            en: null
+          }
+          this.application.internationalizationName[this.yamlStore.getLanguage] = this.application.name
+        }
+        this.$router.push('application')
       }
     }
   }
@@ -69,6 +83,7 @@
           <input id="import" ref="uploader" hidden type="file" @change="onFileChanged" accept=".yml, .yaml"/>
           <v-btn prepend-icon="mdi-upload" color="primary" :loading="isSelecting" @click="handleFileImport">
             {{ t('button.upload', {accepted: '(.yaml)'}) }}
+            <DefaultLanguage v-model="languageDialog" :is-new-file="false" @language-set="checkFile" @close-dialog="languageDialog = false"/>
           </v-btn>
           <v-btn id="new" prepend-icon="mdi-plus" color="primary">
             {{ t('button.new') }}

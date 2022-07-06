@@ -42,7 +42,6 @@ export const useYamlStore = defineStore({
 
         resetYaml() {
             this.application = {
-                defaultLanguage: 'fr',
                 internationalizationName: {
                     fr: null,
                     en: null
@@ -56,7 +55,7 @@ export const useYamlStore = defineStore({
         },
 
         setLanguage(language) {
-            this.application.defaultLanguage = language
+            this.application['defaultLanguage'] = language
         },
 
         addReference(index, reference) {

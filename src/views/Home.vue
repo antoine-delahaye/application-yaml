@@ -85,6 +85,9 @@
             {{ t('button.upload', {accepted: '(.yaml)'}) }}
             <DefaultLanguage v-model="languageDialog" :is-new-file="false" @language-set="checkFile" @close-dialog="languageDialog = false"/>
           </v-btn>
+          <v-btn v-if="application.name" prepend-icon="mdi-pencil" color="primary" to="application">
+            {{ t('button.continue', ["d'éditer", "editing"]) }}
+          </v-btn>
           <v-btn id="new" prepend-icon="mdi-plus" color="primary">
             {{ t('button.new') }}
             <DefaultLanguage/>

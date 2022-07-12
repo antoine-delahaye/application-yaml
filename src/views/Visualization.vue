@@ -4,12 +4,18 @@
 
   import {useYamlStore} from '/src/store/yaml'
 
+  import Reference from '/src/components/Reference.vue'
+
   export default {
     setup() {
       const {t} = useI18n()
       const yamlStore = useYamlStore()
       const {application, references} = storeToRefs(yamlStore)
       return {t, yamlStore, application, references}
+    },
+
+    components: {
+      Reference
     }
   }
 </script>
@@ -32,7 +38,8 @@
                 <v-list-item rounded v-bind="props" :title="t('nav.application')"></v-list-item>
               </template>
               <template v-if="application.internationalizationName[yamlStore.getLanguage]">
-                <v-list-item to="application" :title="t('application.label', [' : ', ': ']) + ' ' + application.internationalizationName[yamlStore.getLanguage]"/>
+                <v-list-item to="application"
+                             :title="t('application.label', [' : ', ': ']) + ' ' + application.internationalizationName[yamlStore.getLanguage]"/>
               </template>
               <template v-else-if="application.name">
                 <v-list-item to="application" :title="t('application.label', [' : ', ': ']) + ' ' + application.name"/>
@@ -50,11 +57,12 @@
                   <v-list-item rounded v-else v-bind="props"
                                v-text="value.internationalizationName[yamlStore.getLanguage]"/>
                 </template>
-                <v-list-item class="d-flex flex-column align-start" rounded to="references">
+                <v-list-item class="d-flex flex-column align-start" rounded @click.prevent="">
                   <p v-text="Object.keys(value.columns).length + ' ' + t('visualization.references.column', Object.keys(value.columns).length)"/>
                   <p v-if="value.validations !== undefined"
                      v-text="Object.keys(value.validations).length + ' ' + t('visualization.references.constraint', Object.keys(value.validations).length)"/>
                   <p v-else v-text="'0 ' + t('visualization.references.constraint', 0)"/>
+                  <Reference :reference-name="key"/>
                 </v-list-item>
               </v-list-group>
             </v-list-group>

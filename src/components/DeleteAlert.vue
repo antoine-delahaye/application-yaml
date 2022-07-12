@@ -17,17 +17,13 @@
     },
 
     props: {
-      locale: {
-        type: Array,
+      selectedKey : {
+        type: String,
         required: true
       },
       isReference: {
         type: Boolean,
-        required: true
-      },
-      selectedKey : {
-        type: String,
-        required: true
+        default: true
       }
     }
   }
@@ -36,7 +32,8 @@
 <template>
   <v-dialog activator="parent" v-model="dialog">
     <v-card width="30rem">
-      <v-card-title v-text="t('delete.title', locale)"/>
+      <v-card-title v-if="isReference" v-text="t('delete.title', ['référentiel', 'reference'])"/>
+      <v-card-title v-else v-text="t('delete.title', ['type de données', 'data type'])"/>
       <v-card-actions class="d-flex justify-center">
         <v-btn prepend-icon="mdi-close" color="primary" @click="dialog = false">
           {{ t('button.cancel') }}

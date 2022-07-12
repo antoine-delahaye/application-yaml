@@ -75,7 +75,7 @@
               <td class="d-flex align-center gap-3">
                 <v-btn size="small" color="error">
                   <v-icon icon="mdi-delete"/>
-                  <DeleteAlert :selected-key="key" :is-reference="false" :locale="['type de données', 'data type']"/>
+                  <DeleteAlert :selected-key="key" :is-reference="false"/>
                 </v-btn>
                 <v-btn size="small" color="primary">
                   <v-icon icon="mdi-pencil"/>

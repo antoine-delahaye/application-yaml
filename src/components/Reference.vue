@@ -7,6 +7,7 @@
   import getIndexName from '/src/utils'
 
   import Internationalization from '/src/components/Internationalization.vue'
+  import Constraint from '/src/components/Constraint.vue'
 
   export default {
     setup() {
@@ -84,7 +85,8 @@
     },
 
     components: {
-      Internationalization
+      Internationalization,
+      Constraint
     },
 
     methods: {
@@ -160,7 +162,7 @@
 
     watch: {
       dialog(value) {
-        if (value === false && this.referenceName !== null && this.references[this.reference.internationalizationName[this.yamlStore.getLanguage]] === undefined) {
+        if (!value && this.referenceName && !this.references[this.reference.internationalizationName[this.yamlStore.getLanguage]]) {
           const save = this.references[this.referenceName]
           delete this.references[this.referenceName]
           this.references[getIndexName(save.internationalizationName[this.yamlStore.getLanguage])] = save
@@ -172,17 +174,17 @@
 
 <template>
   <v-dialog activator="parent" v-model="dialog">
-    <v-card width="100vh">
+    <v-card width="120vh">
       <v-card-title v-text="t('reference.title')"/>
       <v-card-subtitle class="d-flex justify-center">
         <v-tabs v-model="tab">
           <v-tab color="primary" value="0">
             {{ t('reference.name') }}
           </v-tab>
-          <v-tab color="primary" value="1">
+          <v-tab color="primary" value="1" :disabled="!reference.internationalizationName[yamlStore.getLanguage]">
             {{ t('reference.column.subtitle') }}
           </v-tab>
-          <v-tab color="primary" value="2">
+          <v-tab color="primary" value="2" :disabled="!reference.internationalizationName[yamlStore.getLanguage] || !Object.keys(this.reference.columns).length">
             {{ t('reference.constraint.subtitle') }}
           </v-tab>
         </v-tabs>
@@ -249,33 +251,7 @@
             <v-form ref="addConstraint" v-model="constraintIsValid" lazy-validation>
               <Internationalization :model="validation.internationalizationName" label="reference.constraint.name"
                                     placeholder="reference.placeholder"/>
-              <div class="d-flex gap-3">
-                <v-select id="constraintType" v-model="validation.checker.name"
-                          :items="['Reference', 'Integer', 'Float', 'Date', 'GroovyExpression', 'RegularExpression']"
-                          :label="t('reference.constraint.type')" variant="outlined" :rules="[rules.required]"
-                          color="primary"/>
-                <v-select id="selectedColumn" v-if="validation.checker.name === 'Reference'"
-                          v-model="validation.columns"
-                          :items="Object.keys(reference.columns)" :label="t('reference.constraint.references')" multiple
-                          variant="outlined" chips :rules="[rules.required]" color="primary"/>
-                <template v-else-if="validation.checker.name === 'Date'">
-                  <v-select v-model="validation.checker.params['pattern']"
-                            :items="['dd/MM/YYYY', 'YYYY/MM/dd', 'MM/dd/YYYY']" :label="t('reference.constraint.date')"
-                            variant="outlined" :rules="[rules.required]" color="primary"/>
-                  <v-text-field v-model="validation.columns[0]" :label="t('reference.constraint.startDate')"
-                                variant="outlined" :rules="[rules.required]" color="primary"/>
-                  <v-text-field v-model="validation.columns[1]" :label="t('reference.constraint.endDate')"
-                                variant="outlined" :rules="[rules.required]" color="primary"/>
-                </template>
-                <v-text-field v-else-if="validation.checker.name === 'GroovyExpression'"
-                              v-model="validation.checker.params['groovy']['expression']"
-                              :label="t('reference.constraint.groovy')" variant="outlined" :rules="[rules.required]"
-                              color="primary"/>
-                <v-text-field v-else-if="validation.checker.name === 'RegularExpression'"
-                              v-model="validation.checker.params['pattern']"
-                              :label="t('reference.constraint.regex')" variant="outlined" :rules="[rules.required]"
-                              color="primary"/>
-              </div>
+              <Constraint :validation="validation" :reference="reference"/>
               <div class="text-center">
                 <v-btn id="addConstraint" prepend-icon="mdi-plus-circle" color="primary" @click="addConstraint"
                        :disabled="!constraintIsValid">
@@ -319,7 +295,7 @@
         <v-btn id="close" prepend-icon="mdi-close" color="error" @click="dialog = false">
           {{ t('button.close') }}
         </v-btn>
-        <v-btn id="addReference" v-if="referenceName === null" prepend-icon="mdi-plus" color="primary"
+        <v-btn id="addReference" v-if="!referenceName" prepend-icon="mdi-plus" color="primary"
                @click="addReference" :disabled="!referenceIsValid">
           {{ t('button.add') }}
         </v-btn>

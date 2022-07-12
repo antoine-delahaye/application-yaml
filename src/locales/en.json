@@ -40,18 +40,19 @@
     "validate": "Validate"
   },
   "dataType": {
-    "label": "Name of the data type in {1}",
+    "name": "Name of the data type {1}",
     "placeholder": {
       "en": "Trap in ascent, ...",
       "fr": "Piégeage en Montée, ..."
-    }
+    },
+    "title": "Add a data type"
   },
   "dataTypes": {
     "dataTypeName": "Name of the data type",
     "title": "Data types"
   },
   "defaultLanguage": {
-    "title": "Default language configuration"
+    "title": "Set default language for configuration file"
   },
   "delete": {
     "title": "Deleting a {1}"

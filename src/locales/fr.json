@@ -40,18 +40,19 @@
     "validate": "Valider"
   },
   "dataType": {
-    "label": "Nom du type de données en {0}",
+    "name": "Nom du type de données {0}",
     "placeholder": {
       "en": "Trap in ascent, ...",
       "fr": "Piégeage en Montée, ..."
-    }
+    },
+    "title": "Ajouter un type de donnée"
   },
   "dataTypes": {
     "dataTypeName": "Nom du type de données",
     "title": "Types de données"
   },
   "defaultLanguage": {
-    "title": "Configuration de la langue par défaut"
+    "title": "Définir la langue par défaut pour le fichier de configuration"
   },
   "delete": {
     "title": "Suppression d'un {0}"

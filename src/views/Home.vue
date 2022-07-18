@@ -28,9 +28,13 @@
 
     methods: {
       handleFileImport() {
+        this.yamlStore.resetYaml()
         this.isSelecting = true
         window.addEventListener('focus', () => {
           this.isSelecting = false
+          if (!this.application.name) {
+            this.languageDialog = false
+          }
         }, {once: true})
         this.$refs.uploader.click()
       },

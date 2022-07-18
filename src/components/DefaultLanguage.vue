@@ -45,7 +45,7 @@
         </v-btn>
       </v-card-actions>
       <v-card-actions v-else class="d-flex justify-center">
-        <v-btn prepend-icon="mdi-close" color="error" @click.prevent="$emit('closeDialog')">
+        <v-btn prepend-icon="mdi-close" color="error" @click.prevent="yamlStore.resetYaml(); $emit('closeDialog')">
           {{ t('button.cancel') }}
         </v-btn>
         <v-btn id="validate" prepend-icon="mdi-check" color="primary" @click.prevent="yamlStore.setLanguage(language); $emit('languageSet')" to="application">

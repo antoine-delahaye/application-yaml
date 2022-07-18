@@ -59,10 +59,10 @@
     },
 
     updated() {
-      if (this.referenceName !== null) {
+      if (this.referenceName) {
         this.reference = this.references[this.referenceName]
-        if (this.reference.internationalizationName === undefined) {
-          if (this.yamlStore.getLanguage) {
+        if (!this.reference.internationalizationName) {
+          if (this.yamlStore.getLanguage === 'fr') {
             this.reference['internationalizationName'] = {
               fr: this.referenceName,
               en: null
@@ -75,11 +75,25 @@
           }
         }
       }
+      if (this.columns) {
+        for (const i in this.columns) {
+          const column = this.columns[i]
+          const index = getIndexName(column)
+          this.reference.internationalizedColumns[index] = column
+          this.reference.columns[index] = null
+        }
+      }
     },
 
     props: {
       referenceName: {
         type: String,
+        default: null,
+        required: false
+      },
+      columns: {
+        type: Array,
+        default: null,
         required: false
       }
     },
@@ -184,7 +198,8 @@
           <v-tab color="primary" value="1" :disabled="!reference.internationalizationName[yamlStore.getLanguage]">
             {{ t('reference.column.subtitle') }}
           </v-tab>
-          <v-tab color="primary" value="2" :disabled="!reference.internationalizationName[yamlStore.getLanguage] || !Object.keys(this.reference.columns).length">
+          <v-tab color="primary" value="2"
+                 :disabled="!reference.internationalizationName[yamlStore.getLanguage] || !Object.keys(this.reference.columns).length">
             {{ t('reference.constraint.subtitle') }}
           </v-tab>
         </v-tabs>

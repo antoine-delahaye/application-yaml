@@ -1,7 +1,6 @@
 <script>
   import {useI18n} from 'vue-i18n'
   import {storeToRefs} from 'pinia'
-  import {parseDocument} from 'yaml'
 
   import Reference from '/src/components/Reference.vue'
   import DeleteAlert from '/src/components/DeleteAlert.vue'
@@ -19,7 +18,7 @@
       return {
         selectedKey: "null",
         isSelecting: false,
-        selectedFile: null
+        columns: null
       }
     },
 
@@ -39,8 +38,7 @@
       onFileChanged(e) {
         const reader = new FileReader()
         reader.onload = (e) => {
-          this.selectedFile = e.target.result
-          this.references = (parseDocument(this.selectedFile).toJSON()).references
+          this.columns = e.target.result.split("\n").map(line => line.split(';'))[0]
         }
         reader.readAsText(e.target.files[0])
       }
@@ -110,15 +108,16 @@
       </v-card>
     </v-container>
     <v-container fluid class="d-flex flex-wrap justify-end gap-3">
-      <input ref="uploader" hidden type="file" @change="onFileChanged" accept=".yml, .yaml"/>
+      <input ref="uploader" hidden type="file" @change="onFileChanged" accept=".csv"/>
       <v-btn prepend-icon="mdi-upload" color="primary" rounded="pill" size="large"
              :loading="isSelecting"
              @click="handleFileImport">
-        {{ t('button.upload', {accepted: '(.yaml)'}) }}
+        {{ t('button.upload', {accepted: '(.csv)'}) }}
+        <Reference :columns="columns"/>
       </v-btn>
       <v-btn id="addReference" prepend-icon="mdi-plus" color="primary" rounded="pill" size="large">
         {{ t('button.reference') }}
-        <Reference :reference-name="null"/>
+        <Reference/>
       </v-btn>
     </v-container>
   </v-main>

@@ -18,7 +18,6 @@
     data() {
       return {
         isSelecting: false,
-        selectedFile: null,
         languageDialog: false
       }
     },
@@ -38,9 +37,9 @@
       onFileChanged(e) {
         const reader = new FileReader()
         reader.onload = (e) => {
-          this.selectedFile = e.target.result
+          const selectedFile = e.target.result
           this.yamlStore.resetYaml()
-          this.yamlStore.setYaml(parseDocument(this.selectedFile).toJSON())
+          this.yamlStore.setYaml(parseDocument(selectedFile).toJSON())
           if (!this.application) {
             this.application = {
               name: null

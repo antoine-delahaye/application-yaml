@@ -192,13 +192,13 @@
       <v-card-title v-text="t('reference.title')"/>
       <v-card-subtitle class="d-flex justify-center">
         <v-tabs v-model="tab">
-          <v-tab color="primary" value="0">
+          <v-tab id="referenceName" color="primary" value="0">
             {{ t('reference.name') }}
           </v-tab>
-          <v-tab color="primary" value="1" :disabled="!reference.internationalizationName[yamlStore.getLanguage]">
+          <v-tab id="addColumns" color="primary" value="1" :disabled="!reference.internationalizationName[yamlStore.getLanguage]">
             {{ t('reference.column.subtitle') }}
           </v-tab>
-          <v-tab color="primary" value="2"
+          <v-tab id="addConstraints" color="primary" value="2"
                  :disabled="!reference.internationalizationName[yamlStore.getLanguage] || !Object.keys(this.reference.columns).length">
             {{ t('reference.constraint.subtitle') }}
           </v-tab>

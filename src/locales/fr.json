@@ -131,6 +131,15 @@
     "length": "La longueur de ce champ doit être inférieur à {length} caractères",
     "required": "Ce champ est obligatoire"
   },
+  "tooltip": {
+    "continueEditing": "Continuer l'édition du fichier en cours",
+    "download": "Télécharger le fichier créé",
+    "home": "Retourner à l'accueil",
+    "importCSV": "Importer un fichier de données CSV afin d'extraire les colonnes",
+    "importYAML": "Importer un fichier de configuration déjà existant pour le modifier",
+    "newFile": "Créer un nouveau fichier de configuration",
+    "newReference": "Créer un nouveau référentiel"
+  },
   "visualization": {
     "references": {
       "column": "colonne | colonnes",

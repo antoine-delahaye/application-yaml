@@ -233,7 +233,7 @@
                 </v-btn>
               </div>
             </v-form>
-            <v-table>
+            <v-table height="30vh">
               <thead>
               <tr>
                 <th v-text="t('reference.column.name')"/>
@@ -274,7 +274,7 @@
                 </v-btn>
               </div>
             </v-form>
-            <v-table>
+            <v-table height="30vh">
               <thead>
               <tr>
                 <th v-text="t('reference.constraint.name')"/>
@@ -307,7 +307,7 @@
         </v-window-item>
       </v-window>
       <v-card-actions class="d-flex justify-center">
-        <v-btn id="close" prepend-icon="mdi-close" color="error" @click="dialog = false">
+        <v-btn id="close" prepend-icon="mdi-close" color="error" @click.prevent="dialog = false; $emit('closeDialog')">
           {{ t('button.close') }}
         </v-btn>
         <v-btn id="addReference" v-if="!referenceName" prepend-icon="mdi-plus" color="primary"

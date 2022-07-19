@@ -18,7 +18,8 @@
       return {
         selectedKey: "null",
         isSelecting: false,
-        columns: null
+        columns: null,
+        referenceDialog: false
       }
     },
 
@@ -30,8 +31,12 @@
     methods: {
       handleFileImport() {
         this.isSelecting = true
+        this.columns = null
         window.addEventListener('focus', () => {
           this.isSelecting = false
+          if (!this.columns) {
+            this.referenceDialog = false
+          }
         }, {once: true})
         this.$refs.uploader.click()
       },
@@ -108,17 +113,27 @@
       </v-card>
     </v-container>
     <v-container fluid class="d-flex flex-wrap justify-end gap-3">
-      <input ref="uploader" hidden type="file" @change="onFileChanged" accept=".csv"/>
-      <v-btn prepend-icon="mdi-upload" color="primary" rounded="pill" size="large"
-             :loading="isSelecting"
-             @click="handleFileImport">
-        {{ t('button.upload', {accepted: '(.csv)'}) }}
-        <Reference :columns="columns"/>
-      </v-btn>
-      <v-btn id="addReference" prepend-icon="mdi-plus" color="primary" rounded="pill" size="large">
-        {{ t('button.reference') }}
-        <Reference/>
-      </v-btn>
+      <v-tooltip location="bottom">
+        <template v-slot:activator="{props}">
+          <input ref="uploader" hidden type="file" @change="onFileChanged" accept=".csv"/>
+          <v-btn prepend-icon="mdi-upload" color="primary" rounded="pill" size="large" v-bind="props"
+                 :loading="isSelecting"
+                 @click="handleFileImport">
+            {{ t('button.upload', {accepted: '(.csv)'}) }}
+            <Reference v-model="referenceDialog" :columns="columns" @close-dialog="this.referenceDialog = false"/>
+          </v-btn>
+        </template>
+        <span v-text="t('tooltip.importCSV')"/>
+      </v-tooltip>
+      <v-tooltip location="bottom">
+        <template v-slot:activator="{props}">
+          <v-btn id="addReference" prepend-icon="mdi-plus" color="primary" rounded="pill" size="large" v-bind="props">
+            {{ t('button.reference') }}
+            <Reference/>
+          </v-btn>
+        </template>
+        <span v-text="t('tooltip.newReference')"/>
+      </v-tooltip>
     </v-container>
   </v-main>
 </template>

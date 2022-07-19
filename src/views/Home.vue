@@ -83,18 +83,34 @@
         <v-card-title v-text="t('home.title')"/>
         <v-card-content v-text="t('home.content')"/>
         <v-card-actions class="d-flex justify-center">
-          <input id="import" ref="uploader" hidden type="file" @change="onFileChanged" accept=".yml, .yaml"/>
-          <v-btn prepend-icon="mdi-upload" color="primary" :loading="isSelecting" @click="handleFileImport">
-            {{ t('button.upload', {accepted: '(.yaml)'}) }}
-            <DefaultLanguage v-model="languageDialog" :is-new-file="false" @language-set="checkFile" @close-dialog="languageDialog = false"/>
-          </v-btn>
-          <v-btn v-if="application.name" prepend-icon="mdi-pencil" color="primary" to="application">
-            {{ t('button.continue', ["d'éditer", "editing"]) }}
-          </v-btn>
-          <v-btn id="new" prepend-icon="mdi-plus" color="primary">
-            {{ t('button.new') }}
-            <DefaultLanguage/>
-          </v-btn>
+          <v-tooltip location="bottom">
+            <template v-slot:activator="{props}">
+              <input id="import" ref="uploader" hidden type="file" @change="onFileChanged" accept=".yml, .yaml"/>
+              <v-btn prepend-icon="mdi-upload" color="primary" :loading="isSelecting" @click="handleFileImport" v-bind="props">
+                {{ t('button.upload', {accepted: '(.yaml)'}) }}
+                <DefaultLanguage v-model="languageDialog" :is-new-file="false" @language-set="checkFile"
+                                 @close-dialog="languageDialog = false"/>
+              </v-btn>
+            </template>
+            <span v-text="t('tooltip.importYAML')"/>
+          </v-tooltip>
+          <v-tooltip v-if="application.name" location="bottom">
+            <template v-slot:activator="{props}">
+              <v-btn prepend-icon="mdi-pencil" color="primary" to="application" v-bind="props">
+                {{ t('button.continue', ["d'éditer", "editing"]) }}
+              </v-btn>
+            </template>
+            <span v-text="t('tooltip.continueEditing')"/>
+          </v-tooltip>
+          <v-tooltip location="bottom">
+            <template v-slot:activator="{props}">
+              <v-btn id="new" prepend-icon="mdi-plus" color="primary" v-bind="props">
+                {{ t('button.new') }}
+                <DefaultLanguage/>
+              </v-btn>
+            </template>
+            <span v-text="t('tooltip.newFile')"/>
+          </v-tooltip>
         </v-card-actions>
       </v-card>
     </v-container>

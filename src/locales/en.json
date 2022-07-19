@@ -131,6 +131,15 @@
     "length": "The length of this field must be lower than {length} characters",
     "required": "This field is required"
   },
+  "tooltip": {
+    "continueEditing": "Continue editing the current file",
+    "download": "Download created file",
+    "home": "Back to home",
+    "importCSV": "Import a CSV data file to extract the columns",
+    "importYAML": "Import an existing configuration file to modify it",
+    "newFile": "Create a new configuration file",
+    "newReference": "Create new reference"
+  },
   "visualization": {
     "references": {
       "column": "column | columns",

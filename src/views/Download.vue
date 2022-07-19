@@ -52,9 +52,14 @@
           </v-form>
         </v-card-content>
         <v-card-actions class="d-flex justify-center">
-          <v-btn prepend-icon="mdi-download" color="primary" @click="download">
-            {{ t('button.download') }}
-          </v-btn>
+          <v-tooltip location="bottom">
+            <template v-slot:activator="{props}">
+              <v-btn prepend-icon="mdi-download" color="primary" @click="download" v-bind="props">
+                {{ t('button.download') }}
+              </v-btn>
+            </template>
+            <span v-text="t('tooltip.download')"/>
+          </v-tooltip>
         </v-card-actions>
       </v-card>
     </v-container>

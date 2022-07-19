@@ -59,11 +59,16 @@
       <v-img id="logo" src="/src/assets/logo_white.svg" class="ml-3"/>
       <v-spacer/>
       <div>
-        <v-btn id="home" :hidden="hidden" to="/">
-          <v-icon size="large">mdi-home</v-icon>
-        </v-btn>
+        <v-tooltip location="bottom">
+          <template v-slot:activator="{props}">
+            <v-btn id="home" :hidden="hidden" to="/" v-bind="props">
+              <v-icon size="large">mdi-home</v-icon>
+            </v-btn>
+          </template>
+          <span v-text="t('tooltip.home')"/>
+        </v-tooltip>
         <v-menu :anchor="'bottom'">
-          <template v-slot:activator="{ props }">
+          <template v-slot:activator="{props}">
             <v-btn v-bind="props">
               <v-icon size="large">mdi-chevron-down</v-icon>
               <v-icon size="large">mdi-translate</v-icon>

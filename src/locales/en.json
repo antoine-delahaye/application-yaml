@@ -124,11 +124,17 @@
     "subtitle": "You can add the application references from this page. Either from a CSV file to import, or by manually adding each reference.",
     "title": "References"
   },
+  "rowNumber": {
+    "label": "Row number",
+    "title": "Indicate row number {1}"
+  },
   "rule": {
     "columnAlreadyExist": "This column already exists",
     "columnRequired": "Please add at least one column",
     "columnSelected": "Please select at least one column",
     "length": "The length of this field must be lower than {length} characters",
+    "number": "Number required",
+    "positive": "Value need to be positive",
     "required": "This field is required"
   },
   "tooltip": {

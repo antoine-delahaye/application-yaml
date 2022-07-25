@@ -124,11 +124,17 @@
     "subtitle": "Vous pouvez ajouter depuis cette page les référentiels de l’application. Soit à partir d’un fichier CSV à importer, soit en ajoutant manuellement chaque référentiel.",
     "title": "Référentiels"
   },
+  "rowNumber": {
+    "label": "Numéro de la ligne",
+    "title": "Indiquer le numéro de ligne {0}"
+  },
   "rule": {
     "columnAlreadyExist": "Cette colonne existe déjà",
     "columnRequired": "Veuillez ajouter au moins une colonne",
     "columnSelected": "Veuillez sélectionner au moins une colonne",
     "length": "La longueur de ce champ doit être inférieur à {length} caractères",
+    "number": "Un nombre est requis",
+    "positive": "La valeur doit être positive",
     "required": "Ce champ est obligatoire"
   },
   "tooltip": {

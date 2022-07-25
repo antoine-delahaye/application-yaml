@@ -19,8 +19,8 @@
       return {
         selectedKey: "null",
         isSelecting: false,
+        csvData: null,
         columns: null,
-        columnsTemp: null,
         referenceDialog: false,
         rowNumberDialog: false
       }
@@ -35,29 +35,26 @@
     methods: {
       handleFileImport() {
         this.isSelecting = true
-        this.columnsTemp = null
+        this.rowNumberDialog = true
+        this.csvData = null
         this.columns = null
         window.addEventListener('focus', () => {
           this.isSelecting = false
-          if (!this.columnsTemp) {
+          if (!this.csvData) {
             this.rowNumberDialog = false
-            this.referenceDialog = false
           }
-          /*if (!this.columns) {
-            this.referenceDialog = false
-          }*/
         }, {once: true})
         this.$refs.uploader.click()
       },
       onFileChanged(e) {
         const reader = new FileReader()
         reader.onload = (e) => {
-          this.columnsTemp = e.target.result
+          this.csvData = e.target.result
         }
         reader.readAsText(e.target.files[0])
       },
-      selectColumns(n) {
-        this.columns = this.columnsTemp.split('\n').map(line => line.split(';'))[n - 1]
+      getRowData(n) {
+        this.columns = this.csvData.split('\n').map(line => line.split(';'))[n - 1]
         this.rowNumberDialog = false
         this.referenceDialog = true
       }
@@ -135,8 +132,8 @@
                  @click="handleFileImport">
             {{ t('button.upload', {accepted: '(.csv)'}) }}
             <RowNumber v-model="rowNumberDialog" :title="['contenant les entêtes de colonnes', 'containing column headers']"
-                       @column="selectColumns" @cancel-action="referenceDialog = false; rowNumberDialog = false"/>
-            <Reference v-model="referenceDialog" :columns="columns" @close-dialog="referenceDialog = false"/>
+                       @row-selected="getRowData" @cancel-action="referenceDialog = false; rowNumberDialog = false"/>
+            <Reference v-model="referenceDialog" :columns="columns" :activator="''" @close-dialog="referenceDialog = false"/>
           </v-btn>
         </template>
         <span v-text="t('tooltip.importCSV')"/>

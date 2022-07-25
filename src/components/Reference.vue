@@ -95,6 +95,11 @@
         type: Array,
         default: null,
         required: false
+      },
+      activator: {
+        type: String,
+        default: 'parent',
+        required: false
       }
     },
 
@@ -187,7 +192,7 @@
 </script>
 
 <template>
-  <v-dialog activator="parent" v-model="dialog">
+  <v-dialog :activator="activator" v-model="dialog">
     <v-card width="120vh">
       <v-card-title v-text="t('reference.title')"/>
       <v-card-subtitle class="d-flex justify-center">

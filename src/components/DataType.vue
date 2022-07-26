@@ -22,7 +22,8 @@
           internationalizationName: {
             fr: null,
             en: null
-          }
+          },
+          data: []
         }),
         rules: {
           required: v => !!v || this.t('rule.required')
@@ -34,9 +35,9 @@
     },
 
     updated() {
-      if (this.dataTypeName !== null) {
+      if (this.dataTypeName) {
         this.dataType = this.dataTypes[this.dataTypeName]
-        if (this.dataType.internationalizationName === undefined) {
+        if (!this.dataType.internationalizationName) {
           if (this.yamlStore.getLanguage) {
             this.dataType['internationalizationName'] = {
               fr: this.dataTypeName,
@@ -50,11 +51,27 @@
           }
         }
       }
+      if (this.data) {
+        for (const i in this.data) {
+          this.dataType.data.push(this.data[i])
+        }
+      }
     },
 
     props: {
       dataTypeName: {
         type: String,
+        default: null,
+        required: false
+      },
+      data: {
+        type: Array,
+        default: null,
+        required: false
+      },
+      activator: {
+        type: String,
+        default: 'parent',
         required: false
       }
     },
@@ -71,7 +88,8 @@
             internationalizationName: {
               fr: null,
               en: null
-            }
+            },
+            data: []
           })
           this.$refs.dataTypeName.resetValidation()
           this.dataTypeIsValid = false
@@ -92,7 +110,7 @@
 </script>
 
 <template>
-  <v-dialog activator="parent" v-model="dialog">
+  <v-dialog :activator="activator" v-model="dialog">
     <v-card width="120vh">
       <v-card-title v-text="t('dataType.title')"/>
       <v-card-subtitle class="d-flex justify-center">
@@ -113,7 +131,7 @@
         </v-window-item>
       </v-window>
       <v-card-actions class="d-flex justify-center">
-        <v-btn id="close" prepend-icon="mdi-close" color="error" @click="dialog = false">
+        <v-btn id="close" prepend-icon="mdi-close" color="error" @click="dialog = false; $emit('closeDialog')">
           {{ t('button.close') }}
         </v-btn>
         <v-btn id="addDataType" v-if="!dataTypeName" prepend-icon="mdi-plus" color="primary"

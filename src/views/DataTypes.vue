@@ -4,9 +4,9 @@
 
   import DataType from '/src/components/DataType.vue'
   import DeleteAlert from '/src/components/DeleteAlert.vue'
+  import RowNumber from '/src/components/RowNumber.vue'
 
   import {useYamlStore} from '/src/store/yaml'
-  import {parseDocument} from "yaml";
 
   export default {
     setup() {
@@ -19,30 +19,45 @@
       return {
         selectedKey: null,
         isSelecting: false,
-        selectedFile: null
+        selectedFile: null,
+        dataTypeDialog: false,
+        rowNumberDialog: false,
+        csvData: null,
+        data: null
       }
     },
 
     components: {
       DataType,
-      DeleteAlert
+      DeleteAlert,
+      RowNumber
     },
 
     methods: {
       handleFileImport() {
         this.isSelecting = true
+        this.rowNumberDialog = true
+        this.csvData = null
+        this.data = null
         window.addEventListener('focus', () => {
           this.isSelecting = false
+          if (!this.csvData) {
+            this.rowNumberDialog = false
+          }
         }, {once: true})
         this.$refs.uploader.click()
       },
       onFileChanged(e) {
         const reader = new FileReader()
         reader.onload = (e) => {
-          this.selectedFile = e.target.result
-          this.dataTypes = (parseDocument(this.selectedFile).toJSON()).dataTypes
+          this.csvData = e.target.result
         }
         reader.readAsText(e.target.files[0])
+      },
+      getRowData(n) {
+        this.data = this.csvData.split('\n').map(line => line.split(';'))[n - 1]
+        this.rowNumberDialog = false
+        this.dataTypeDialog = true
       }
     }
   }
@@ -89,15 +104,29 @@
       </v-card>
     </v-container>
     <v-container fluid class="d-flex flex-wrap justify-end gap-3">
-      <input ref="uploader" hidden type="file" @change="onFileChanged" accept=".yml, .yaml"/>
-      <v-btn prepend-icon="mdi-upload" color="primary" rounded="pill" size="large" :loading="isSelecting"
-             @click="handleFileImport">
-        {{ t('button.upload', {accepted: '(.yaml)'}) }}
-      </v-btn>
-      <v-btn prepend-icon="mdi-plus" color="primary" rounded="pill" size="large">
-        {{ t('button.dataType') }}
-        <DataType :data-type-name="selectedKey"/>
-      </v-btn>
+      <v-tooltip location="bottom">
+        <template v-slot:activator="{props}">
+          <input ref="uploader" hidden type="file" @change="onFileChanged" accept=".csv"/>
+          <v-btn prepend-icon="mdi-upload" color="primary" rounded="pill" size="large" v-bind="props"
+                 :loading="isSelecting"
+                 @click="handleFileImport">
+            {{ t('button.upload', {accepted: '(.csv)'}) }}
+            <RowNumber v-model="rowNumberDialog" :title="['contenant les types de données', 'containing data types']"
+                       @row-selected="getRowData" @cancel-action="dataTypeDialog = false; rowNumberDialog = false"/>
+            <DataType v-model="dataTypeDialog" :data="data" :activator="''" @close-dialog="dataTypeDialog = false"/>
+          </v-btn>
+        </template>
+        <span v-text="t('tooltip.importCSV')"/>
+      </v-tooltip>
+      <v-tooltip location="bottom">
+        <template v-slot:activator="{props}">
+          <v-btn id="addReference" prepend-icon="mdi-plus" color="primary" rounded="pill" size="large" v-bind="props">
+            {{ t('button.dataType') }}
+          </v-btn>
+          <DataType/>
+        </template>
+        <span v-text="t('tooltip.newDataType')"/>
+      </v-tooltip>
     </v-container>
   </v-main>
 </template>

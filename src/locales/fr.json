@@ -144,7 +144,8 @@
     "importCSV": "Importer un fichier de données CSV afin d'extraire les colonnes",
     "importYAML": "Importer un fichier de configuration déjà existant pour le modifier",
     "newFile": "Créer un nouveau fichier de configuration",
-    "newReference": "Créer un nouveau référentiel"
+    "newReference": "Créer un nouveau référentiel",
+    "newDataType": "Créer un nouveau type de données"
   },
   "visualization": {
     "references": {

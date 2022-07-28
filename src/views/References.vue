@@ -22,7 +22,8 @@
         csvData: null,
         columns: null,
         referenceDialog: false,
-        rowNumberDialog: false
+        rowNumberDialog: false,
+        importedFileName: null
       }
     },
 
@@ -38,6 +39,7 @@
         this.rowNumberDialog = true
         this.csvData = null
         this.columns = null
+        this.importedFileName = null
         window.addEventListener('focus', () => {
           this.isSelecting = false
           if (!this.csvData) {
@@ -52,6 +54,8 @@
           this.csvData = e.target.result
         }
         reader.readAsText(e.target.files[0])
+        this.importedFileName = e.target.files[0].name
+        this.importedFileName = this.importedFileName.substring(0, this.importedFileName.lastIndexOf('.'))
       },
       getRowData(n) {
         this.columns = this.csvData.split('\n').map(line => line.split(';'))[n - 1]
@@ -131,9 +135,11 @@
                  :loading="isSelecting"
                  @click="handleFileImport">
             {{ t('button.upload', {accepted: '(.csv)'}) }}
-            <RowNumber v-model="rowNumberDialog" :title="['contenant les entêtes de colonnes', 'containing column headers']"
+            <RowNumber v-model="rowNumberDialog"
+                       :title="['contenant les entêtes de colonnes', 'containing column headers']"
                        @row-selected="getRowData" @cancel-action="referenceDialog = false; rowNumberDialog = false"/>
-            <Reference v-model="referenceDialog" :columns="columns" :activator="''" @close-dialog="referenceDialog = false"/>
+            <Reference v-model="referenceDialog" :columns="columns" :activator="''"
+                       :imported-file-name="importedFileName" @close-dialog="referenceDialog = false"/>
           </v-btn>
         </template>
         <span v-text="t('tooltip.importCSV')"/>

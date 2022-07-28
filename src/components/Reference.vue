@@ -83,6 +83,9 @@
           this.reference.columns[index] = null
         }
       }
+      if (this.importedFileName) {
+        this.reference.internationalizationName[this.yamlStore.getLanguage] = this.importedFileName
+      }
     },
 
     props: {
@@ -99,6 +102,11 @@
       activator: {
         type: String,
         default: 'parent',
+        required: false
+      },
+      importedFileName: {
+        type: String,
+        default: null,
         required: false
       }
     },

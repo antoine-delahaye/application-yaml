@@ -14,7 +14,6 @@
 
     data() {
       return {
-        filename: null,
         inputRules: [
           (v) => !!v || this.t('rule.required')
         ]
@@ -23,11 +22,9 @@
 
     methods: {
       download() {
-        if (this.$refs.download.validate() && this.filename) {
-          const file = new Document()
-          file.contents = this.yamlStore.getYaml
-          saveAs(new Blob([file], {type: 'application/x-yaml;charset=utf-8'}), this.filename + '.yaml')
-        }
+        const file = new Document()
+        file.contents = this.yamlStore.getYaml
+        saveAs(new Blob([file], {type: 'application/x-yaml;charset=utf-8'}), this.yamlStore.application.name + '.yaml')
       }
     }
   }
@@ -45,12 +42,6 @@
       <v-card max-width="40rem" class="mx-auto">
         <v-card-title v-text="t('download.title')"/>
         <v-card-subtitle v-text="t('download.subtitle')"/>
-        <v-card-content>
-          <v-form ref="download">
-            <v-text-field :label="t('download.label')" :placeholder="t('download.placeholder')"
-                          variant="outlined" color="primary" v-model="filename" :rules="inputRules"/>
-          </v-form>
-        </v-card-content>
         <v-card-actions class="d-flex justify-center">
           <v-tooltip location="bottom">
             <template v-slot:activator="{props}">

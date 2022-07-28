@@ -90,7 +90,13 @@ cypress open
 #### Générer le PDF du rapport
 
 ```shell
-pandoc docs/report.md -o docs/files/Rapport.pdf --filter mermaid-filter --highlight-style tango
+pandoc docs/REPORT.md -o docs/files/Rapport.pdf --filter mermaid-filter --highlight-style tango
+```
+
+#### Générer le PDF de la documentation utilisateur
+
+```shell
+pandoc docs/USER_DOC.md -o docs/files/Manuel\ utilisateur.pdf
 ```
 
 ## À propos

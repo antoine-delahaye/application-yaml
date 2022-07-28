@@ -212,6 +212,9 @@
       <v-window v-model="tab">
         <v-window-item value="0">
           <v-card-content>
+            <v-alert type="info" density="comfortable" variant="tonal" class="mb-5">
+              {{ t('alert.reference') }}
+            </v-alert>
             <v-form ref="referenceName" v-model="referenceIsValid" lazy-validation>
               <Internationalization :model="reference.internationalizationName" label="reference.name"
                                     placeholder="reference.placeholder"/>
@@ -220,12 +223,10 @@
         </v-window-item>
         <v-window-item value="1">
           <v-card-content>
-            <v-alert v-model="columnAlert" type="warning" border closable class="mb-5">
-              <v-alert-title v-text="t('alert.action')"/>
+            <v-alert v-model="columnAlert" type="warning" density="comfortable" variant="tonal" closable class="mb-5">
               {{ t('alert.column') }}
             </v-alert>
-            <v-alert v-model="validationAlert" type="warning" border closable class="mb-5">
-              <v-alert-title v-text="t('alert.action')"/>
+            <v-alert v-model="validationAlert" type="warning" density="comfortable" variant="tonal" closable class="mb-5">
               {{ t('alert.validation') }}
             </v-alert>
             <v-form ref="addColumn" v-model="columnIsValid" lazy-validation>
@@ -238,7 +239,7 @@
                 </v-btn>
               </div>
             </v-form>
-            <v-table height="30vh">
+            <v-table height="20vh">
               <thead>
               <tr>
                 <th v-text="t('reference.column.name')"/>
@@ -279,7 +280,7 @@
                 </v-btn>
               </div>
             </v-form>
-            <v-table height="30vh">
+            <v-table height="20vh">
               <thead>
               <tr>
                 <th v-text="t('reference.constraint.name')"/>

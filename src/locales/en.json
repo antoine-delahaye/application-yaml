@@ -9,7 +9,8 @@
     "info": "Informations",
     "references": "References are a set of information used to specify the context of the measurement or observation. To describe a reference, we list the names of the desired columns and specify the list of columns that form the natural key.",
     "validation": "It is necessary to have at least one column in the repository.",
-    "visualization": "Visualisation"
+    "visualization": "Visualisation",
+    "reference": "In order to be able to add or edit columns, it is necessary to add at least one column and to have a key column. Constraints are optional."
   },
   "application": {
     "checkbox": "Make English the default language",

@@ -9,7 +9,8 @@
     "info": "Informations",
     "references": "Les référentiels sont un ensemble d'informations permettant de préciser le contexte de la mesure ou de l'observation. Pour décrire un référentiel, on y liste les noms des colonnes souhaitées et précisant la liste des colonnes qui forment la clé naturelle.",
     "validation": "Il est nécessaire d'avoir au moins une colonne dans le référentiel.",
-    "visualization": "Visualisation"
+    "visualization": "Visualisation",
+    "reference": "Afin de pouvoir ajouter ou éditer des colonnes, il est nécessaire d'ajouter au moins une colonne et d'avoir une colonne clé. Les contraintes sont optionnelles."
   },
   "application": {
     "checkbox": "Faire de l’anglais la langue par défaut",
